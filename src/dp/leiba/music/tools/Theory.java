@@ -5,7 +5,7 @@ package dp.leiba.music.tools;
  */
 public class Theory {
 
-    public static final int     OCTAVES     = 7;
+    public static final int     OCTAVES     = 10;
     public static final int     TONES       = 12;
 
     public static final double  C0          = 16.35;
