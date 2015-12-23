@@ -54,21 +54,22 @@ public class Waves
     }
 
     /**
-     * Generate triangle.
+     * Generate saw.
      *
      * @param points    Points.
      * @param amplitude Amplitude.
      *
      * @return Wave.
      */
-    public static double[] triangle(int points, double amplitude)
+    public static double[] saw(int points, double amplitude)
     {
         points          = (points - (points % 2));
         int i           = 0;
+        double size     = amplitude * 2;
         double[] wave   = new double[points];
 
         for (; i < wave.length; i++) {
-            wave[i] = i < (points / 2) ? amplitude : -amplitude;
+            wave[i] = MathTool.round((size / (points - 1)) * i - amplitude, 2);
         }
 
         return wave;
