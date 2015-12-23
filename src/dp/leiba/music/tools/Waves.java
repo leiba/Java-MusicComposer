@@ -20,10 +20,10 @@ public class Waves
     {
         int i           = 0;
         int k           = 0;
-        int step        = DEGREE / (points - (points % 2));
+        int step        = DEGREE / ((points - (points % 2)) - 1);
         double[] wave   = new double[DEGREE / step + 1];
 
-        for (; i <= DEGREE; i+= step) {
+        for (; i <= DEGREE; i += step) {
             wave[k++] = MathTool.round(Math.sin(i) * amplitude, 2);
         }
 
