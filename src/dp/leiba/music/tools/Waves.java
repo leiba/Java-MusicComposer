@@ -30,9 +30,25 @@ public class Waves
         return wave;
     }
 
-    public void square(double amplitude, int points)
+    /**
+     * Generate square.
+     *
+     * @param points    Points.
+     * @param amplitude Amplitude.
+     *
+     * @return Wave.
+     */
+    public static double[] square(int points, int amplitude)
     {
+        points          = (points - (points % 2));
+        int i           = 0;
+        double[] wave   = new double[points];
 
+        for (; i < wave.length; i++) {
+            wave[i] = i < (points / 2) ? amplitude : -amplitude;
+        }
+
+        return wave;
     }
 
     public void triangle(double amplitude, int points)
