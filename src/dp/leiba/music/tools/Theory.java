@@ -11,6 +11,12 @@ public class Theory {
     public static final double  C0          = 16.35;
     public static final double  INTERVAL    = Math.pow(2.0, 1.0 / 12);
 
+    private static final String[] names = new String[]{
+        "C",  "C#", "D",  "D#",
+        "E",  "F",  "F#", "G",
+        "G#", "A",  "A#", "B"
+    };
+
     /**
      * Get note frequency.
      *
@@ -22,7 +28,7 @@ public class Theory {
     {
         double freq = C0;
 
-        for (int i = 0; i <= note; i++) {
+        for (int i = 1; i <= note - 1; i++) {
             freq *= INTERVAL;
         }
 
@@ -39,16 +45,9 @@ public class Theory {
     public static String getName(int note)
     {
         int octave  = getOctave(note);
-        int tone    = note - ((octave - 1) * TONES);
-        
-        String name = Character.toString((char) 65);
-        System.out.println(tone);
+        int tone    = note - (octave * TONES);
 
-        if (octave > 1) {
-
-        }
-
-        return "";
+        return names[tone - 1];
     }
 
     /**
@@ -59,6 +58,6 @@ public class Theory {
      * @return Octave.
      */
     public static int getOctave(int note) {
-        return (note - (note % TONES)) / TONES + ((note % TONES) > 0 ? 1 : 0);
+        return ((note - (note % TONES)) / TONES + ((note % TONES) > 0 ? 1 : 0)) - 1;
     }
 }
