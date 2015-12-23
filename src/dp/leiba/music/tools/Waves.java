@@ -1,9 +1,10 @@
 package dp.leiba.music.tools;
 
 /**
- * Created by leiba on 23.12.15.
+ * Waves.
  */
-public class Waves {
+public class Waves
+{
 
     public static int DEGREE = 360;
 
@@ -23,7 +24,7 @@ public class Waves {
         double[] wave   = new double[DEGREE / step + 1];
 
         for (; i <= DEGREE; i+= step) {
-            wave[k++] = (int) (Math.sin(i) * amplitude);
+            wave[k++] = MathTool.round(Math.sin(i) * amplitude, 2);
         }
 
         return wave;
@@ -43,4 +44,6 @@ public class Waves {
     {
 
     }
+
+
 }
