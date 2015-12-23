@@ -3,7 +3,8 @@ package dp.leiba.music.tools;
 /**
  * Music theory.
  */
-public class Theory {
+public class Theory
+{
 
     public static final int     OCTAVES     = 10;
     public static final int     TONES       = 12;
