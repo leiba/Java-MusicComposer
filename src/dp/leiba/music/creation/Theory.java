@@ -1,4 +1,4 @@
-package dp.leiba.music.tools;
+package dp.leiba.music.creation;
 
 /**
  * Music theory.
