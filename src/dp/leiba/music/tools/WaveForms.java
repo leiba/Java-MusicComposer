@@ -5,10 +5,8 @@ import java.util.Random;
 /**
  * Waves.
  */
-public class Waves
+public class WaveForms
 {
-
-    public static int DEGREE = 360;
 
     /**
      * Generate sine.
