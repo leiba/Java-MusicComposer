@@ -42,7 +42,7 @@ public class Theory
      *
      * @return Frequency.
      */
-    public static double getToneFreq(int note)
+    public static double getNoteFreq(int note)
     {
         double freq = C0;
 
@@ -60,9 +60,9 @@ public class Theory
      *
      * @return Name.
      */
-    public static String getToneName(int note)
+    public static String getNoteName(int note)
     {
-        int octave  = getOctave(note);
+        int octave  = getNoteOctave(note);
         int tone    = note - (octave * TONES);
 
         return names[tone - 1] + octave;
@@ -75,7 +75,7 @@ public class Theory
      *
      * @return Octave.
      */
-    public static int getOctave(int note) {
+    public static int getNoteOctave(int note) {
         return ((note - (note % TONES)) / TONES + ((note % TONES) > 0 ? 1 : 0)) - 1;
     }
 
@@ -87,7 +87,7 @@ public class Theory
      *
      * @return Parallel note.
      */
-    public static int getToneParallel(int tone, boolean isMajor)
+    public static int getNoteParallel(int tone, boolean isMajor)
     {
         tone += isMajor ? -INTERVAL_PARALLEL : INTERVAL_PARALLEL;
         return tone < 1 ? tone + TONES : tone;
@@ -117,7 +117,7 @@ public class Theory
     public static int[] getHarmonyOctave(int note, boolean isMajor)
     {
         if (!isMajor) {
-            note = getToneParallel(note, false);
+            note = getNoteParallel(note, false);
         }
 
         int[] harmony = new int[] {
