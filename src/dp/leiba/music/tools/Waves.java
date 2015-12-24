@@ -20,13 +20,14 @@ public class Waves
      */
     public static double[] sine(int points, double amplitude)
     {
+        points          = points - (points % 2);
         int i           = 0;
-        int k           = 0;
-        int step        = DEGREE / ((points - (points % 2)) - 1);
-        double[] wave   = new double[DEGREE / step + 1];
+        double percent  = 0;
+        double[] wave   = new double[points];
 
-        for (; i <= DEGREE; i += step) {
-            wave[k++] = MathTool.round(Math.sin(i) * amplitude, 2);
+        for (; i < points; i++) {
+            percent = i * 100.0 / (points - 1);
+            wave[i] = MathTool.round(Math.sin((Math.PI * 2) / 100 * percent) * amplitude, 2);
         }
 
         return wave;
