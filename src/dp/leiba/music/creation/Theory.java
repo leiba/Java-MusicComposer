@@ -1,7 +1,6 @@
 package dp.leiba.music.creation;
 
-import com.sun.deploy.util.ArrayUtil;
-import dp.leiba.music.tools.ToolArray;
+import java.util.Arrays;
 
 /**
  * Music theory.
@@ -9,11 +8,12 @@ import dp.leiba.music.tools.ToolArray;
 public class Theory
 {
 
-    public static final int     OCTAVES     = 10;
-    public static final int     TONES       = 12;
+    public static final int     OCTAVES             = 10;
+    public static final int     TONES               = 12;
 
-    public static final double  C0          = 16.35;
-    public static final double  INTERVAL    = Math.pow(2.0, 1.0 / 12);
+    public static final double  C0                  = 16.35;
+    public static final double  INTERVAL            = Math.pow(2.0, 1.0 / 12);
+    public static final double  INTERVAL_PARALLEL   = 3;
 
     public static final double  INTERVAL_UNISON     = 0;  // Прима
     public static final double  INTERVAL_SECOND     = 2;  // Секунда
@@ -42,7 +42,7 @@ public class Theory
      *
      * @return Frequency.
      */
-    public static double getFreq(int note)
+    public static double getToneFreq(int note)
     {
         double freq = C0;
 
@@ -60,12 +60,12 @@ public class Theory
      *
      * @return Name.
      */
-    public static String getName(int note)
+    public static String getToneName(int note)
     {
         int octave  = getOctave(note);
         int tone    = note - (octave * TONES);
 
-        return names[tone - 1];
+        return names[tone - 1] + octave;
     }
 
     /**
@@ -80,17 +80,17 @@ public class Theory
     }
 
     /**
-     * Get harmony for tone in all octaves.
+     * Get note parallel.
      *
-     * @param tone Tone.
+     * @param tone    Tone.
+     * @param isMajor Is major.
      *
-     * @return Harmony.
+     * @return Parallel note.
      */
-    public static int[] getHarmony(int tone)
+    public static int getToneParallel(int tone, boolean isMajor)
     {
-        int[] harmony = new int[6];
-
-        return harmony;
+        tone += isMajor ? -INTERVAL_PARALLEL : INTERVAL_PARALLEL;
+        return tone < 1 ? tone + TONES : tone;
     }
 
     /**
@@ -100,10 +100,40 @@ public class Theory
      *
      * @return Harmony.
      */
-    public static int[] getHarmonyOctave(int tone)
+    public static int[] getHarmony(int tone)
     {
         int[] harmony = new int[60];
 
+        return harmony;
+    }
+
+    /**
+     * Get harmony for tone in all octaves.
+     *
+     * @param note Note.
+     *
+     * @return Harmony.
+     */
+    public static int[] getHarmonyOctave(int note, boolean isMajor)
+    {
+        if (!isMajor) {
+            note = getToneParallel(note, false);
+        }
+
+        int[] harmony = new int[] {
+                note,
+                note + (int) INTERVAL_SECOND,
+                note + (int) INTERVAL_THIRD,
+                note + (int) INTERVAL_FORTH,
+                note + (int) INTERVAL_FIFTH,
+                note + (int) INTERVAL_SIXTH,
+        };
+
+        if (!isMajor && note > INTERVAL_PARALLEL) {
+            harmony[harmony.length - 1] -= TONES;
+        }
+
+        Arrays.sort(harmony);
         return harmony;
     }
 
