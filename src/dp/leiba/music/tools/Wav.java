@@ -1,16 +1,8 @@
 package dp.leiba.music.tools;
 
-import com.sun.deploy.util.ArrayUtil;
-
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Wav file.
