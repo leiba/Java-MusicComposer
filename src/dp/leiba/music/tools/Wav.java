@@ -2,7 +2,6 @@ package dp.leiba.music.tools;
 
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 
 /**
  * Wav file.
@@ -38,20 +37,26 @@ public class Wav
      *
      * @param frames    Frames.
      * @param amplitude Amplitude.
+     * @param isAppend  Is append.
      */
-    public void setFrames(double[] frames, int amplitude)
+    public void setFrames(double[] frames, int amplitude, boolean isAppend)
     {
-        // 0|100  - 128|228
-        // 0|-100 - 100|0
+        int i;
+        double frame, percent;
+        byte[] iFrames = new byte[frames.length];
 
-        int i = 0;
-        _iFrames = new byte[frames.length];
+        for (i = 0; i < frames.length; i++) {
+            frame = Math.abs(frames[i]);
+            percent = frame * 100.0 / amplitude;
 
-        for (; i < frames.length; i++) {
-
+            iFrames[i] = (byte) (frames[i] > 0 ? 228 - percent : 100 - percent);
         }
 
-
+        if (isAppend) {
+            _iFrames = _byteAppend(_iFrames, iFrames);
+        } else {
+            _iFrames = iFrames;
+        }
     }
 
     /**
