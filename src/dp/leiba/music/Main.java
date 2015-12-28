@@ -21,7 +21,7 @@ public class Main
         Wav wav         = new Wav();
         int amplitude   = 100;
 
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 80; i++) {
             wav.setFrames(WaveForms.sine(100, amplitude), amplitude, true);
         }
         wav.save("/var/www/say1.wav");
