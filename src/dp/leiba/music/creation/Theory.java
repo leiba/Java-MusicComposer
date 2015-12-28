@@ -54,6 +54,19 @@ public class Theory
     }
 
     /**
+     * Get note frequency.
+     *
+     * @param note       Note.
+     * @param sampleRate Sample rate.
+     *
+     * @return Frequency.
+     */
+    public static int getNoteSamples(int note, int sampleRate)
+    {
+        return (int) (sampleRate / getNoteFreq(note));
+    }
+
+    /**
      * Get note name.
      *
      * @param note Note.
