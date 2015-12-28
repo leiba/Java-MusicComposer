@@ -96,11 +96,26 @@ public class Theory
     /**
      * Get harmony for tone in one octave.
      *
-     * @param tone Tone.
+     * @param tone    Tone.
+     * @param isMajor Is major.
      *
      * @return Harmony.
      */
-    public static int[] getHarmony(int tone)
+    public static int[] getHarmony(int tone, boolean isMajor)
+    {
+        return getHarmony(tone, isMajor, OCTAVES);
+    }
+
+    /**
+     * Get harmony for tone in one octave.
+     *
+     * @param tone    Tone.
+     * @param isMajor Is major.
+     * @param octaves Octaves.
+     *
+     * @return Harmony.
+     */
+    public static int[] getHarmony(int tone, boolean isMajor, int octaves)
     {
         int[] harmony = new int[60];
 
@@ -121,12 +136,12 @@ public class Theory
         }
 
         int[] harmony = new int[] {
-                note,
-                note + (int) INTERVAL_SECOND,
-                note + (int) INTERVAL_THIRD,
-                note + (int) INTERVAL_FORTH,
-                note + (int) INTERVAL_FIFTH,
-                note + (int) INTERVAL_SIXTH,
+            note,
+            note + (int) INTERVAL_SECOND,
+            note + (int) INTERVAL_THIRD,
+            note + (int) INTERVAL_FORTH,
+            note + (int) INTERVAL_FIFTH,
+            note + (int) INTERVAL_SIXTH,
         };
 
         if (!isMajor && note > INTERVAL_PARALLEL) {
