@@ -23,7 +23,7 @@ public class Wav
     protected String  _iSubChunk2Id   = "data";   // 4b
     protected int     _iSubChunk2Size = 3;        // 4b Bytes in data part
 
-    protected ArrayList<byte[]> _iFrames  = new ArrayList<byte[]>();
+    protected byte[] _iFrames = new byte[0];
 
     /**
      * Wav.
@@ -34,14 +34,34 @@ public class Wav
     }
 
     /**
+     * Set frames with convert.
+     *
+     * @param frames    Frames.
+     * @param amplitude Amplitude.
+     */
+    public void setFrames(double[] frames, int amplitude)
+    {
+        // 0|100  - 128|228
+        // 0|-100 - 100|0
+
+        int i = 0;
+        _iFrames = new byte[frames.length];
+
+        for (; i < frames.length; i++) {
+
+        }
+
+
+    }
+
+    /**
      * Set frames for channel.
      *
      * @param frames Frames.
      */
-    public void setFrames(ArrayList<byte[]> frames)
+    public void setFrames(byte[] frames)
     {
-        _iFrames.clear();
-        _iFrames.addAll(frames);
+        _iFrames = frames;
     }
 
     /**
@@ -67,11 +87,8 @@ public class Wav
             data = _byteAppend(data, _byteFromShort(_iBlockAlign));
             data = _byteAppend(data, _byteFromShort(_iBitsPerSample));
             data = _byteAppend(data, _iSubChunk2Id.getBytes());
-            data = _byteAppend(data, _byteFromInt(_iFrames.size())); // _byteFromInt(_iSubChunk2Size));
-
-            for (int i = 0; i < _iFrames.size(); i++) {
-                data = _byteAppend(data, _iFrames.get(i));
-            }
+            data = _byteAppend(data, _byteFromInt(_iFrames.length));
+            data = _byteAppend(data, _iFrames);
 
             stream.write(data);
             stream.close();
