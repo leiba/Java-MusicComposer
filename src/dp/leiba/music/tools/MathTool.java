@@ -21,4 +21,27 @@ public class MathTool
 
         return (double) tmp / factor;
     }
+
+    /**
+     * Random int.
+     *
+     * @param min Min.
+     * @param max Max.
+     *
+     * @return Random.
+     */
+    public static int random(int min, int max)
+    {
+        return min + (int)(Math.random() * ((max - min) + 1));
+    }
+
+    /**
+     * Simple random.
+     *
+     * @return Is.
+     */
+    public static boolean is()
+    {
+        return random(0, 1) == 1;
+    }
 }

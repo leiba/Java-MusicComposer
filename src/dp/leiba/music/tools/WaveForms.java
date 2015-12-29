@@ -95,4 +95,22 @@ public class WaveForms
 
         return wave;
     }
+
+    /**
+     * Set rest part for wave.
+     *
+     * @param wave Wave.
+     *
+     * @return Wave with rest.
+     */
+    public static double[] rest(double[] wave)
+    {
+        int i = (wave.length / 4) * 3;
+
+        for (; i < wave.length; i++) {
+            wave[i] = 0;
+        }
+
+        return wave;
+    }
 }
