@@ -99,13 +99,14 @@ public class WaveForms
     /**
      * Set rest part for wave.
      *
-     * @param wave Wave.
+     * @param points Points.
      *
      * @return Wave with rest.
      */
-    public static double[] rest(double[] wave)
+    public static double[] rest(int points)
     {
-        int i = (wave.length / 4) * 3;
+        int i           = 0;
+        double[] wave   = new double[points];
 
         for (; i < wave.length; i++) {
             wave[i] = 0;

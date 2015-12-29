@@ -12,6 +12,7 @@ public class Rhythm
 {
     public static final int MELODY_REST     = 0;
     public static final int MELODY_ATTACK   = 1;
+    public static final int MELODY_RELEASE  = 2;
 
     /**
      * Get melody rhythm.
@@ -30,11 +31,14 @@ public class Rhythm
             if (i == 0 || i % beats == 0) {
                 rhythm[i] = MELODY_ATTACK;
             } else {
-                rhythm[i] = MathTool.is() ? MELODY_ATTACK : MELODY_REST;
+                if (MathTool.is()) {
+                    rhythm[i] = MathTool.is() ? MELODY_ATTACK : MELODY_RELEASE;
+                } else {
+                    rhythm[i] = MELODY_REST;
+                }
             }
         }
 
-        System.out.println(Arrays.toString(rhythm));
         return rhythm;
     }
 }
