@@ -21,6 +21,7 @@ public class Main
     public static void main(String[] args)
     {
         System.out.println("Bit B:");
+        System.out.println("Bit B: From home.");
 
         Theory.getHarmony(21, true, 3);
 
