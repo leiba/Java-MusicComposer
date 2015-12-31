@@ -1,6 +1,7 @@
 package dp.leiba.music;
 
 import dp.leiba.music.creation.Rhythm;
+import dp.leiba.music.creation.Theory;
 import dp.leiba.music.tools.Wav;
 import dp.leiba.music.tools.WaveForms;
 
@@ -21,6 +22,9 @@ public class Main
     {
         System.out.println("Bit B:");
 
+        Theory.getHarmony(21, true, 3);
+
+        /*
         int bars        = 4;
         int beats       = 4;
         int[] rhythm    = Rhythm.getRhythmMelody(bars, beats);
@@ -44,6 +48,7 @@ public class Main
             }
         }
         wav.save("/var/www/say1.wav");
+        */
 
 
         /*
