@@ -1,6 +1,10 @@
 package dp.leiba.music.creation;
 
+import dp.leiba.music.tools.MathTool;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Music theory.
@@ -122,17 +126,27 @@ public class Theory
     /**
      * Get harmony for tone in one octave.
      *
-     * @param tone    Tone.
+     * @param note    Note.
      * @param isMajor Is major.
      * @param octaves Octaves.
      *
      * @return Harmony.
      */
-    public static int[] getHarmony(int tone, boolean isMajor, int octaves)
+    public static int[] getHarmony(int note, boolean isMajor, int octaves)
     {
-        int[] harmony = new int[60];
+        int i;
+        int shift, shiftUp = 0, shiftDown = 0;
+        int[][] harmony = new int[octaves][];
 
-        return harmony;
+        for (i = 0; i < octaves; i++) {
+            shift = (i > 0 ? (MathTool.isEven(i) ? --shiftDown : ++shiftUp) * TONES : 0);
+            // harmony[i] = getHarmony(note + shift, isMajor);
+        }
+
+        MathTool.isEven(i);
+
+        System.out.println(Arrays.toString(harmony));
+        return harmony[0];
     }
 
     /**

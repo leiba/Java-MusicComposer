@@ -33,6 +33,16 @@ public class Wav
     }
 
     /**
+     * Bytes per second.
+     *
+     * @return Count.
+     */
+    public int getBytesPerSecond()
+    {
+        return _iSampleRate;
+    }
+
+    /**
      * Set frames with convert.
      *
      * @param frames    Frames.

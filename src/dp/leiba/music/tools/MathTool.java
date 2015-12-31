@@ -44,4 +44,16 @@ public class MathTool
     {
         return random(0, 1) == 1;
     }
+
+    /**
+     * Is value even.
+     *
+     * @param value Value.
+     *
+     * @return Is even.
+     */
+    public static boolean isEven(int value)
+    {
+        return value % 2 == 0;
+    }
 }
