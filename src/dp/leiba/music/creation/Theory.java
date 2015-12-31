@@ -140,10 +140,8 @@ public class Theory
 
         for (i = 0; i < octaves; i++) {
             shift = (i > 0 ? (MathTool.isEven(i) ? --shiftDown : ++shiftUp) * TONES : 0);
-            // harmony[i] = getHarmony(note + shift, isMajor);
+            harmony[i] = getHarmonyOctave(note + shift, isMajor);
         }
-
-        MathTool.isEven(i);
 
         System.out.println(Arrays.toString(harmony));
         return harmony[0];
