@@ -135,7 +135,6 @@ public class Theory
     {
         int i;
         int shift, shiftUp = 0, shiftDown = 0;
-        int[][] harmonies = new int[octaves][];
         int[] harmony = new int[0];
 
         for (i = 0; i < octaves; i++) {
