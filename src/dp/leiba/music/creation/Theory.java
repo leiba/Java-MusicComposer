@@ -1,10 +1,9 @@
 package dp.leiba.music.creation;
 
+import dp.leiba.music.tools.ArrayTool;
 import dp.leiba.music.tools.MathTool;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 /**
  * Music theory.
@@ -136,15 +135,16 @@ public class Theory
     {
         int i;
         int shift, shiftUp = 0, shiftDown = 0;
-        int[][] harmony = new int[octaves][];
+        int[][] harmonies = new int[octaves][];
+        int[] harmony = new int[0];
 
         for (i = 0; i < octaves; i++) {
             shift = (i > 0 ? (MathTool.isEven(i) ? --shiftDown : ++shiftUp) * TONES : 0);
-            harmony[i] = getHarmonyOctave(note + shift, isMajor);
+            harmony = ArrayTool.concat(harmony, getHarmonyOctave(note + shift, isMajor));
         }
 
-        System.out.println(Arrays.toString(harmony));
-        return harmony[0];
+        Arrays.sort(harmony);
+        return harmony;
     }
 
     /**
@@ -174,7 +174,7 @@ public class Theory
         }
 
         Arrays.sort(harmony);
-        return harmony;
+        return ArrayTool.clearRange(harmony, 1, TONES * OCTAVES);
     }
 
     /**

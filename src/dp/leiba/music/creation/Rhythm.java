@@ -1,9 +1,6 @@
 package dp.leiba.music.creation;
 
-import com.sun.deploy.util.ArrayUtil;
 import dp.leiba.music.tools.MathTool;
-
-import java.util.Arrays;
 
 /**
  * Music rhythm.

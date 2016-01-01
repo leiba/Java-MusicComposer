@@ -2,8 +2,6 @@ package dp.leiba.music.tools;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Tool Array.
@@ -12,42 +10,39 @@ public class ArrayTool
 {
 
     /**
-     * Concat arrays.
+     * Concatenate arrays.
      *
-     * @param a     A.
-     * @param b     B.
-     * @param <T>   Type.
+     * @param a A array.
+     * @param b B array.
      *
-     * @return Concat array.
+     * @return Concatenate array.
      */
-    public static <T> T[] concat (T[] a, T[] b)
+    public static int[] concat (int[] a, int[] b)
     {
-        int aLen = a.length;
-        int bLen = b.length;
-
-        @SuppressWarnings("unchecked")
-        T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen + bLen);
-        System.arraycopy(a, 0, c, 0, aLen);
-        System.arraycopy(b, 0, c, aLen, bLen);
-
-        return c;
+    	int[] concat = new int[a.length + b.length];
+    	
+    	System.arraycopy(a, 0, concat, 0, a.length);
+    	System.arraycopy(b, 0, concat, a.length, b.length);
+    	
+    	return concat;
     }
 
     /**
-     * Clear lower.
+     * Clear range.
      *
      * @param array Array.
-     * @param low   Min stay value.
+     * @param min   Minimum stay value.
+     * @param max   Maximum stay value.
      *
      * @return Cleared array.
      */
-    public static int[] clearLower(int[] array, int low)
+    public static int[] clearRange(int[] array, int min, int max)
     {
         int i;
         ArrayList<Integer> upper    = new ArrayList<Integer>();
 
         for (i = 0; i < array.length; i++) {
-            if (array[i] >= low) {
+            if (array[i] >= min && array[i] <= max) {
                 upper.add(array[i]);
             }
         }
