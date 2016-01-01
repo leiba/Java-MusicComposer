@@ -1,6 +1,5 @@
 package dp.leiba.music.tools;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

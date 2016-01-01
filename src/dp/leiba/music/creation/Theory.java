@@ -175,36 +175,48 @@ public class Theory
         Arrays.sort(harmony);
         return ArrayTool.clearRange(harmony, 1, TONES * OCTAVES);
     }
-
+    
     /**
-     * Get chord major.
-     *
-     * @param note Note.
-     *
+     * Get chord.
+     * 
+     * @param note    Note.
+     * @param isMajor Is major.
+     * 
      * @return Chord.
      */
-    public static int[] getChordMajor(int note)
+    public static int[] getChord(int note, boolean isMajor)
     {
-        return new int[]{
-            note,
-            note + (int) INTERVAL_THIRD,
-            note + (int) INTERVAL_FIFTH
-        };
+    	double interval = isMajor ? INTERVAL_BIG : INTERVAL_SMALL;
+    	
+    	return new int[]{
+                note,
+                note + (int) INTERVAL_THIRD + (int) interval,
+                note + (int) INTERVAL_FIFTH
+            };
     }
-
+    
     /**
-     * Get chord minor.
-     *
-     * @param note Note.
-     *
-     * @return Minor.
+     * Get chord harmony.
+     * Major: +--++-.
+     * Minor: -+--++.
+     * 
+     * @param note    Note.
+     * @param isMajor Is major.
+     * 
+     * @return Chord harmony.
      */
-    public static int[] getChordMinor(int note)
+    public static int[][] getChordHarmony(int note, boolean isMajor)
     {
-        return new int[]{
-            note,
-            note + (int) INTERVAL_FIFTH + (int) INTERVAL_SMALL,
-            note + (int) INTERVAL_FIFTH
-        };
+    	int[] harmony 	= getHarmonyOctave(note, isMajor);
+    	int[][] chords 	= new int[][] {
+    		getChord(harmony[0], isMajor),
+    		getChord(harmony[1], !isMajor),
+    		getChord(harmony[2], false),
+    		getChord(harmony[3], isMajor),
+    		getChord(harmony[4], true),
+    		getChord(harmony[5], !isMajor),
+    	};
+    	
+    	return chords;   
     }
 }
