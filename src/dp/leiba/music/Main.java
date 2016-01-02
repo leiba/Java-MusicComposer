@@ -23,6 +23,8 @@ public class Main
         System.out.println("Bit B:");
         System.out.println("Bit B: From home.");
 
+        System.out.println(Arrays.toString(Rhythm.getRhythmBass(4, 4)));
+        
         /*
         Rhythm.getRythmDrums(4, 4);
         */
