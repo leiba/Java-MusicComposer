@@ -97,11 +97,11 @@ public class WaveForms
     }
 
     /**
-     * Set rest part for wave.
+     * Generate rest.
      *
      * @param points Points.
      *
-     * @return Wave with rest.
+     * @return Wave.
      */
     public static double[] rest(int points)
     {
@@ -112,6 +112,48 @@ public class WaveForms
             wave[i] = 0;
         }
 
+        return wave;
+    }
+    
+    /**
+     * Generate kick.
+     * 
+     * @param amplitude Amplitude.
+     * 
+     * @return Wave.
+     */
+    public static double[] kick(double amplitude)
+    {
+        double[] wave = new double[0];
+        
+        return wave;
+    }
+    
+    /**
+     * Generate snare.
+     * 
+     * @param amplitude Amplitude.
+     * 
+     * @return Wave.
+     */
+    public static double[] snare(double amplitude)
+    {
+        double[] wave = new double[0];
+        
+        return wave;
+    }
+    
+    /**
+     * Generate hat.
+     * 
+     * @param amplitude Amplitude.
+     * 
+     * @return Wave.
+     */
+    public static double[] hat(double amplitude)
+    {
+        double[] wave = new double[0];
+        
         return wave;
     }
 }
