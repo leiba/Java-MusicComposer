@@ -38,7 +38,6 @@ public class ArrayTool
     public static double[] fill(double[] to, double[] from, int start)
     {
         System.arraycopy(from, 0, to, start, from.length);
-        
         return to;        
     }
 
