@@ -24,6 +24,10 @@ public class Main
         System.out.println("Bit B: From home.");
 
         /*
+        Rhythm.getRythmDrums(4, 4);
+        */
+        
+        /*
         int[][] chords = Theory.getChordHarmony(10, false);
         for (int[] chord : chords) {
         	System.out.println(Arrays.toString(chord));
