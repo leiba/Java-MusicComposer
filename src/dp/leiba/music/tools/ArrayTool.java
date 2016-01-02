@@ -25,6 +25,22 @@ public class ArrayTool
     	
     	return concat;
     }
+    
+    /**
+     * Fill array.
+     * 
+     * @param to    To array.
+     * @param from  From array.
+     * @param start Start position.
+     * 
+     * @return Filled array.
+     */
+    public static double[] fill(double[] to, double[] from, int start)
+    {
+        System.arraycopy(from, 0, to, start, from.length);
+        
+        return to;        
+    }
 
     /**
      * Clear range.
@@ -53,6 +69,5 @@ public class ArrayTool
         }
 
         return array;
-
     }
 }

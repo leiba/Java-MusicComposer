@@ -2,6 +2,7 @@ package dp.leiba.music;
 
 import dp.leiba.music.creation.Rhythm;
 import dp.leiba.music.creation.Theory;
+import dp.leiba.music.tools.ArrayTool;
 import dp.leiba.music.tools.Wav;
 import dp.leiba.music.tools.WaveForms;
 
@@ -22,8 +23,10 @@ public class Main
     {
         System.out.println("Bit B:");
         System.out.println("Bit B: From home.");
-
+        
+        /*
         System.out.println(Arrays.toString(Rhythm.getRhythmBass(4, 4)));
+        */
         
         /*
         Rhythm.getRythmDrums(4, 4);
