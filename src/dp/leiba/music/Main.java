@@ -22,7 +22,7 @@ public class Main
     public static void main(String[] args)
     {
         System.out.println("Bit B:");
-        System.out.println("Bit B: From home.");
+        System.out.println("Bit B: From acer.");
         
         /*
         System.out.println(Arrays.toString(Rhythm.getRhythmBass(4, 4)));
