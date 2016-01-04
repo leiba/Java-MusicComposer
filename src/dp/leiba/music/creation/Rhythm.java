@@ -51,7 +51,7 @@ public class Rhythm
      *
      * @return Rhythm.
      */
-    public static int[][] getRythmDrums(int bars, int beats)
+    public static int[][] getRhythmDrums(int bars, int beats)
     {
         int i           = 0;
         int[][] rhythm  = new int[bars * beats][];
