@@ -12,6 +12,49 @@ public class Melody
 {
 
     /**
+     * Get note.
+     *
+     * @return Note.
+     */
+    public static int getNote()
+    {
+        int noteFrom    = Theory.TONES * 4 + 1;
+        int noteTo      = noteFrom + Theory.TONES - 1;
+
+        return MathTool.random(noteFrom, noteTo);
+    }
+
+    /**
+     * Get is major.
+     *
+     * @return Is major.
+     */
+    public static boolean getIsMajor()
+    {
+        return MathTool.is();
+    }
+
+    /**
+     * Chords.
+     *
+     * @param bars    Bars.
+     * @param note    Note.
+     * @param isMajor Is major.
+     *
+     * @return Chords.
+     */
+    public static int[][] getChords(int bars, int note, boolean isMajor)
+    {
+        int[][] chords  = Theory.getChordHarmony(note, isMajor);
+        int[] chord     = chords[0];
+
+        chords      = Arrays.copyOfRange(ArrayTool.shuffle(chords), 0, bars);
+        chords[0]   = chord;
+
+        return chords;
+    }
+
+    /**
      * Melody lead.
      *
      * @param bars   Bars.
@@ -106,23 +149,6 @@ public class Melody
         }
 
         return melody;
-    }
-
-    /**
-     * Chords.
-     * @param bars Bars.
-     *
-     * @return Chords.
-     */
-    public static int[][] getChords(int bars)
-    {
-        int noteFrom    = Theory.TONES * 4 + 1;
-        int noteTo      = noteFrom + Theory.TONES - 1;
-        int note        = MathTool.random(noteFrom, noteTo);
-        boolean isMajor = MathTool.is();
-        int[][] chords  = Theory.getChordHarmony(note, isMajor);
-
-        return Arrays.copyOfRange(ArrayTool.shuffle(chords), 0, bars);
     }
 
     /**
