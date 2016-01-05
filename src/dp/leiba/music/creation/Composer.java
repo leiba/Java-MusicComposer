@@ -14,8 +14,6 @@ public class Composer
     private int[][] _cChords;
     private int[]   _cNotes;
 
-
-
     private int[]   _cLead;
     private int[][] _cPluck;
     private int[]   _cBass;

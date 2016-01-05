@@ -1,5 +1,6 @@
 package dp.leiba.music;
 
+import dp.leiba.music.creation.Composer;
 import dp.leiba.music.creation.Melody;
 import dp.leiba.music.creation.Rhythm;
 import dp.leiba.music.creation.Theory;
@@ -23,6 +24,8 @@ public class Main
     public static void main(String[] args)
     {
         System.out.println("Bit B:");
+
+        new Composer();
 
         /*
         ArrayTool.print(Melody.getChords(4));
