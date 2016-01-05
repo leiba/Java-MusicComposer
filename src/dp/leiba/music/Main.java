@@ -25,6 +25,14 @@ public class Main
         System.out.println("Bit B:");
         System.out.println("Bit B: From acer.");
 
+        int[][] chords = new int[][]{
+                {33, 35, 38},
+                {32, 34, 37},
+                {35, 38, 40},
+                {37, 40, 42}
+        };
+
+        ArrayTool.print(Melody.getPluck(4, 4, Rhythm.getRhythmMelody(4, 4), chords));
         /*
         int[][] chords = new int[][]{
                 {33, 35, 38},

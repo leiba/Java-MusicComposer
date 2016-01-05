@@ -69,4 +69,21 @@ public class ArrayTool
 
         return array;
     }
+
+    /**
+     * Print multi array.
+     *
+     * @param array Array.
+     */
+    public static void print(int[][] array) {
+
+        for (int[] i : array) {
+            for (int j : i) {
+                System.out.print(j);
+                System.out.print("\t");
+            }
+
+            System.out.println();
+        }
+    }
 }
