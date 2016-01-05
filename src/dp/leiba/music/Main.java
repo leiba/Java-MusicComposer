@@ -23,7 +23,10 @@ public class Main
     public static void main(String[] args)
     {
         System.out.println("Bit B:");
-        System.out.println("Bit B: From acer.");
+
+        /*
+        ArrayTool.print(Melody.getChords(4));
+        */
 
         /*
         int[][] chords = new int[][]{

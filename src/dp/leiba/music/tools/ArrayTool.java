@@ -1,6 +1,8 @@
 package dp.leiba.music.tools;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Tool Array.
@@ -65,6 +67,27 @@ public class ArrayTool
 
         for (i = 0; i < upper.size(); i++) {
             array[i] = upper.get(i);
+        }
+
+        return array;
+    }
+
+    /**
+     * Shuffle array.
+     *
+     * @param array Array.
+     *
+     * @return Shuffled array.
+     */
+    public static int[][] shuffle(int[][] array)
+    {
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = array.length - 1; i > 0; i--)
+        {
+            int index       = rnd.nextInt(i + 1);
+            int[] a         = array[index];
+            array[index]    = array[i];
+            array[i]        = a;
         }
 
         return array;

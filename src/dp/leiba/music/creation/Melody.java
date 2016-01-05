@@ -109,6 +109,23 @@ public class Melody
     }
 
     /**
+     * Chords.
+     * @param bars Bars.
+     *
+     * @return Chords.
+     */
+    public static int[][] getChords(int bars)
+    {
+        int noteFrom    = Theory.TONES * 4 + 1;
+        int noteTo      = noteFrom + Theory.TONES - 1;
+        int note        = MathTool.random(noteFrom, noteTo);
+        boolean isMajor = MathTool.is();
+        int[][] chords  = Theory.getChordHarmony(note, isMajor);
+
+        return Arrays.copyOfRange(ArrayTool.shuffle(chords), 0, bars);
+    }
+
+    /**
      * Get neighbour note.
      *
      * @param notes Notes.
