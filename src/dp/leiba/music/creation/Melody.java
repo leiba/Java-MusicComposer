@@ -44,16 +44,18 @@ public class Melody extends Rhythm
      */
     public static int[] getBass(int bars, int beats, int[] rhythm, int[][] chords)
     {
+        int j, index;
         int i           = 0;
-        int j           = 0;
         int[] melody    = new int[bars * beats];
 
         for (; i < bars; i++) {
-            for (; j < beats; j++) {
-                if (rhythm[i + j] == MELODY_RELEASE) {
-                    melody[i + j] = chords[i][0] - (Theory.OCTAVES * 2);
+            for (j = 0; j < beats; j++) {
+                index = bars * i + j;
+
+                if (rhythm[index] == MELODY_RELEASE) {
+                    melody[index] = chords[i][0] - (Theory.TONES * 2);
                 } else {
-                    melody[i + j] = MELODY_REST;
+                    melody[index] = MELODY_REST;
                 }
             }
         }

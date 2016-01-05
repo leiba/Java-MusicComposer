@@ -1,5 +1,6 @@
 package dp.leiba.music;
 
+import dp.leiba.music.creation.Melody;
 import dp.leiba.music.creation.Rhythm;
 import dp.leiba.music.creation.Theory;
 import dp.leiba.music.tools.ArrayTool;
@@ -23,7 +24,18 @@ public class Main
     {
         System.out.println("Bit B:");
         System.out.println("Bit B: From acer.");
-        
+
+        /*
+        int[][] chords = new int[][]{
+                {33, 35, 38},
+                {32, 34, 37},
+                {35, 38, 40},
+                {37, 40, 42}
+        };
+
+        System.out.println(Arrays.toString(Melody.getBass(4, 4, Rhythm.getRhythmBass(4, 4), chords)));
+        */
+
         /*
         System.out.println(Arrays.toString(Rhythm.getRhythmBass(4, 4)));
         */
