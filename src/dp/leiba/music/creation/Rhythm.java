@@ -11,9 +11,10 @@ public class Rhythm
     public static final int MELODY_ATTACK   = 1;
     public static final int MELODY_RELEASE  = 2;
     
-    public static final int DRUMS_KICK      = 0;
-    public static final int DRUMS_SNARE     = 1;
-    public static final int DRUMS_HAT       = 2;
+    public static final int DRUMS_REST      = 0;
+    public static final int DRUMS_KICK      = 1;
+    public static final int DRUMS_SNARE     = 2;
+    public static final int DRUMS_HAT       = 3;
 
     /**
      * Get melody rhythm.
