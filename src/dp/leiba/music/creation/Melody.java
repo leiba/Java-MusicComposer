@@ -1,6 +1,9 @@
 package dp.leiba.music.creation;
 
 import dp.leiba.music.tools.ArrayTool;
+import dp.leiba.music.tools.MathTool;
+
+import java.util.Arrays;
 
 /**
  * Rhythm melody.
@@ -21,13 +24,20 @@ public class Melody
      */
     public static int[] getLead(int bars, int beats, int[] rhythm, int[][] chords, int[] notes)
     {
+        int j, index, note;
         int i           = 0;
-        int j           = 0;
         int[] melody    = new int[bars * beats];
 
         for (; i < bars; i++) {
-            for (; j < beats; j++) {
+            for (j = 0; j < beats; j++) {
+                index = bars * i + j;
 
+                if (rhythm[index] != Rhythm.MELODY_REST) {
+                    note          = chords[i][chords[i].length - 1];
+                    melody[index] = getNeighbourNote(notes, note);
+                } else {
+                    melody[index] = Rhythm.MELODY_REST;
+                }
             }
         }
 
@@ -96,6 +106,22 @@ public class Melody
         }
 
         return melody;
+    }
 
+    /**
+     * Get neighbour note.
+     *
+     * @param notes Notes.
+     * @param note  Note.
+     *
+     * @return Note.
+     */
+    private static int getNeighbourNote(int[] notes, int note)
+    {
+        int range   = Theory.TONES / 3;
+        int shift   = MathTool.random(-range, range);
+        int index   = Arrays.asList(notes).indexOf(note) + shift;
+
+        return index > 0 && index < notes.length ? notes[index] : note;
     }
 }
