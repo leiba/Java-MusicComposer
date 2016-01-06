@@ -11,6 +11,7 @@ public class Composer
 {
     public static final String  CONFIG_PATH         = "D:\\bit_b.wav";
     public static final int     CONFIG_AMPLITUDE    = 100;
+    public static final double  CONFIG_SECONDS      = 60.0;
 
     private Wav         _cWav   = new Wav();
     private int 		_cBPM	= Rhythm.getBPM();
@@ -36,7 +37,7 @@ public class Composer
     public Composer()
     {
         _cSizeSec   = _cWav.getBytesPerSecond();
-        _cSizeBar   = (int) (_cSizeSec * (_cBPM / 60.0));
+        _cSizeBar   = (int) (_cSizeSec * (_cBPM / CONFIG_SECONDS));
         _cSizeBeat  = _cSizeBar / _cBeats;
         _cWave      = new double[_cSizeBar * _cBars];
 
