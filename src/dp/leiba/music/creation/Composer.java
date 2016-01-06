@@ -4,8 +4,6 @@ import dp.leiba.music.tools.ArrayTool;
 import dp.leiba.music.tools.Wav;
 import dp.leiba.music.tools.WaveForms;
 
-import java.util.Arrays;
-
 /**
  * Composer.
  */
