@@ -1,7 +1,5 @@
 package dp.leiba.music;
 
-import java.util.Arrays;
-
 import dp.leiba.music.creation.Composer;
 import dp.leiba.music.person.Person;
 
