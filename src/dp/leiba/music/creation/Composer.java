@@ -8,6 +8,8 @@ import dp.leiba.music.tools.Wav;
  */
 public class Composer
 {
+    public static final String CONFIG_PATH = "/var/www/bit_b.wav";
+
     private Wav         _cWav   = new Wav();
     private int         _cBarSize;
     private double[]    _cWave;
@@ -50,11 +52,10 @@ public class Composer
      */
     public void save()
     {
-        _cWav.setFrames(
-            _cWave,
-            (int) ArrayTool.maxAbs(_cWave),
-            false
-        );
+        int amplitude = (int) ArrayTool.maxAbs(_cWave);
+
+        _cWav.setFrames(_cWave, amplitude, false);
+        _cWav.save(CONFIG_PATH);
     }
 
 }

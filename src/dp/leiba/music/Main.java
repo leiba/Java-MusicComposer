@@ -25,7 +25,8 @@ public class Main
     {
         System.out.println("Bit B:");
 
-        new Composer();
+        Composer composer = new Composer();
+        composer.save();
 
         /*
         ArrayTool.print(Melody.getChords(4));
