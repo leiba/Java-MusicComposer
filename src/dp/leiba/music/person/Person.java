@@ -1,5 +1,9 @@
 package dp.leiba.music.person;
 
+import java.util.Arrays;
+
+import dp.leiba.music.creation.Theory;
+
 /**
  * Person.
  */
@@ -31,12 +35,40 @@ public class Person
 	/**
 	 * Debug.
 	 * 
-	 * @param params Parameters.
+	 * @param name Name.
+	 * @param note Note.
 	 */
-	public static void debug(String[][] params)
+	public static void debug(String name, int note)
 	{
-		for (String[] param : params) {
-			debug(param[0], param[1]);
-		}
+		debug(name, Theory.getNoteName(note) + "(" + note + ")");
+	}
+	
+	/**
+	 * Debug.
+	 * 
+	 * @param name    Name.
+	 * @param boolean Is.
+	 */
+	public static void debug(String name, boolean is)
+	{
+		debug(name, is + "");
+	}
+	
+	/**
+	 * Debug.
+	 * 
+	 * @param name  Name.
+	 * @param notes Notes.
+	 */
+	public static void debug(String name, int[] notes)
+	{
+		int i           = 0;
+        String[] debug  = new String[notes.length];
+
+        for (; i < notes.length; i++) {
+        	debug[i] = Theory.getNoteName(notes[i]) + "(" + notes[i] + ")";
+        }
+
+        debug(name, Arrays.toString(debug));
 	}
 }

@@ -23,11 +23,11 @@ public class Main
         Composer composer = new Composer();
         composer.save();
         
-        Person.debug("Is major", composer.getIsMajor() + "");
-        Person.debug("Note", composer.getNote() + "");
-        Person.debug("Notes", Arrays.toString(composer.getNotes()));
+        Person.debug("Major",  composer.getIsMajor());
+        Person.debug("Note",   composer.getNote());
+        Person.debug("Notes",  composer.getNotes());
         Person.debug("Chords", "");
-        Person.debug("Lead", Arrays.toString(composer.getLead()));
+        Person.debug("Lead",   composer.getLead());
         Person.say("Bye");
 
         /*

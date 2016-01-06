@@ -69,9 +69,9 @@ public class Composer
      * 
      * @return Note.
      */
-    public String getNote()
+    public int getNote()
     {
-    	return Theory.getNoteName(_cNote) + "(" + _cNote + ")";
+    	return _cNote;
     }
 
     /**
@@ -79,16 +79,9 @@ public class Composer
      *
      * @return Harmony notes.
      */
-    public String[] getNotes()
+    public int[] getNotes()
     {
-        int i           = 0;
-        String[] notes  = new String[_cNotes.length];
-
-        for (; i < notes.length; i++) {
-            notes[i] = Theory.getNoteName(_cNotes[i]) + "(" + _cNotes[i] + ")";
-        }
-
-        return notes;
+        return _cNotes;
     }
 
     /**
@@ -106,16 +99,9 @@ public class Composer
      *
      * @return Lead.
      */
-    public String[] getLead()
+    public int[] getLead()
     {
-    	int i           = 0;
-        String[] notes  = new String[_cLead.length];
-
-        for (; i < notes.length; i++) {
-            notes[i] = Theory.getNoteName(_cLead[i]) + "(" + _cLead[i] + ")";
-        }
-
-        return notes;
+        return _cLead;
     }
 
     /**
