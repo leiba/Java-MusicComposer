@@ -1,5 +1,6 @@
 package dp.leiba.music.creation;
 
+import dp.leiba.music.tools.ArrayTool;
 import dp.leiba.music.tools.Wav;
 
 /**
@@ -42,6 +43,18 @@ public class Composer
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
 
+    }
+
+    /**
+     * Save wave.
+     */
+    public void save()
+    {
+        _cWav.setFrames(
+            _cWave,
+            (int) ArrayTool.maxAbs(_cWave),
+            false
+        );
     }
 
 }

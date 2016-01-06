@@ -94,6 +94,27 @@ public class ArrayTool
     }
 
     /**
+     * Max abs.
+     *
+     * @param array Array.
+     *
+     * @return Max abs.
+     */
+    public static double maxAbs(double[] array)
+    {
+        int i       = 0;
+        double max  = 0;
+
+        for (; i < array.length; i++) {
+            if (Math.abs(array[i]) > max) {
+                max = Math.abs(array[i]);
+            }
+        }
+
+        return max;
+    }
+
+    /**
      * Print multi array.
      *
      * @param array Array.
