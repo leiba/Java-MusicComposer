@@ -36,7 +36,7 @@ public class Composer
     public Composer()
     {
         _cSizeSec   = _cWav.getBytesPerSecond();
-        _cSizeBar   = _cSizeSec;
+        _cSizeBar   = (int) (_cSizeSec * (_cBPM / 60.0));
         _cSizeBeat  = _cSizeBar / _cBeats;
         _cWave      = new double[_cSizeBar * _cBars];
 
