@@ -1,14 +1,9 @@
 package dp.leiba.music;
 
-import dp.leiba.music.creation.Composer;
-import dp.leiba.music.creation.Melody;
-import dp.leiba.music.creation.Rhythm;
-import dp.leiba.music.creation.Theory;
-import dp.leiba.music.tools.ArrayTool;
-import dp.leiba.music.tools.Wav;
-import dp.leiba.music.tools.WaveForms;
-
 import java.util.Arrays;
+
+import dp.leiba.music.creation.Composer;
+import dp.leiba.music.person.Person;
 
 /**
  * Main.
@@ -23,10 +18,17 @@ public class Main
      */
     public static void main(String[] args)
     {
-        System.out.println("Bit B:");
+    	Person.say("Hello");
 
         Composer composer = new Composer();
         composer.save();
+        
+        Person.debug("Is major", composer.getIsMajor() + "");
+        Person.debug("Note", composer.getNote() + "");
+        Person.debug("Notes", Arrays.toString(composer.getNotes()));
+        Person.debug("Chords", "");
+        Person.debug("Lead", Arrays.toString(composer.getLead()));
+        Person.say("Bye");
 
         /*
         ArrayTool.print(Melody.getChords(4));
@@ -123,7 +125,5 @@ public class Main
         }
         wav.save("/var/www/say1.wav");
         */
-
-        System.out.println("Bit B, say bye!");
     }
 }

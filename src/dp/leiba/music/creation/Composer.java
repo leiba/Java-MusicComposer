@@ -9,7 +9,7 @@ import dp.leiba.music.tools.WaveForms;
  */
 public class Composer
 {
-    public static final String  CONFIG_PATH         = "/var/www/bit_b.wav";
+    public static final String  CONFIG_PATH         = "D:\\bit_b.wav";
     public static final int     CONFIG_AMPLITUDE    = 100;
 
     private Wav         _cWav   = new Wav();
@@ -63,6 +63,16 @@ public class Composer
     {
         return _cIsMajor;
     }
+    
+    /**
+     * Get main note.
+     * 
+     * @return Note.
+     */
+    public String getNote()
+    {
+    	return Theory.getNoteName(_cNote) + "(" + _cNote + ")";
+    }
 
     /**
      * Get notes.
@@ -96,9 +106,16 @@ public class Composer
      *
      * @return Lead.
      */
-    public int[] getLead()
+    public String[] getLead()
     {
-        return _cLead;
+    	int i           = 0;
+        String[] notes  = new String[_cLead.length];
+
+        for (; i < notes.length; i++) {
+            notes[i] = Theory.getNoteName(_cLead[i]) + "(" + _cLead[i] + ")";
+        }
+
+        return notes;
     }
 
     /**
