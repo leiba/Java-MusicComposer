@@ -69,9 +69,16 @@ public class Composer
      *
      * @return Harmony notes.
      */
-    public int[] getNotes()
+    public String[] getNotes()
     {
-        return _cNotes;
+        int i           = 0;
+        String[] notes  = new String[_cNotes.length];
+
+        for (; i < notes.length; i++) {
+            notes[i] = Theory.getNoteName(_cNotes[i]) + "(" + _cNotes[i] + ")";
+        }
+
+        return notes;
     }
 
     /**
