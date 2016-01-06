@@ -71,4 +71,29 @@ public class Person
 
         debug(name, Arrays.toString(debug));
 	}
+	
+	/**
+	 * Debug.
+	 * 
+	 * @param name  Name.
+	 * @param notes Notes.
+	 */
+	public static void debug(String name, int[][] notes)
+	{
+		int i, j;
+		String[] line;
+        String[] debug  = new String[notes.length];
+
+        for (i = 0; i < notes.length; i++) {
+        	line = new String[notes[i].length];
+        	
+        	for (j = 0; j < notes[i].length; j++) {
+        		line[j] = Theory.getNoteName(notes[i][j]) + "(" + notes[i][j] + ")";
+        	}
+        	
+        	debug[i] = Arrays.toString(line);
+        }
+
+        debug(name, Arrays.toString(debug));
+	}
 }

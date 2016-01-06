@@ -26,8 +26,9 @@ public class Main
         Person.debug("Major",  composer.getIsMajor());
         Person.debug("Note",   composer.getNote());
         Person.debug("Notes",  composer.getNotes());
-        Person.debug("Chords", "");
+        Person.debug("Chords", composer.getChords());
         Person.debug("Lead",   composer.getLead());
+        
         Person.say("Bye");
 
         /*
