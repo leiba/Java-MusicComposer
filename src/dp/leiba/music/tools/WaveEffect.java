@@ -9,7 +9,7 @@ public class WaveEffect
     /**
      * Reverberation.
      */
-    public static void reverberation()
+    public static void reverb()
     {
 
     }
