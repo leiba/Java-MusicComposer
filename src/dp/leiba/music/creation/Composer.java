@@ -4,14 +4,18 @@ import dp.leiba.music.tools.ArrayTool;
 import dp.leiba.music.tools.Wav;
 import dp.leiba.music.tools.WaveForms;
 
+import java.util.Arrays;
+
 /**
  * Composer.
  */
 public class Composer
 {
-    public static final String CONFIG_PATH = "/var/www/bit_b.wav";
+    public static final String  CONFIG_PATH         = "/var/www/bit_b.wav";
+    public static final int     CONFIG_AMPLITUDE    = 100;
 
     private Wav         _cWav   = new Wav();
+    private int         _cSizeSec;
     private int         _cSizeBar;
     private int         _cSizeBeat;
     private double[]    _cWave;
@@ -32,7 +36,9 @@ public class Composer
 
     public Composer()
     {
-        _cSizeBar   = _cWav.getBytesPerSecond() / 2;
+        _cSizeSec   = _cWav.getBytesPerSecond();
+        _cSizeBar   = _cSizeSec;
+        _cSizeBeat  = _cSizeBar / _cBeats;
         _cWave      = new double[_cSizeBar * _cBars];
 
         _cRhythm    = Rhythm.getRhythmMelody(_cBars, _cBeats);
@@ -46,7 +52,7 @@ public class Composer
         _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
-        fill(_cBass);
+        _cWave = fill(_cBass);
     }
 
     /**
@@ -58,16 +64,29 @@ public class Composer
      */
     public double[] fill(int[] notes)
     {
-        int i = 0;
-        double[] wave = new double[_cSizeBar * _cBars];
+        int points, i, j, rest;
+        double[] beat;
+        double[] wave   = new double[_cSizeBar * _cBars];
 
-        for (; i< notes.length; i++) {
+        for (i = 0; i< notes.length; i++) {
+            beat = new double[_cSizeBeat];
+
             if (notes[i] == Rhythm.MELODY_REST) {
-                ArrayTool.fill(wave, WaveForms.rest(_cSizeBeat), i);
+                beat = WaveForms.rest(beat.length);
             } else {
-                System.out.println(Theory.getNoteFreq(notes[i]));
+                points  = (int) (_cSizeSec / Theory.getNoteFreq(notes[i]));
 
+                for (j = 0; j < beat.length; j += points) {
+                    ArrayTool.fill(beat, WaveForms.sine(points, CONFIG_AMPLITUDE), j);
+                }
+
+                if (_cRhythm[i] == Rhythm.MELODY_RELEASE || true) {
+                    rest = points / 3;
+                    ArrayTool.fillZero(beat, j + (points - rest), j + points);
+                }
             }
+
+            ArrayTool.fill(wave, beat, i * _cSizeBeat);
         }
 
         return wave;

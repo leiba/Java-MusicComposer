@@ -39,8 +39,34 @@ public class ArrayTool
      */
     public static double[] fill(double[] to, double[] from, int start)
     {
-        System.arraycopy(from, 0, to, start, from.length);
+        int i;
+
+        for (i = 0; i < from.length; i++) {
+            if (start < to.length) {
+                to[start++] = from[i];
+
+            }
+        }
+
         return to;        
+    }
+
+    /**
+     * Fill zero.
+     *
+     * @param to    To array.
+     * @param start Start position.
+     * @param end   End position.
+     *
+     * @return Filled array.
+     */
+    public static double[] fillZero(double[] to, int start, int end)
+    {
+        for (; start < to.length && start < end; start++) {
+            to[start] = 0;
+        }
+
+        return to;
     }
 
     /**
