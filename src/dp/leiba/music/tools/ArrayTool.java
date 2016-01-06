@@ -70,6 +70,29 @@ public class ArrayTool
     }
 
     /**
+     * Fill array sum.
+     *
+     * @param to    To array.
+     * @param from  From array.
+     * @param start Start position.
+     *
+     * @return Filled array.
+     */
+    public static double[] fillSum(double[] to, double[] from, int start)
+    {
+        int i;
+
+        for (i = 0; i < from.length; i++) {
+            if (start < to.length) {
+                to[start++] += from[i];
+
+            }
+        }
+
+        return to;
+    }
+
+    /**
      * Clear range.
      *
      * @param array Array.

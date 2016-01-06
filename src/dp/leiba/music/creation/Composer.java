@@ -52,7 +52,8 @@ public class Composer
         _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
-        _cWave = fill(_cBass);
+        ArrayTool.fillSum(_cWave, fill(_cBass), 0);
+        ArrayTool.fillSum(_cWave, fill(_cLead), 0);
     }
 
     /**
