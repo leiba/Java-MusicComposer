@@ -138,13 +138,16 @@ public class Melody
 
         for (; i < bars; i++) {
             for (j = 0; j < beats; j++) {
-                index = bars * i + j;
+                index           = bars * i + j;
+                melody[index]   = chords[i][0] - (Theory.TONES * 2);
 
+                /*
                 if (rhythm[index] == Rhythm.MELODY_RELEASE) {
                     melody[index] = chords[i][0] - (Theory.TONES * 2);
                 } else {
                     melody[index] = Rhythm.MELODY_REST;
                 }
+                */
             }
         }
 
