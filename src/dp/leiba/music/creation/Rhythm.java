@@ -17,6 +17,16 @@ public class Rhythm
     public static final int DRUMS_HAT       = 3;
 
     /**
+     * Get BPM.
+     * 
+     * @return BPM.
+     */
+    public static int getBPM()
+    {
+    	return MathTool.random(100, 128);
+    }
+    
+    /**
      * Get melody rhythm.
      *
      * @param bars  Bars.

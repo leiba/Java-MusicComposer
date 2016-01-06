@@ -21,6 +21,7 @@ public class Main
         Composer composer = new Composer();
         composer.save();
         
+        Person.debug("BPM",    composer.getBPM());
         Person.debug("Major",  composer.getIsMajor());
         Person.debug("Note",   composer.getNote());
         Person.debug("Notes",  composer.getNotes());

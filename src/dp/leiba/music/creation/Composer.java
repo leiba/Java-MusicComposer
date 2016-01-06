@@ -13,6 +13,7 @@ public class Composer
     public static final int     CONFIG_AMPLITUDE    = 100;
 
     private Wav         _cWav   = new Wav();
+    private int 		_cBPM	= Rhythm.getBPM();
     private int         _cSizeSec;
     private int         _cSizeBar;
     private int         _cSizeBeat;
@@ -52,6 +53,16 @@ public class Composer
 
         ArrayTool.fillSum(_cWave, fill(_cBass), 0);
         ArrayTool.fillSum(_cWave, fill(_cLead), 0);
+    }
+    
+    /**
+     * Get BPM.
+     * 
+     * @return BPM.
+     */
+    public String getBPM()
+    {
+    	return String.valueOf(_cBPM);
     }
 
     /**
