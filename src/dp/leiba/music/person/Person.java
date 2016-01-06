@@ -2,6 +2,7 @@ package dp.leiba.music.person;
 
 import java.util.Arrays;
 
+import dp.leiba.music.creation.Rhythm;
 import dp.leiba.music.creation.Theory;
 
 /**
@@ -10,6 +11,7 @@ import dp.leiba.music.creation.Theory;
 public class Person
 {
 	public static final String NAME = "Bit B";
+	public static final String REST = "REST";
 	
 	/**
 	 * Say.
@@ -66,7 +68,11 @@ public class Person
         String[] debug  = new String[notes.length];
 
         for (; i < notes.length; i++) {
-        	debug[i] = Theory.getNoteName(notes[i]) + "(" + notes[i] + ")";
+        	if (notes[i] == Rhythm.MELODY_REST) {
+        		debug[i] = REST;
+        	} else {
+        		debug[i] = Theory.getNoteName(notes[i]) + "(" + notes[i] + ")";
+        	}        	
         }
 
         debug(name, Arrays.toString(debug));
