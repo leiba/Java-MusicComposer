@@ -21,4 +21,17 @@ public class WaveEffect
     {
 
     }
+
+    /**
+     * Compress.
+     *
+     * @param wave  Wave.
+     * @param level Compress level.
+     *
+     * @return Compressed wave.
+     */
+    public static double[] compress(double[] wave, int level)
+    {
+        return wave;
+    }
 }
