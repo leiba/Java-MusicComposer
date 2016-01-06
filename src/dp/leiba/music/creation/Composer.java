@@ -55,6 +55,46 @@ public class Composer
     }
 
     /**
+     * Get is major.
+     *
+     * @return Is major.
+     */
+    public boolean getIsMajor()
+    {
+        return _cIsMajor;
+    }
+
+    /**
+     * Get notes.
+     *
+     * @return Harmony notes.
+     */
+    public int[] getNotes()
+    {
+        return _cNotes;
+    }
+
+    /**
+     * Get chords.
+     *
+     * @return Chords.
+     */
+    public int[][] getChords()
+    {
+        return _cChords;
+    }
+
+    /**
+     * Get lead.
+     *
+     * @return Lead.
+     */
+    public int[] getLead()
+    {
+        return _cLead;
+    }
+
+    /**
      * Fill.
      *
      * @param notes Notes.
