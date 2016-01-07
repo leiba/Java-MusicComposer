@@ -178,16 +178,17 @@ public class Composer
     {
     	int i, j;
     	double[] part;
-    	double[] wave = new double[_cSizeBar * _cBars];
+    	double[] wave 	= new double[_cSizeBar * _cBars];
     	
     	for (i = 0; i < drums.length; i++) {
     		for (j = 0; j < drums[i].length; j++) {
-				part = WaveInstruments.factory(_cWav.getBytesPerSecond(), CONFIG_AMPLITUDE, drums[i][j]);
-				ArrayTool.fillSum(wave, part, i * _cSizeBeat);
+				part = WaveInstruments.factory(_cWav.getBytesPerSecond(), CONFIG_AMPLITUDE, drums[i][j]);				
 				
 				if (drums[i][j] == Rhythm.DRUMS_HAT) {
-					ArrayTool.fillSum(wave, part, i * _cSizeBeat + (_cSizeBeat / 2));
+					part = _getWaveHat(part, 2);
 				}
+				
+				ArrayTool.fillSum(wave, part, i * _cSizeBeat);
     		}
     	}
     	
@@ -203,5 +204,26 @@ public class Composer
 
         _cWav.setFrames(_cWave, amplitude, false);
         _cWav.save(CONFIG_PATH);
+    }
+    
+    /**
+     * Wave hat.
+     * 
+     * @param hat   Hat.
+     * @param times Times.
+     * 
+     * @return Wave.
+     */
+    private double[] _getWaveHat(double[] hat, int times)
+    {
+    	int i 			= 0;
+    	int quarter		= _cSizeBeat / times;
+    	double[] wave 	= new double[_cSizeBeat]; 
+    	
+    	for (; i < times; i++) {
+    		ArrayTool.fillSum(wave, hat, i * quarter);
+    	}
+    	
+    	return wave;
     }
 }
