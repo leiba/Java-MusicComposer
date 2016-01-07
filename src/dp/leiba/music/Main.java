@@ -20,10 +20,10 @@ public class Main
     {
     	Person.say("Hello");
     	
-//    	Wav wav = new Wav();
-//    	wav.setFrames(WaveInstruments.hat(wav.getBytesPerSecond(), 100), 100, false);
-//    	wav.save("D:\\kickb.wav");
-//    	System.exit(0);
+    	Wav wav = new Wav();
+    	wav.setFrames(WaveInstruments.click(wav.getBytesPerSecond(), 100), 100, false);
+    	wav.save("D:\\kickb.wav");
+    	System.exit(0);
 
         Composer composer = new Composer();
         composer.save();

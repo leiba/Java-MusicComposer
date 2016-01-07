@@ -138,16 +138,12 @@ public class WaveInstruments
     public static double[] click(int pointsPerSecond, double amplitude)
     {
     	int i 			= 0;
-    	int points 		= (int) (pointsPerSecond / CONFIG_SAMPLE);
-    	int steps		= 20;
-    	int fade;
+    	int steps		= 40;
     	double[] part;
-        double[] wave 	= new double[] {100};
+        double[] wave 	= new double[] {amplitude};
         
         for (; i < steps; i++) {
-        	fade	= (int) ((amplitude / 100.0) * ((steps - i) * 100 / steps));
-        	part 	= WaveForms.noise(3, 60);
-        	
+        	part 	= WaveForms.noise(3, 100);        	
         	wave = ArrayTool.concat(wave, part);
         }        
         
