@@ -7,7 +7,50 @@ import java.util.Random;
  */
 public class WaveForms
 {
+	public static final int	WAVE_SINE   = 0;
+    public static final int WAVE_SQUARE = 1;
+    public static final int WAVE_SAW	= 2;
+    public static final int WAVE_NOISE	= 3;
+    public static final int WAVE_REST	= 4;
 
+    /**
+     * Factory.
+     * 
+     * @param points    Points.
+     * @param amplitude Amplitude.
+     * @param form      Wave form.
+     * 
+     * @return Wave.
+     */
+    public static double[] factory(int points, double amplitude, int form)
+    {
+    	double[] wave = new double[0];
+    	
+    	switch (form) {
+	    	case WAVE_SINE :
+	    		wave = sine(points, amplitude);
+	    		break;
+	    		
+	    	case WAVE_SQUARE :
+	    		wave = square(points, amplitude);
+	    		break;
+	    		
+	    	case WAVE_SAW :
+	    		wave = saw(points, amplitude);
+	    		break;
+	    		
+	    	case WAVE_NOISE :
+	    		wave = noise(points, amplitude);
+	    		break;
+	    		
+	    	case WAVE_REST :
+	    		wave = rest(points);	    		
+	    		break;
+    	}
+    	
+    	return wave;
+    }
+    
     /**
      * Generate sine.
      *
@@ -39,7 +82,7 @@ public class WaveForms
      *
      * @return Wave.
      */
-    public static double[] square(int points, int amplitude)
+    public static double[] square(int points, double amplitude)
     {
         points          = (points - (points % 2));
         int i           = 0;

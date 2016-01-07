@@ -164,7 +164,7 @@ public class Melody
      */
     private static int getNeighbourNote(int[] notes, int note)
     {
-        int range   = Theory.TONES / 3;
+        int range   = 3; //Theory.TONES / 3;
         int shift   = MathTool.random(-range, range);
         int index   = Arrays.asList(notes).indexOf(note) + shift;
 
