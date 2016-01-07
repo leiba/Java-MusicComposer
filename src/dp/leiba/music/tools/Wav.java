@@ -15,7 +15,7 @@ public class Wav
     protected int     _iSubChunk1Size = 16;       // 4b
     protected short   _iAudioFormat   = 7;        // 2b
     protected short   _iNumChannels   = 1;        // 2b 1/2
-    protected int     _iSampleRate    = 8000;     // 4b 8000/44100
+    protected int     _iSampleRate    = 44100;     // 4b 8000/44100
     protected int     _iByteRate      = 8000;     // 4b Bytes per second
     protected short   _iBlockAlign    = 1;        // 2b Bytes in sample for all channels
     protected short   _iBitsPerSample = 8;        // 2b Bits in sample

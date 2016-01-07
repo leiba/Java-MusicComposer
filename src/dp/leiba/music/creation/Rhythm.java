@@ -24,7 +24,7 @@ public class Rhythm
      */
     public static int getBPM()
     {
-    	return MathTool.random(100, 128);
+    	return MathTool.random(120, 128);
     }
     
     /**

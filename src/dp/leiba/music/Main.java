@@ -21,7 +21,7 @@ public class Main
     	Person.say("Hello");
     	
 //    	Wav wav = new Wav();
-//    	wav.setFrames(WaveInstruments.snare(wav.getBytesPerSecond(), 100), 100, false);
+//    	wav.setFrames(WaveInstruments.hat(wav.getBytesPerSecond(), 100), 100, false);
 //    	wav.save("D:\\kickb.wav");
 //    	System.exit(0);
 

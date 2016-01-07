@@ -53,9 +53,9 @@ public class Composer
         _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
-        ArrayTool.fillSum(_cWave, fill(_cBass), 0);
         ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0);
-        //ArrayTool.fillSum(_cWave, fill(_cLead), 0);
+        // ArrayTool.fillSum(_cWave, fill(_cBass, WaveForms.WAVE_SQUARE), 0);
+        // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_SAW), 0);
     }
     
     /**
@@ -125,7 +125,7 @@ public class Composer
      *
      * @return Wave.
      */
-    public double[] fill(int[] notes)
+    public double[] fill(int[] notes, int form)
     {
         int points, i, j, rest;
         double[] beat;
@@ -140,7 +140,7 @@ public class Composer
                 points  = (int) (_cSizeSec / Theory.getNoteFreq(notes[i]));
 
                 for (j = 0; j < beat.length; j += points) {
-                    ArrayTool.fill(beat, WaveForms.square(points, CONFIG_AMPLITUDE), j);
+                    ArrayTool.fill(beat, WaveForms.factory(points, CONFIG_AMPLITUDE, form), j);
                 }
 
                 if (_cRhythm[i] == Rhythm.MELODY_RELEASE || true) {
