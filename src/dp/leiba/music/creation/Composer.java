@@ -3,6 +3,7 @@ package dp.leiba.music.creation;
 import dp.leiba.music.tools.ArrayTool;
 import dp.leiba.music.tools.Wav;
 import dp.leiba.music.tools.WaveForms;
+import dp.leiba.music.tools.WaveInstruments;
 
 /**
  * Composer.
@@ -53,6 +54,7 @@ public class Composer
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
         ArrayTool.fillSum(_cWave, fill(_cBass), 0);
+        ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0);
         //ArrayTool.fillSum(_cWave, fill(_cLead), 0);
     }
     
@@ -163,6 +165,29 @@ public class Composer
     private double[] getWave(int[][] notes)
     {
     	return new double[0];
+    }
+    
+    /**
+     * Get wave drums.
+     * 
+     * @param drums Drums.
+     * 
+     * @return Wave.
+     */
+    private double[] getWaveDrums(int[][] drums)
+    {
+    	int i, j;
+    	double[] part;
+    	double[] wave = new double[_cSizeBar * _cBars];
+    	
+    	for (i = 0; i < drums.length; i++) {
+    		for (j = 0; j < drums[i].length; j++) {
+				part = WaveInstruments.factory(_cWav.getBytesPerSecond(), CONFIG_AMPLITUDE, drums[i][j]);
+				ArrayTool.fillSum(wave, part, i * _cSizeBeat);
+    		}
+    	}
+    	
+    	return wave;
     }
 
     /**

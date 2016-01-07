@@ -3,12 +3,52 @@ package dp.leiba.music.tools;
 public class WaveInstruments
 {
 	
-	public static final double CONFIG_SAMPLE = 1333.33;
+	public static final int 	TYPE_KICK		= 0;
+	public static final int 	TYPE_SNARE		= 1;
+	public static final int 	TYPE_HAT		= 2;
+	public static final int 	TYPE_STICK		= 3;
+	
+	public static final double 	CONFIG_SAMPLE 	= 1333.33;
     
+	/**
+	 * Factory.
+	 * 
+	 * @param pointsPerSecond Points per second.
+	 * @param amplitude		  Amplitude.
+	 * @param type 			  Type.
+	 * 
+	 * @return Wave.
+	 */
+	public static double[] factory(int pointsPerSecond, double amplitude, int type)
+	{
+		double wave[] = new double[0];
+		
+		switch (type) {
+	    	case TYPE_KICK :
+	    		wave = kick(pointsPerSecond, amplitude);
+	    		break;
+	    		
+	    	case TYPE_SNARE :
+	    		wave = snare(pointsPerSecond, amplitude);
+	    		break;
+	    		
+	    	case TYPE_HAT :
+	    		wave = hat(pointsPerSecond, amplitude);
+	    		break;
+	    		
+	    	case TYPE_STICK :
+	    		wave = stick(pointsPerSecond, amplitude);
+	    		break;
+		}
+		
+		return wave;
+	}
+	
     /**
      * Generate kick.
      * 
-     * @param amplitude Amplitude.
+     * @param pointsPerSecond Points per second.
+     * @param amplitude       Amplitude.
      * 
      * @return Wave.
      */
@@ -34,11 +74,12 @@ public class WaveInstruments
     /**
      * Generate snare.
      * 
-     * @param amplitude Amplitude.
+     * @param pointsPerSecond Points per second.
+     * @param amplitude       Amplitude.
      * 
      * @return Wave.
      */
-    public static double[] snare(double amplitude)
+    public static double[] snare(int pointsPerSecond, double amplitude)
     {
         double[] wave = new double[0];
         
@@ -48,13 +89,41 @@ public class WaveInstruments
     /**
      * Generate hat.
      * 
-     * @param amplitude Amplitude.
+     * @param pointsPerSecond Points per second.
+     * @param amplitude       Amplitude.
      * 
      * @return Wave.
      */
-    public static double[] hat(double amplitude)
+    public static double[] hat(int pointsPerSecond, double amplitude)
     {
         double[] wave = new double[0];
+        
+        return wave;
+    }
+    
+    /**
+     * Generate stick.
+     * 
+     * @param pointsPerSecond Points per second.
+     * @param amplitude       Amplitude.
+     * 
+     * @return Wave.
+     */
+    public static double[] stick(int pointsPerSecond, double amplitude)
+    {
+    	int i 			= 0;
+    	int points 		= (int) (pointsPerSecond / CONFIG_SAMPLE);
+    	int steps		= 20;
+    	int fade;
+    	double[] part;
+        double[] wave 	= new double[0];
+        
+        for (; i < steps; i++) {
+        	fade	= (int) ((amplitude / 100.0) * ((steps - i) * 100 / steps));
+        	part 	= WaveForms.sine(points * i, fade);
+        	
+        	wave = ArrayTool.concat(wave, part);
+        }        
         
         return wave;
     }
