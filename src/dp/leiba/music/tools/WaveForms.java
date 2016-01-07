@@ -1,7 +1,5 @@
 package dp.leiba.music.tools;
 
-import java.util.Random;
-
 /**
  * Waves.
  */
