@@ -9,9 +9,9 @@ public class WaveEffect
 	/**
 	 * Side chain.
 	 * 
-	 * @param feedBack  Feed back.
 	 * @param signal    Signal.
 	 * @param amplitude Amplitude.
+	 * @param step 		Step.
 	 * 
 	 * @return Wave.
 	 */
