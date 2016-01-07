@@ -2,6 +2,7 @@ package dp.leiba.music.creation;
 
 import dp.leiba.music.tools.ArrayTool;
 import dp.leiba.music.tools.Wav;
+import dp.leiba.music.tools.WaveEffect;
 import dp.leiba.music.tools.WaveForms;
 import dp.leiba.music.tools.WaveInstruments;
 
@@ -54,7 +55,7 @@ public class Composer
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
         ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0);
-        // ArrayTool.fillSum(_cWave, fill(_cBass, WaveForms.WAVE_SQUARE), 0);
+        ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_SQUARE), CONFIG_AMPLITUDE, _cSizeBeat), 0);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_SAW), 0);
     }
     
