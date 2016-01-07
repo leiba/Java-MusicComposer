@@ -56,4 +56,18 @@ public class MathTool
     {
         return value % 2 == 0;
     }
+    
+    /**
+     * Round range.
+     * 
+     * @param value Value.
+     * @param min   Minimum.
+     * @param max   Maximum.
+     * 
+     * @return Rounded.
+     */
+    public static double range(double value, int min, int max)
+    {
+    	return value > max ? max : value < min ? min : value;
+    }
 }

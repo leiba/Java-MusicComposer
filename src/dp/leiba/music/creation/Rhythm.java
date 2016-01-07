@@ -15,6 +15,7 @@ public class Rhythm
     public static final int DRUMS_KICK      = 1;
     public static final int DRUMS_SNARE     = 2;
     public static final int DRUMS_HAT       = 3;
+    public static final int DRUMS_STICK     = 4;
 
     /**
      * Get BPM.
@@ -68,17 +69,13 @@ public class Rhythm
         int[][] rhythm  = new int[bars * beats][];
         
         for (; i < rhythm.length; i++) {
-            if (i % beats == 0) {
+            if (i % 2 == 0) {
                 rhythm[i] = new int[] {
                     DRUMS_KICK, DRUMS_HAT
                 };
-            } else if (i % 2 == 0) {
-                rhythm[i] = new int[] {
-                    DRUMS_SNARE, DRUMS_HAT
-                };
             } else {
                 rhythm[i] = new int[] {
-                    DRUMS_HAT
+                    DRUMS_SNARE, DRUMS_HAT
                 };
             }
         }

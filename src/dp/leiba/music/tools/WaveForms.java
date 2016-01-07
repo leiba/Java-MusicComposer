@@ -127,13 +127,20 @@ public class WaveForms
      */
     public static double[] noise(int points, double amplitude)
     {
-        points          = (points - (points % 2));
+    	points          = points - (points % 2);
         int i           = 0;
-        Random random   = new Random();
+        double percent  = 0;
         double[] wave   = new double[points];
 
-        for (; i < wave.length; i++) {
-            wave[i] = MathTool.round((-amplitude) + (amplitude - (-amplitude)) * random.nextDouble(), 2);
+        for (; i < points; i++) {
+            percent = i * 100.0 / (points - 1);
+            wave[i] = MathTool.round(Math.sin((Math.PI * 2) / 100 * percent) * amplitude, 2);
+            
+            if (i % 2 == 0) {
+            	wave[i] += MathTool.random(-60, 60);
+            }
+            
+            wave[i] = MathTool.range(wave[i], (int) - amplitude, (int) amplitude);
         }
 
         return wave;

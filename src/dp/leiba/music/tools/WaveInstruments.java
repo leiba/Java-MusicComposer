@@ -1,5 +1,7 @@
 package dp.leiba.music.tools;
 
+import dp.leiba.music.creation.Rhythm;
+
 public class WaveInstruments
 {
 	
@@ -24,19 +26,19 @@ public class WaveInstruments
 		double wave[] = new double[0];
 		
 		switch (type) {
-	    	case TYPE_KICK :
+	    	case Rhythm.DRUMS_KICK :
 	    		wave = kick(pointsPerSecond, amplitude);
 	    		break;
 	    		
-	    	case TYPE_SNARE :
+	    	case Rhythm.DRUMS_SNARE :
 	    		wave = snare(pointsPerSecond, amplitude);
 	    		break;
 	    		
-	    	case TYPE_HAT :
+	    	case Rhythm.DRUMS_HAT :
 	    		wave = hat(pointsPerSecond, amplitude);
 	    		break;
 	    		
-	    	case TYPE_STICK :
+	    	case Rhythm.DRUMS_STICK :
 	    		wave = stick(pointsPerSecond, amplitude);
 	    		break;
 		}
@@ -81,7 +83,19 @@ public class WaveInstruments
      */
     public static double[] snare(int pointsPerSecond, double amplitude)
     {
-        double[] wave = new double[0];
+    	int i 			= 0;
+    	int points 		= (int) (pointsPerSecond / CONFIG_SAMPLE);
+    	int steps		= 20;
+    	int fade;
+    	double[] part;
+        double[] wave 	= new double[0];
+        
+        for (; i < steps; i++) {
+        	fade	= (int) ((amplitude / 100.0) * ((steps - i) * 100 / steps));
+        	part 	= WaveForms.noise(points * i, fade);
+        	
+        	wave = ArrayTool.concat(wave, part);
+        }        
         
         return wave;
     }
