@@ -184,6 +184,10 @@ public class Composer
     		for (j = 0; j < drums[i].length; j++) {
 				part = WaveInstruments.factory(_cWav.getBytesPerSecond(), CONFIG_AMPLITUDE, drums[i][j]);
 				ArrayTool.fillSum(wave, part, i * _cSizeBeat);
+				
+				if (drums[i][j] == Rhythm.DRUMS_HAT) {
+					ArrayTool.fillSum(wave, part, i * _cSizeBeat + (_cSizeBeat / 2));
+				}
     		}
     	}
     	
