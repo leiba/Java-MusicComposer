@@ -6,10 +6,12 @@ package dp.leiba.music.tools;
 public class WaveForms
 {
 	public static final int	WAVE_SINE   = 0;
-    public static final int WAVE_SQUARE = 1;
-    public static final int WAVE_SAW	= 2;
-    public static final int WAVE_NOISE	= 3;
-    public static final int WAVE_REST	= 4;
+	public static final int	WAVE_TAN    = 1;
+	public static final int	WAVE_ATAN   = 2;
+    public static final int WAVE_SQUARE = 3;
+    public static final int WAVE_SAW	= 4;
+    public static final int WAVE_NOISE	= 5;
+    public static final int WAVE_REST	= 6;
 
     /**
      * Factory.
@@ -27,6 +29,14 @@ public class WaveForms
     	switch (form) {
 	    	case WAVE_SINE :
 	    		wave = sine(points, amplitude);
+	    		break;
+	    		
+	    	case WAVE_TAN :
+	    		wave = tan(points, amplitude);
+	    		break;
+	    		
+	    	case WAVE_ATAN :
+	    		wave = atan(points, amplitude);
 	    		break;
 	    		
 	    	case WAVE_SQUARE :
@@ -67,6 +77,52 @@ public class WaveForms
         for (; i < points; i++) {
             percent = i * 100.0 / (points - 1);
             wave[i] = MathTool.round(Math.sin((Math.PI * 2) / 100 * percent) * amplitude, 2);
+        }
+
+        return wave;
+    }
+    
+    /**
+     * Generate tan.
+     *
+     * @param points    Points.
+     * @param amplitude Amplitude.
+     *
+     * @return Wave.
+     */
+    public static double[] tan(int points, double amplitude)
+    {
+        points          = points - (points % 2);
+        int i           = 0;
+        double percent  = 0;
+        double[] wave   = new double[points];
+
+        for (; i < points; i++) {
+            percent = i * 100.0 / (points - 1);
+            wave[i] = MathTool.round(Math.tan((Math.PI * 2) / 100 * percent) * amplitude, 2);
+        }
+
+        return wave;
+    }
+    
+    /**
+     * Generate atan.
+     *
+     * @param points    Points.
+     * @param amplitude Amplitude.
+     *
+     * @return Wave.
+     */
+    public static double[] atan(int points, double amplitude)
+    {
+        points          = points - (points % 2);
+        int i           = 0;
+        double percent  = 0;
+        double[] wave   = new double[points];
+
+        for (; i < points; i++) {
+            percent = i * 100.0 / (points - 1);
+            wave[i] = MathTool.round(Math.atan((Math.PI * 2) / 100 * percent) * amplitude, 2);
         }
 
         return wave;
