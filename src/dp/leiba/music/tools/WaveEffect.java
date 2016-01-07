@@ -5,6 +5,7 @@ package dp.leiba.music.tools;
  */
 public class WaveEffect
 {
+	public static final int CONFIG_SIDE_CHAIN = 6000;
 	
 	/**
 	 * Side chain.
@@ -23,10 +24,10 @@ public class WaveEffect
 		
 		for (; i < signal.length; i++) {
 			if (i == 0 || i % step == 0) {
-				level = 6000;
+				level = CONFIG_SIDE_CHAIN;
 			}
 			
-			wave[i] = signal[i] / 100.0 * (100 - (--level >= 0 ? level * 100 / 6000 : 0));			
+			wave[i] = signal[i] / 100.0 * (100 - (--level >= 0 ? level * 100 / CONFIG_SIDE_CHAIN : 0));			
 		}
 		
 		return wave;
