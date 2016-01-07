@@ -29,6 +29,24 @@ public class ArrayTool
     }
     
     /**
+     * Concatenate arrays.
+     *
+     * @param a A array.
+     * @param b B array.
+     *
+     * @return Concatenate array.
+     */
+    public static double[] concat (double[] a, double[] b)
+    {
+    	double[] concat = new double[a.length + b.length];
+    	
+    	System.arraycopy(a, 0, concat, 0, a.length);
+    	System.arraycopy(b, 0, concat, a.length, b.length);
+    	
+    	return concat;
+    }
+    
+    /**
      * Fill array.
      * 
      * @param to    To array.
