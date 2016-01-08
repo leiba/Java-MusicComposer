@@ -5,8 +5,10 @@ package dp.leiba.music.tools;
  */
 public class WaveEffect
 {
-	public static final int CONFIG_SIDE_CHAIN = 6000;
-	
+	public static final int SIDE_CHAIN  = 6000;
+	public static final int BIT_8       = 8;
+	public static final int BIT_16      = 16;
+
 	/**
 	 * Side chain.
 	 * 
@@ -24,10 +26,10 @@ public class WaveEffect
 		
 		for (; i < signal.length; i++) {
 			if (i == 0 || i % step == 0) {
-				level = CONFIG_SIDE_CHAIN;
+				level = SIDE_CHAIN;
 			}
 			
-			wave[i] = signal[i] / 100.0 * (100 - (--level >= 0 ? level * 100 / CONFIG_SIDE_CHAIN : 0));			
+			wave[i] = signal[i] / 100.0 * (100 - (--level >= 0 ? level * 100 / SIDE_CHAIN : 0));
 		}
 		
 		return wave;
@@ -48,6 +50,31 @@ public class WaveEffect
     {
 
     }
+
+    /**
+     * Bit.
+     *
+     * @param signal Signal.
+     * @param depth  Depth.
+     *
+     * @return Wave.
+     */
+    public static double[] bit(double[] signal, int depth)
+    {
+        int i;
+        double bit;
+        double[] wave   = new double[signal.length];
+
+        for (i = 0; i < wave.length; i++) {
+            bit = Math.abs(signal[i] % depth);
+            bit = bit > (depth / 2) ? depth - bit : - bit;
+
+            wave[i] = signal[i] > 0 ? signal[i] + bit : signal[i] - bit;
+        }
+
+        return wave;
+    }
+
 
     /**
      * Compress.
