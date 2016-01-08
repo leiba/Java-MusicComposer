@@ -34,7 +34,9 @@ public class Main
         Person.debug("Notes",  composer.getNotes());
         Person.debug("Chords", composer.getChords());
         Person.debug("Lead",   composer.getLead());
-        
+        Person.debug("Bass",   composer.getBass());
+        Person.debug("SubBass",composer.getSubBass());
+
         Person.say("Bye");
     }
 }

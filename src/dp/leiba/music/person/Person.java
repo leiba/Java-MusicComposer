@@ -48,8 +48,8 @@ public class Person
 	/**
 	 * Debug.
 	 * 
-	 * @param name    Name.
-	 * @param boolean Is.
+	 * @param name Name.
+	 * @param is   Is.
 	 */
 	public static void debug(String name, boolean is)
 	{

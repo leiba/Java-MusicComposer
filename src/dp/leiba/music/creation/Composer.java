@@ -11,7 +11,7 @@ import dp.leiba.music.tools.WaveInstruments;
  */
 public class Composer
 {
-    public static final String  CONFIG_PATH         = "D:\\bit_b.wav";
+    public static final String  CONFIG_PATH         = "/var/www/bit_b2.wav";
     public static final int     CONFIG_AMPLITUDE    = 100;
     public static final double  CONFIG_SECONDS      = 60.0;
 
@@ -33,6 +33,7 @@ public class Composer
 
     private int[]       _cLead;
     private int[][]     _cPluck;
+    private int[]       _cSubBass;
     private int[]       _cBass;
     private int[][]     _cDrums;
 
@@ -51,10 +52,12 @@ public class Composer
 
         _cLead      = Melody.getLead(_cBars, _cBeats, _cRhythm, _cChords, _cNotes);
         _cPluck     = Melody.getPluck(_cBars, _cBeats, _cRhythm, _cChords);
+        _cSubBass   = Melody.getSubBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
-        ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0);
+        //ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0);
+        ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), CONFIG_AMPLITUDE, _cSizeBeat), 0);
         ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
     }
@@ -117,6 +120,26 @@ public class Composer
     public int[] getLead()
     {
         return _cLead;
+    }
+
+    /**
+     * Get bass.
+     *
+     * @return Lead.
+     */
+    public int[] getBass()
+    {
+        return _cBass;
+    }
+
+    /**
+     * Get sub bass.
+     *
+     * @return Lead.
+     */
+    public int[] getSubBass()
+    {
+        return _cSubBass;
     }
 
     /**

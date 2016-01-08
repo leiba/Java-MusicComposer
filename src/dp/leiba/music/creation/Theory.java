@@ -80,8 +80,9 @@ public class Theory
     {
         int octave  = getNoteOctave(note);
         int tone    = note - (octave * TONES);
+        double freq = MathTool.round(getNoteFreq(note), 2);
 
-        return names[tone - 1] + octave;
+        return names[tone - 1] + octave + ',' + freq + "Hz";
     }
 
     /**
