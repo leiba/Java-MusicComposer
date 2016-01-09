@@ -62,7 +62,6 @@ public class ArrayTool
         for (i = 0; i < from.length; i++) {
             if (start < to.length) {
                 to[start++] = from[i];
-
             }
         }
 
@@ -90,20 +89,27 @@ public class ArrayTool
     /**
      * Fill array sum.
      *
-     * @param to    To array.
-     * @param from  From array.
-     * @param start Start position.
+     * @param to      To array.
+     * @param from    From array.
+     * @param start   Start position.
+     * @param limiter Limiter.
      *
      * @return Filled array.
      */
-    public static double[] fillSum(double[] to, double[] from, int start)
+    public static double[] fillSum(double[] to, double[] from, int start, boolean limiter)
     {
         int i;
+        double max = maxAbs(to);
 
         for (i = 0; i < from.length; i++) {
             if (start < to.length) {
-                to[start++] += from[i];
-
+                to[start] += from[i];
+                
+                if (limiter && max != 0 && Math.abs(to[start]) > max) {
+                	to[start] = to[start] > max ? max : -max;
+                }
+                
+                start++;
             }
         }
 

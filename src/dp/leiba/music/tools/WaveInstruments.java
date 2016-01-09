@@ -135,8 +135,6 @@ public class WaveInstruments
      */
     public static double[] click(int pointsPerSecond, double amplitude)
     {
-    	return new double[0];
-    	/*
     	int i 			= 0;
     	int steps		= 40;
     	double[] part;
@@ -148,7 +146,6 @@ public class WaveInstruments
         }        
         
         return wave;
-        */
     }
     
     /**

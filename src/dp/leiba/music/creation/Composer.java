@@ -56,9 +56,10 @@ public class Composer
         _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
-        ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0);
-        //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), CONFIG_AMPLITUDE, _cSizeBeat), 0);
-        //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0);
+        
+        ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
+        ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
+        //ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0, true);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
     }
     
@@ -212,7 +213,7 @@ public class Composer
 					part = _getWaveHat(part, 2);
 				}
 				
-				ArrayTool.fillSum(wave, part, i * _cSizeBeat);
+				ArrayTool.fillSum(wave, part, i * _cSizeBeat, true);
     		}
     	}
     	
@@ -245,7 +246,7 @@ public class Composer
     	double[] wave 	= new double[_cSizeBeat]; 
     	
     	for (; i < times; i++) {
-    		ArrayTool.fillSum(wave, hat, i * quarter);
+    		ArrayTool.fillSum(wave, hat, i * quarter, true);
     	}
     	
     	return wave;
