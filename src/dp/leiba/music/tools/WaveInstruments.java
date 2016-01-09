@@ -66,8 +66,7 @@ public class WaveInstruments
     	int fadeFreq	= 0;
         double[] wave 	= new double[0];
         
-        wave = ArrayTool.concat(wave, WaveForms.sine(10, 60));
-        
+        wave = ArrayTool.concat(wave, WaveForms.sine(10, 60));        
         
         for (i = 20; i <= 40; i += 10) {
         	wave = ArrayTool.concat(wave, WaveForms.sine(i, amplitude));
@@ -136,6 +135,8 @@ public class WaveInstruments
      */
     public static double[] click(int pointsPerSecond, double amplitude)
     {
+    	return new double[0];
+    	/*
     	int i 			= 0;
     	int steps		= 40;
     	double[] part;
@@ -147,6 +148,7 @@ public class WaveInstruments
         }        
         
         return wave;
+        */
     }
     
     /**

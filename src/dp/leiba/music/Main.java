@@ -21,8 +21,8 @@ public class Main
     	Person.say("Hello");
     	
 //    	Wav wav = new Wav();
-//    	wav.setFrames(WaveInstruments.click(wav.getBytesPerSecond(), 100), 100, false);
-//    	wav.save("D:\\kickb.wav");
+//    	wav.setFrames(WaveInstruments.kick(wav.getBytesPerSecond(), 100), 100, false);
+//    	wav.save("D:\\bit_b2.wav");
 //    	System.exit(0);
 
         Composer composer = new Composer();
