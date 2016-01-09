@@ -1,5 +1,7 @@
 package dp.leiba.music.tools;
 
+import java.util.Arrays;
+
 import dp.leiba.music.creation.Rhythm;
 
 public class WaveInstruments
@@ -10,7 +12,8 @@ public class WaveInstruments
 	public static final int 	TYPE_HAT		= 2;
 	public static final int 	TYPE_STICK		= 3;
 	
-	public static final double 	CONFIG_SAMPLE 	= 1333.33;
+	public static final double 	CONFIG_SAMPLE 	= 1000;
+	public static final int  	CONFIG_ATTACK 	= 30;
     
 	/**
 	 * Factory.
@@ -56,18 +59,28 @@ public class WaveInstruments
      */
     public static double[] kick(int pointsPerSecond, double amplitude)
     {
-    	int i 			= 0;
+    	int i;
     	int points 		= (int) (pointsPerSecond / CONFIG_SAMPLE);
     	int steps		= 20;
-    	int fade;
-    	double[] part;
+    	double fade		= amplitude;
+    	int fadeFreq	= 0;
         double[] wave 	= new double[0];
         
-        for (; i < steps; i++) {
-        	fade	= (int) ((amplitude / 100.0) * ((steps - i) * 100 / steps));
-        	part 	= WaveForms.sine(points * i, fade);
+        wave = ArrayTool.concat(wave, WaveForms.sine(10, 60));
+        
+        
+        for (i = 20; i <= 40; i += 10) {
+        	wave = ArrayTool.concat(wave, WaveForms.sine(i, amplitude));
         	
-        	wave = ArrayTool.concat(wave, part);
+        	if (i == 40) {
+        		wave = ArrayTool.concat(wave, WaveForms.sine(i * 2, amplitude - 10));
+        	}
+        }
+        
+        for (i = 0; i < steps; i++) {
+        	fadeFreq 	= i < 5 ? points * i * 4 : fadeFreq + 20;
+        	fade 		-= i > 10 ? 8 : 1;       	
+        	wave 		= ArrayTool.concat(wave, WaveForms.sine(fadeFreq, fade));
         }        
         
         return wave;
