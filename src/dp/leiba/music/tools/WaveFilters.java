@@ -27,14 +27,17 @@ public class WaveFilters
 	/**
 	 * Equalizer.
 	 * 
-	 * @param type Type of filter.
-	 * @param freq Frequency.
-	 * @param q    Q factor. Frequencies width. 
-	 * @param gain Gain frequencies.
+	 * @param signal Signal.
+	 * @param type   Type of filter.
+	 * @param freq   Frequency.
+	 * @param q      Q factor. Frequencies width. 
+	 * @param gain   Gain frequencies.
+	 * 
+	 * @return Equalized.
 	 */
-	public static void eq(int type, double freq, double q, double gain)
-	{
-		
+	public static double[] eq(double[] signal, int type, double freq, double q, double gain)
+	{		
+		return new double[0];
 	}
 	
 	public static double[] band(double[] signal, int pointsPerSecond, double from, double to)
