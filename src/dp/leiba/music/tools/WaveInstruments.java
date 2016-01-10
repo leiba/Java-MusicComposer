@@ -127,6 +127,7 @@ public class WaveInstruments
     
     /**
      * Generate click.
+     * http://joesul.li/van/synthesizing-hi-hats/
      * 
      * @param pointsPerSecond Points per second.
      * @param amplitude       Amplitude.
@@ -135,17 +136,24 @@ public class WaveInstruments
      */
     public static double[] click(int pointsPerSecond, double amplitude)
     {
-    	int i 			= 0;
-    	int steps		= 40;
+    	int fundamental = 40;
+    	double[] freq 	= new double[] {2, 3, 4.16, 5.43, 6.79, 8.21};
+    	double[] wave 	= new double[pointsPerSecond / 3];
+    	
+    	int i, j, points;
+    	int steps		= 5;
     	double[] part;
-        double[] wave 	= new double[] {amplitude};
-        
-        for (; i < steps; i++) {
-        	part 	= WaveForms.noise(3, 100);        	
-        	wave = ArrayTool.concat(wave, part);
-        }        
-        
-        return wave;
+    	
+    	for (i = 0; i < freq.length; i++) {
+    		points = MathTool.freq(pointsPerSecond, freq[i] * fundamental);
+    		for (j = 0; j < wave.length / points; j++) {
+    			wave = ArrayTool.fillSum(wave, WaveForms.square(points, amplitude), j * points, true);
+    			WaveFilters.band(wave, pointsPerSecond, 7, 7);
+    			System.exit(0);
+    		}
+    	}
+    	
+    	return wave;
     }
     
     /**

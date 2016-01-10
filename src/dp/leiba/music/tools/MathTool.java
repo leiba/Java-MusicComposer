@@ -70,4 +70,17 @@ public class MathTool
     {
     	return value > max ? max : value < min ? min : value;
     }
+    
+    /**
+     * Calculate frequency points.
+     * 
+     * @param pointsPerSecond Points per second.
+     * @param freq 		      Frequency.
+     * 
+     * @return Points. 
+     */
+    public static int freq(int pointsPerSecond, double freq)
+    {
+    	return (int) (pointsPerSecond / freq);    	
+    }
 }
