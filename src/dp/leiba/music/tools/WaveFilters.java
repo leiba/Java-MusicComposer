@@ -16,6 +16,14 @@ import java.util.ArrayList;
 public class WaveFilters
 {
 	
+	public static final int FILTER_LOW 			= 0;
+	public static final int FILTER_HIGH 		= 1;
+	public static final int FILTER_BAND 		= 2;
+	public static final int FILTER_NOTCH 		= 3;
+	public static final int FILTER_PEAKING 		= 4;
+	public static final int FILTER_LOW_SHELF 	= 5;
+	public static final int FILTER_HIGH_SHELF	= 6;
+	
 	/**
 	 * Equalizer.
 	 * 
