@@ -148,7 +148,7 @@ public class WaveInstruments
     		points = MathTool.freq(pointsPerSecond, freq[i] * fundamental);
     		for (j = 0; j < wave.length / points; j++) {
     			wave = ArrayTool.fillSum(wave, WaveForms.square(points, amplitude), j * points, true);
-    			WaveFilters.band(wave, pointsPerSecond, 7, 7);
+    			//WaveFilters.band(wave, pointsPerSecond, 7, 7);
     			System.exit(0);
     		}
     	}
