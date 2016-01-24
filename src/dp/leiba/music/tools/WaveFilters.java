@@ -84,7 +84,7 @@ public class WaveFilters
 	 * 
 	 * @return Filtered signal.
 	 */
-	public static double[] hi(double[] signal, int pointsPerSecond, float frequency)
+	public static double[] high(double[] signal, int pointsPerSecond, float frequency)
 	{		
 		return _filter(
 			signal,

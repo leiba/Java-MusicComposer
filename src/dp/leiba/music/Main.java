@@ -26,7 +26,7 @@ public class Main
     	Wav wav1 = new Wav();
     	double[] wave = new double[0];
     	for (int i =0; i < 100; i++) wave = ArrayTool.concat(wave, WaveForms.square(wav1.getBytesPerSecond() / (i > 50 ? 20 : 40), 100));
-    	wave = WaveFilters.low(wave, wav1.getBytesPerSecond(), 0, 0);
+    	wave = WaveFilters.low(wave, wav1.getBytesPerSecond(), 8000);
     	wav1.setFrames(wave, 100, false);
     	wav1.save("D:\\bit_b2.wav");
     	Person.say("End");
