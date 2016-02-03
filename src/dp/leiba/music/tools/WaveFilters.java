@@ -150,7 +150,7 @@ public class WaveFilters
             double point = i % pointsPerSecond;
             double half  = point > pointsPerSecond / 2 ? point - (pointsPerSecond / 2) : point;
 
-            for (freq = half; freq >= 1; freq /= 2) {
+            for (freq = pointsPerSecond / half; freq >= 1; freq /= 2) {
                 if (type == Type.Low) {
                     if (freq < frequency) {
                         amplitude = 0;
