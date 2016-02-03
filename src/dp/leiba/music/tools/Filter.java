@@ -5,9 +5,6 @@ package dp.leiba.music.tools;
  */
 public class Filter
 {
-	
-	public float value;
-
 	private float c, a1, a2, a3, b1, b2;
 
 	private float[] inputHistory 	= new float[2];
@@ -15,7 +12,7 @@ public class Filter
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param frequency  Frequency.
 	 * @param sampleRate Sample rate.
 	 * @param passType   Pass type.
@@ -25,17 +22,17 @@ public class Filter
 	{
 	    switch (passType)
 	    {
-	        case Lowpass:
-	            c 	= 1.0f / (float)Math.tan(Math.PI * frequency / sampleRate);
+	        case Low :
+	            c 	= 1.0f / (float) Math.tan(Math.PI * frequency / sampleRate);
 	            a1 	= 1.0f / (1.0f + resonance * c + c * c);
 	            a2 	= 2f * a1;
 	            a3 	= a1;
 	            b1 	= 2.0f * (1.0f - c * c) * a1;
 	            b2 	= (1.0f - resonance * c + c * c) * a1;
 	            break;
-	            
-	        case Highpass:
-	            c 	= (float)Math.tan(Math.PI * frequency / sampleRate);
+
+	        case High :
+	            c 	= (float) Math.tan(Math.PI * frequency / sampleRate);
 	            a1 	= 1.0f / (1.0f + resonance * c + c * c);
 	            a2 	= -2f * a1;
 	            a3 	= a1;
@@ -47,30 +44,34 @@ public class Filter
 
 	public enum PassType
 	{
-	    Highpass,
-	    Lowpass,
+	    High,
+	    Low,
 	}
 
 	/**
 	 * Update point.
-	 * 
+	 *
 	 * @param newInput New input.
 	 */
 	public void update(float newInput)
 	{
-	    float newOutput = a1 * newInput + a2 * this.inputHistory[0] + a3 * this.inputHistory[1] - b1 * this.outputHistory[0] - b2 * this.outputHistory[1];
+	    float newOutput = a1 * newInput + a2
+            * inputHistory[0] + a3
+            * inputHistory[1] - b1
+            * outputHistory[0] - b2
+            * outputHistory[1];
 
-	    this.inputHistory[1] = this.inputHistory[0];
-	    this.inputHistory[0] = newInput;
+	    inputHistory[1] = inputHistory[0];
+	    inputHistory[0] = newInput;
 
-	    this.outputHistory[2] = this.outputHistory[1];
-	    this.outputHistory[1] = this.outputHistory[0];
-	    this.outputHistory[0] = newOutput;
+	    outputHistory[2] = outputHistory[1];
+	    outputHistory[1] = outputHistory[0];
+	    outputHistory[0] = newOutput;
 	}
 
 	/**
 	 * Get last history.
-	 * 
+	 *
 	 * @return Last history.
 	 */
 	public float getValue()

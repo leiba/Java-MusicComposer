@@ -1,12 +1,5 @@
 package dp.leiba.music.tools;
 
-import java.util.ArrayList;
-
-import javax.sound.sampled.AudioFormat;
-
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.filters.LowPassFS;
-import be.tarsos.dsp.io.TarsosDSPAudioFormat;
 import dp.leiba.music.tools.Filter.PassType;
 
 /**
@@ -14,85 +7,16 @@ import dp.leiba.music.tools.Filter.PassType;
  * http://www.cs.ubc.ca/~kvdoel/jass/doc/index.html
  * http://stackoverflow.com/questions/28291582/implementing-a-high-pass-filter-to-an-audio-signal
  * 
- * Low pass. Пропуск НЧ.
- * High pass. Пропуск ВЧ.
- * Band pass. Пропуск полосы.
- * Notch. Всех кроме полосы.
- * Peaking\Bell. Колоколообразный.
- * Low shelf. Полка НЧ.
- * High shelf. Полка ВЧ.
+ * Low pass.
+ * High pass.
+ * Band pass.
+ * Notch.
+ * Peaking\Bell.
+ * Low shelf.
+ * High shelf.
  */
 public class WaveFilters
 {
-	
-	public static final int FILTER_LOW 			= 0;
-	public static final int FILTER_HIGH 		= 1;
-	public static final int FILTER_BAND 		= 2;
-	public static final int FILTER_NOTCH 		= 3;
-	public static final int FILTER_PEAKING 		= 4;
-	public static final int FILTER_LOW_SHELF 	= 5;
-	public static final int FILTER_HIGH_SHELF	= 6;
-	
-	/**
-	 * Equalizer.
-	 * 
-	 * @param signal    Signal.
-	 * @param perSecond Points per second.
-	 * @param type      Type of filter.
-	 * @param freq      Frequency.
-	 * @param q         Q factor. Frequencies width. 
-	 * @param gain      Gain frequencies.
-	 * 
-	 * @return Equalized.
-	 */
-	public static double[] eq(double[] signal, int pointsPerSecond, int type, double freq, double q, double gain)
-	{		
-		int i, point;
-		double amplitude, min, max;
-		double[] wave 	= new double[signal.length];
-		
-		for (i = 0; i < wave.length; i++) {
-			amplitude 	= signal[i];
-			point 		= pointsPerSecond / i;
-			
-			if (type == FILTER_LOW) {
-				min = 1; max = pointsPerSecond / freq;
-			} else if (type == FILTER_HIGH) {
-				//
-			} else if (type == FILTER_BAND) {
-				//
-			} else if (type == FILTER_NOTCH) {
-				//
-			} else if (type == FILTER_PEAKING) {
-				//
-			} else if (type == FILTER_LOW_SHELF) {
-				//
-			} else if (type == FILTER_HIGH_SHELF) {
-				//
-			}
-		}
-		
-		return wave;
-	}
-	
-	/**
-	 * Hi pass.
-	 * 
-	 * @param signal          Signal.
-	 * @param pointsPerSecond Points per second.
-	 * @param frequency       Frequency.
-	 * 
-	 * @return Filtered signal.
-	 */
-	public static double[] high(double[] signal, int pointsPerSecond, float frequency)
-	{		
-		return _filter(
-			signal,
-			pointsPerSecond,
-			frequency,
-			Filter.PassType.Highpass
-		);
-	}
 	
 	/**
 	 * Low pass.
@@ -109,9 +33,44 @@ public class WaveFilters
 			signal,
 			pointsPerSecond,
 			frequency,
-			Filter.PassType.Lowpass
+			Filter.PassType.Low
 		);
 	}
+
+    /**
+     * Hi pass.
+     *
+     * @param signal          Signal.
+     * @param pointsPerSecond Points per second.
+     * @param frequency       Frequency.
+     *
+     * @return Filtered signal.
+     */
+    public static double[] high(double[] signal, int pointsPerSecond, float frequency)
+    {
+        return _filter(
+            signal,
+            pointsPerSecond,
+            frequency,
+            Filter.PassType.High
+        );
+    }
+
+    /**
+     * Hi pass.
+     *
+     * @param signal          Signal.
+     * @param pointsPerSecond Points per second.
+     * @param frequency       Frequency.
+     * @param width           Frequency width.
+     *
+     * @return Filtered signal.
+     */
+    public static double[] band(double[] signal, int pointsPerSecond, float frequency, float width)
+    {
+        signal = high(signal, pointsPerSecond, frequency - (width / 2));
+        return low(signal, pointsPerSecond, frequency + (width / 2));
+    }
 	
 	/**
 	 * Low pass.
@@ -148,7 +107,7 @@ public class WaveFilters
 		int i		= 0;
 		float[] to  = new float[from.length];
 		
-		for (i = 0; i < from.length; i++) {
+		for (; i < from.length; i++) {
 			to[i] = (float) from[i];
 		}
 		
@@ -167,7 +126,7 @@ public class WaveFilters
 		int i		= 0;
 		double[] to = new double[from.length];
 		
-		for (i = 0; i < from.length; i++) {
+		for (; i < from.length; i++) {
 			to[i] = from[i];
 		}
 		
