@@ -132,6 +132,48 @@ public class WaveFilters
 		
 		return to;
 	}
+
+    public enum Type
+    {
+        Low,
+        High,
+        Band
+    }
+
+    public static double[] fil(double[] signal, int pointsPerSecond, float frequency, Type type)
+    {
+        int i           = 0;
+        double[] wave   = new double[signal.length];
+
+        for (; i < wave.length; i++) {
+            double freq, amplitude = signal[i];
+            double point = i % pointsPerSecond;
+            double half  = point > pointsPerSecond / 2 ? point - (pointsPerSecond / 2) : point;
+
+            for (freq = half; freq >= 1; freq /= 2) {
+                if (type == Type.Low) {
+                    if (freq < frequency) {
+                        amplitude = 0;
+                        break;
+                    }
+                } else if (type == Type.High) {
+                    if (freq > frequency) {
+                        amplitude = 0;
+                        break;
+                    }
+                } else if (type == Type.Band) {
+                    if (freq < frequency || freq > frequency) {
+                        amplitude = 0;
+                        break;
+                    }
+                }
+            }
+
+            wave[i] = amplitude;
+        }
+
+        return wave;
+    }
 }
 
 
