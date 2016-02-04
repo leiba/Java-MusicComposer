@@ -146,24 +146,32 @@ public class WaveFilters
         double[] wave   = new double[signal.length];
 
         for (; i < wave.length; i++) {
-            double freq, amplitude = signal[i];
+            double freq, amplitude = 0;
             double point = i % pointsPerSecond;
-            double half  = point > pointsPerSecond / 2 ? point - (pointsPerSecond / 2) : point;
+            double half  = pointsPerSecond / 2;
+            //double half  = point > pointsPerSecond / 2 ? point - (pointsPerSecond / 2) : point;
 
-            for (freq = pointsPerSecond / half; freq >= 1; freq /= 2) {
-                if (type == Type.Low) {
-                    if (freq < frequency) {
-                        amplitude = 0;
-                        break;
-                    }
-                } else if (type == Type.High) {
-                    if (freq > frequency) {
-                        amplitude = 0;
-                        break;
-                    }
-                } else if (type == Type.Band) {
-                    if (freq < frequency || freq > frequency) {
-                        amplitude = 0;
+            int s = 1;
+            if (point < half && point != 0)
+            for (; point >= 1; point /= 2) {
+                freq = pointsPerSecond / point;
+//                System.out.println("s" + (s) + ":" + freq);
+//                if (s-- == 0) break;
+                //break;
+//                if (type == Type.Low) {
+//                    if (freq < frequency) {
+//                        amplitude = signal[i];
+//                        break;
+//                    }
+//                } else if (type == Type.High) {
+//                    if (freq > frequency) {
+//                        amplitude = signal[i];
+//                        break;
+//                    }
+//                } else
+                if (type == Type.Band) {
+                    if (((int) freq) == frequency) {
+                        amplitude = signal[i];
                         break;
                     }
                 }

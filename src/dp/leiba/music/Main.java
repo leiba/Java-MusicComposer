@@ -24,11 +24,11 @@ public class Main
     	Person.say("Hello");
     	
     	Wav wav1 = new Wav();
-    	double[] wave = new double[50100];
+    	double[] wave = new double[44100];
         int step = 44100 / 13200;
         for (int i = 0; i < wave.length; i++) wave[i] = i % step == 0 ? 100 : 100;
 
-    	for (int i = 0; i < 100; i++) wave = ArrayTool.concat(wave, WaveForms.square(wav1.getBytesPerSecond() / (i > 50 ? 5 : 10), 100));
+    	//for (int i = 0; i < 100; i++) wave = ArrayTool.concat(wave, WaveForms.square(wav1.getBytesPerSecond() / (i > 50 ? 5 : 10), 100));
         wave = WaveFilters.fil(wave, 44100, 2000, WaveFilters.Type.Band);
     	//wave = WaveFilters.high(wave, wav1.getBytesPerSecond(), 30);
     	wav1.setFrames(wave, 100, false);
