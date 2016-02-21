@@ -13,12 +13,12 @@ public class Wav
     protected String  _iFormat        = "WAVE";   // 4b
     protected String  _iSubChunk1Id   = "fmt ";   // 4b
     protected int     _iSubChunk1Size = 16;       // 4b
-    protected short   _iAudioFormat   = 7;        // 2b
+    protected short   _iAudioFormat   = 1;        // 2b
     protected short   _iNumChannels   = 1;        // 2b 1/2
-    protected int     _iSampleRate    = 44100;     // 4b 8000/44100
-    protected int     _iByteRate      = 8000;     // 4b Bytes per second
-    protected short   _iBlockAlign    = 1;        // 2b Bytes in sample for all channels
-    protected short   _iBitsPerSample = 8;        // 2b Bits in sample
+    protected int     _iSampleRate    = 44100;    // 4b 8000/44100
+    protected int     _iByteRate      = 176400;     // 4b Bytes per second
+    protected short   _iBlockAlign    = 4;        // 2b Bytes in sample for all channels
+    protected short   _iBitsPerSample = 32;       // 2b Bits in sample
     protected String  _iSubChunk2Id   = "data";   // 4b
     protected int     _iSubChunk2Size = 3;        // 4b Bytes in data part
 
@@ -51,15 +51,20 @@ public class Wav
      */
     public void setFrames(double[] frames, int amplitude, boolean isAppend)
     {
-        int i;
+        int i, from, to, shift;
         double frame, percent;
-        byte[] iFrames = new byte[frames.length];
+        byte[] iFrames = new byte[frames.length * _iBlockAlign], chunk;
 
         for (i = 0; i < frames.length; i++) {
-            frame = Math.abs(frames[i]);
+            frame 	= Math.abs(frames[i]);
             percent = frame * 100.0 / amplitude;
-
-            iFrames[i] = (byte) (frames[i] > 0 ? 228 - percent : 100 - percent);
+            chunk 	= _byteFromInt((int) (frames[i] > 0 ? percent : -percent), false);
+            from 	= i * _iBlockAlign;
+            to		= from + _iBlockAlign;            
+            
+            for (shift = 0; from < to; from++) {
+            	iFrames[from] = chunk[shift++]; 
+            }
         }
 
         if (isAppend) {
@@ -136,8 +141,23 @@ public class Wav
      */
     public byte[] _byteFromInt(int value)
     {
+        return _byteFromInt(value, true);
+    }
+    
+    /**
+     * Int to byte array.
+     *
+     * @param value Value.
+     *
+     * @return Byte array.
+     */
+    public byte[] _byteFromInt(int value, boolean reverse)
+    {
         byte[] data = ByteBuffer.allocate(4).putInt(value).array();
-        _byteReverse(data);
+        
+        if (reverse) {
+        	_byteReverse(data);
+        }
 
         return data;
     }
