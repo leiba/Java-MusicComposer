@@ -59,7 +59,24 @@ public class WaveInstruments
      */
     public static double[] kick(int pointsPerSecond, double amplitude)
     {
-    	int i;
+        int i;
+        double[] wave 	= new double[0];
+
+        for (i = 0; i < 10; i++) {
+            wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 1500, amplitude));
+        }
+
+        for (i = 0; i < 15; i++) {
+            wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 50, amplitude));
+
+            if (i > 5) {
+                amplitude -= 10;
+            }
+        }
+
+        return wave;
+
+/*
     	int points 		= (int) (pointsPerSecond / CONFIG_SAMPLE);
     	int steps		= 20;
     	double fade		= amplitude;
@@ -83,6 +100,7 @@ public class WaveInstruments
         }        
         
         return wave;
+*/
     }
     
     /**
