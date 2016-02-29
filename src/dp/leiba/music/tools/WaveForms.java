@@ -75,7 +75,7 @@ public class WaveForms
         double[] wave   = new double[points];
 
         for (; i < points; i++) {
-            percent = i * 100.0 / (points - 1);
+            percent = i * 100.0 / (points);
             wave[i] = MathTool.round(Math.sin((Math.PI * 2) / 100 * percent) * amplitude, 2);
         }
 
