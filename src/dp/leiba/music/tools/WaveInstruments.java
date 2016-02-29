@@ -4,6 +4,12 @@ import java.util.Arrays;
 
 import dp.leiba.music.creation.Rhythm;
 
+/**
+ * WaveInstruments.
+ *
+ * http://joesul.li/van/synthesizing-hi-hats/
+ * https://dev.opera.com/articles/drum-sounds-webaudio/
+ */
 public class WaveInstruments
 {
 	
@@ -59,9 +65,38 @@ public class WaveInstruments
      */
     public static double[] kick(int pointsPerSecond, double amplitude)
     {
-        int i;
         double[] wave 	= new double[0];
 
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 4900, 30));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 4900, 55));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 4100, 60));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 2004, 40));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 1470, 90));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 882, 90));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 580, 100));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 397, 95));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 247, 95));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 170, 95));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 110, 95));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 85, 95));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 70, 95));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 63, 82));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 55, 80));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 49, 68));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 46, 55));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 42, 40));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 41, 27));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 38, 15));
+        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 38, 3));
+
+        /*
+        double freq = 150;
+        for (; freq >= 60; freq -= 5) {
+            wave = ArrayTool.concat(wave, WaveForms.sine((int) (pointsPerSecond / freq), freq - 50));
+        }
+        */
+
+        /*
         for (i = 0; i < 10; i++) {
             wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 1500, amplitude));
         }
@@ -73,34 +108,9 @@ public class WaveInstruments
                 amplitude -= 10;
             }
         }
+        */
 
         return wave;
-
-/*
-    	int points 		= (int) (pointsPerSecond / CONFIG_SAMPLE);
-    	int steps		= 20;
-    	double fade		= amplitude;
-    	int fadeFreq	= 0;
-        double[] wave 	= new double[0];
-        
-        wave = ArrayTool.concat(wave, WaveForms.sine(10, 60));        
-        
-        for (i = 20; i <= 40; i += 10) {
-        	wave = ArrayTool.concat(wave, WaveForms.sine(i, amplitude));
-        	
-        	if (i == 40) {
-        		wave = ArrayTool.concat(wave, WaveForms.sine(i * 2, amplitude - 10));
-        	}
-        }
-        
-        for (i = 0; i < steps; i++) {
-        	fadeFreq 	= i < 5 ? points * i * 4 : fadeFreq + 20;
-        	fade 		-= i > 10 ? 8 : 1;       	
-        	wave 		= ArrayTool.concat(wave, WaveForms.sine(fadeFreq, fade));
-        }        
-        
-        return wave;
-*/
     }
     
     /**
@@ -145,7 +155,6 @@ public class WaveInstruments
     
     /**
      * Generate click.
-     * http://joesul.li/van/synthesizing-hi-hats/
      * 
      * @param pointsPerSecond Points per second.
      * @param amplitude       Amplitude.
