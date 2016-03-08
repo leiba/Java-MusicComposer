@@ -3,6 +3,7 @@ package dp.leiba.music.tools;
 import java.util.Arrays;
 
 import dp.leiba.music.creation.Rhythm;
+import dp.leiba.music.creation.Theory;
 
 /**
  * WaveInstruments.
@@ -65,50 +66,29 @@ public class WaveInstruments
      */
     public static double[] kick(int pointsPerSecond, double amplitude)
     {
-        double[] wave 	= new double[0];
-
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 4900, 30));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 4900, 55));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 4100, 60));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 2004, 40));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 1470, 90));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 882, 90));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 580, 100));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 397, 95));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 247, 95));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 170, 95));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 110, 95));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 85, 95));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 70, 95));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 63, 82));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 55, 80));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 49, 68));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 46, 55));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 42, 40));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 41, 27));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 38, 15));
-        wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 38, 3));
-
-        /*
-        double freq = 150;
-        for (; freq >= 60; freq -= 5) {
-            wave = ArrayTool.concat(wave, WaveForms.sine((int) (pointsPerSecond / freq), freq - 50));
-        }
-        */
-
-        /*
-        for (i = 0; i < 10; i++) {
-            wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 1500, amplitude));
-        }
-
-        for (i = 0; i < 15; i++) {
-            wave = ArrayTool.concat(wave, WaveForms.sine(pointsPerSecond / 50, amplitude));
-
-            if (i > 5) {
-                amplitude -= 10;
-            }
-        }
-        */
+        int i;
+        double fade;
+        double[] signal, attack;
+        int steps 		= 6;
+        int root 		= 23;        
+    	double[] wave 	= new double[0];    	
+        
+    	for (i = steps; i > 0; i--) {
+    		fade 	= amplitude / 100 * (i * 100 / steps);
+    		signal 	= WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root)), fade);
+    		
+    		if (i == steps) {
+    			attack = WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root + Theory.TONES * 2)), fade);
+    			
+    			signal = ArrayTool.concat(
+    				Arrays.copyOfRange(attack, 0, attack.length / 4),
+    				Arrays.copyOfRange(signal, signal.length / 4, signal.length)
+    			);
+    		}
+    		
+    		wave 	= ArrayTool.concat(wave, signal);
+    		root--;    		
+    	}
 
         return wave;
     }

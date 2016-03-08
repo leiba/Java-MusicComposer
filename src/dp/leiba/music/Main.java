@@ -23,17 +23,8 @@ public class Main
     {
     	Person.say("Hello");
     	
-    	Wav wav1 = new Wav();
-    	double[] wave = new double[0];
-
-    	for (int i = 0; i < 10; i++) wave = ArrayTool.concat(wave, WaveForms.sine(10000, 100));
-    	wav1.setFrames(wave, 100, false);
-    	wav1.save("D:\\komm.wav");
-    	Person.say("End");
-    	System.exit(0);
-    	
     	Wav wav = new Wav();
-    	wav.setFrames(WaveInstruments.click(wav.getBytesPerSecond(), 100), 100, false);
+    	wav.setFrames(WaveInstruments.kick(wav.getBytesPerSecond(), 100), 100, false);
     	wav.save("D:\\bit_b2.wav");
     	System.exit(0);
 
