@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
  */
 public class Wav
 {
-    private static final double AMPLITUDE = 127;
+    public static final int AMPLITUDE = 127;
 
     protected String  _iChunkId       = "RIFF";   // 4b
     protected int     _iChunkSize     = 58;       // 4b
@@ -54,13 +54,10 @@ public class Wav
     public void setFrames(double[] frames, int amplitude, boolean isAppend)
     {
         int i, from, to, shift;
-        double frame, percent;
         byte[] iFrames = new byte[frames.length * _iBlockAlign], chunk;
 
         for (i = 0; i < frames.length; i++) {
-            frame 	= Math.abs(frames[i]);
-            percent = frame * AMPLITUDE / amplitude;
-            chunk 	= _byteFromInt((int) (frames[i] > 0 ? percent : -percent), false);
+            chunk =  _byteFromInt((int) frames[i], false);
             from 	= i * _iBlockAlign;
             to		= from + _iBlockAlign;            
             
@@ -156,6 +153,24 @@ public class Wav
     public byte[] _byteFromInt(int value, boolean reverse)
     {
         byte[] data = ByteBuffer.allocate(4).putInt(value).array();
+        
+        if (reverse) {
+        	_byteReverse(data);
+        }
+
+        return data;
+    }
+    
+    /**
+     * Int to byte array.
+     *
+     * @param value Value.
+     *
+     * @return Byte array.
+     */
+    public byte[] _byteFromDouble(double value, boolean reverse)
+    {
+        byte[] data = ByteBuffer.allocate(8).putDouble(value).array();
         
         if (reverse) {
         	_byteReverse(data);

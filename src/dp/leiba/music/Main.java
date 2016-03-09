@@ -24,7 +24,7 @@ public class Main
     	Person.say("Hello");
     	
     	Wav wav = new Wav();
-    	wav.setFrames(WaveInstruments.kick(wav.getBytesPerSecond(), 100), 100, false);
+    	wav.setFrames(WaveInstruments.kick(wav.getBytesPerSecond(), Wav.AMPLITUDE), Wav.AMPLITUDE, false);
     	wav.save("D:\\bit_b2.wav");
     	System.exit(0);
 

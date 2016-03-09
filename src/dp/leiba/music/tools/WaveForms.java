@@ -71,12 +71,12 @@ public class WaveForms
     {
         points          = points - (points % 2);
         int i           = 0;
-        double percent  = 0;
+        double angle;
         double[] wave   = new double[points];
-
-        for (; i < points; i++) {
-            percent = i * 100.0 / (points + 1);
-            wave[i] = MathTool.round(Math.sin((Math.PI * 2) / 100 * percent) * amplitude, 2);
+        
+        for (; i < points; i++) {      
+        	angle 	= 2.0 * Math.PI * i / points;
+            wave[i] = Math.sin(angle) * amplitude;
         }
 
         return wave;
