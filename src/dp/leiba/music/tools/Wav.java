@@ -2,6 +2,8 @@ package dp.leiba.music.tools;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Arrays;
 
 /**
  * Wav file.
@@ -18,7 +20,7 @@ public class Wav
     protected short   _iAudioFormat   = 1;        // 2b
     protected short   _iNumChannels   = 1;        // 2b 1/2
     protected int     _iSampleRate    = 44100;    // 4b 8000/44100
-    protected int     _iByteRate      = 176400;   // 4b Bytes per second
+    protected int     _iByteRate      = 44100 * 4;   // 4b Bytes per second
     protected short   _iBlockAlign    = 4;        // 2b Bytes in sample for all channels
     protected short   _iBitsPerSample = 32;       // 2b Bits in sample
     protected String  _iSubChunk2Id   = "data";   // 4b
@@ -57,7 +59,7 @@ public class Wav
         byte[] iFrames = new byte[frames.length * _iBlockAlign], chunk;
 
         for (i = 0; i < frames.length; i++) {
-            chunk =  _byteFromInt((int) frames[i], false);
+            chunk =  _byteFromFloat((float) frames[i], false);
             from 	= i * _iBlockAlign;
             to		= from + _iBlockAlign;            
             
@@ -168,9 +170,9 @@ public class Wav
      *
      * @return Byte array.
      */
-    public byte[] _byteFromDouble(double value, boolean reverse)
+    public byte[] _byteFromFloat(float value, boolean reverse)
     {
-        byte[] data = ByteBuffer.allocate(8).putDouble(value).array();
+        byte[] data = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putFloat(value).array();
         
         if (reverse) {
         	_byteReverse(data);
