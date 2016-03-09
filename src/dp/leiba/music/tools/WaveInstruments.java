@@ -67,7 +67,7 @@ public class WaveInstruments
     public static double[] kick(int pointsPerSecond, double amplitude)
     {
         int i;
-        int steps 		= 6;
+        int steps 		= 25;
         int rootPunch   = 16;
         int root 		= rootPunch + Theory.TONES;        
     	double[] attack = new double[0];   
@@ -81,13 +81,14 @@ public class WaveInstruments
     	}
     	
     	for (i = steps; i > 0; i--) {
-    		// amplitude / 100 * (i * 100 / steps);
-    		rel 	= ArrayTool.concat(
+    		rel = ArrayTool.concat(
             	rel,
             	WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root)), amplitude)
             );
     		
-    		root--;    		
+    		if (i <= 15) {
+    			amplitude -= 0.07;
+    		}
     	}
 
         return ArrayTool.concat(attack, rel);

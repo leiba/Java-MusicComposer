@@ -10,14 +10,14 @@ import java.util.Arrays;
  */
 public class Wav
 {
-    public static final int AMPLITUDE = 127;
+    public static final int AMPLITUDE = 1;
 
     protected String  _iChunkId       = "RIFF";   // 4b
     protected int     _iChunkSize     = 58;       // 4b
     protected String  _iFormat        = "WAVE";   // 4b
     protected String  _iSubChunk1Id   = "fmt ";   // 4b
     protected int     _iSubChunk1Size = 16;       // 4b
-    protected short   _iAudioFormat   = 1;        // 2b
+    protected short   _iAudioFormat   = 3;        // 2b
     protected short   _iNumChannels   = 1;        // 2b 1/2
     protected int     _iSampleRate    = 44100;    // 4b 8000/44100
     protected int     _iByteRate      = 44100 * 4;   // 4b Bytes per second
