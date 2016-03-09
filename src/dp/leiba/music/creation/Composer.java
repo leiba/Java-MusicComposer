@@ -12,7 +12,6 @@ import dp.leiba.music.tools.WaveInstruments;
 public class Composer
 {
     public static final String  CONFIG_PATH         = "D:\\bit_b2.wav";
-    public static final int     CONFIG_AMPLITUDE    = 100;
     public static final double  CONFIG_SECONDS      = 60.0;
 
     private Wav         _cWav   = new Wav();
@@ -57,7 +56,7 @@ public class Composer
         _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
 
         
-        //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
+        //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), Wav.AMPLITUDE, _cSizeBeat), 0, false);
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
         ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0, true);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
@@ -165,7 +164,7 @@ public class Composer
                 points  = (int) (_cSizeSec / Theory.getNoteFreq(notes[i]));
 
                 for (j = 0; j < beat.length; j += points) {
-                    ArrayTool.fill(beat, WaveForms.factory(points, CONFIG_AMPLITUDE, form), j);
+                    ArrayTool.fill(beat, WaveForms.factory(points, Wav.AMPLITUDE, form), j);
                 }
 
                 if (_cRhythm[i] == Rhythm.MELODY_RELEASE || true) {
@@ -207,7 +206,7 @@ public class Composer
     	
     	for (i = 0; i < drums.length; i++) {
     		for (j = 0; j < drums[i].length; j++) {
-				part = WaveInstruments.factory(_cWav.getBytesPerSecond(), CONFIG_AMPLITUDE, drums[i][j]);				
+				part = WaveInstruments.factory(_cWav.getBytesPerSecond(), Wav.AMPLITUDE, drums[i][j]);				
 				
 				if (drums[i][j] == Rhythm.DRUMS_HAT) {
 					part = _getWaveHat(part, 2);

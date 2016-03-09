@@ -2,11 +2,6 @@ package dp.leiba.music;
 
 import dp.leiba.music.creation.Composer;
 import dp.leiba.music.person.Person;
-import dp.leiba.music.tools.ArrayTool;
-import dp.leiba.music.tools.Wav;
-import dp.leiba.music.tools.WaveFilters;
-import dp.leiba.music.tools.WaveForms;
-import dp.leiba.music.tools.WaveInstruments;
 
 /**
  * Main.
@@ -22,11 +17,6 @@ public class Main
     public static void main(String[] args)
     {
     	Person.say("Hello");
-    	
-    	Wav wav = new Wav();
-    	wav.setFrames(WaveInstruments.kick(wav.getBytesPerSecond(), Wav.AMPLITUDE), Wav.AMPLITUDE, false);
-    	wav.save("D:\\bit_b2.wav");
-    	System.exit(0);
 
         Composer composer = new Composer();
         composer.save();

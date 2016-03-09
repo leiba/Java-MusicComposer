@@ -139,49 +139,6 @@ public class WaveFilters
         High,
         Band
     }
-
-    public static double[] fil(double[] signal, int pointsPerSecond, float frequency, Type type)
-    {
-        int i           = 0;
-        double[] wave   = new double[signal.length];
-
-        for (; i < wave.length; i++) {
-            double freq, amplitude = 0;
-            double point = i % pointsPerSecond;
-            double half  = pointsPerSecond / 2;
-            //double half  = point > pointsPerSecond / 2 ? point - (pointsPerSecond / 2) : point;
-
-            int s = 1;
-            if (point < half && point != 0)
-            for (; point >= 1; point /= 2) {
-                freq = pointsPerSecond / point;
-//                System.out.println("s" + (s) + ":" + freq);
-//                if (s-- == 0) break;
-                //break;
-//                if (type == Type.Low) {
-//                    if (freq < frequency) {
-//                        amplitude = signal[i];
-//                        break;
-//                    }
-//                } else if (type == Type.High) {
-//                    if (freq > frequency) {
-//                        amplitude = signal[i];
-//                        break;
-//                    }
-//                } else
-                if (type == Type.Band) {
-                    if (((int) freq) == frequency) {
-                        amplitude = signal[i];
-                        break;
-                    }
-                }
-            }
-
-            wave[i] = amplitude;
-        }
-
-        return wave;
-    }
 }
 
 

@@ -3,7 +3,6 @@ package dp.leiba.music.tools;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
 
 /**
  * Wav file.

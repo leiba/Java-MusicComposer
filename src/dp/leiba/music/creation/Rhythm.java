@@ -71,11 +71,11 @@ public class Rhythm
         for (; i < rhythm.length; i++) {
             if (i % 2 == 0) {
                 rhythm[i] = new int[] {
-                    DRUMS_KICK, DRUMS_HAT
+                    DRUMS_KICK//, DRUMS_HAT
                 };
             } else {
                 rhythm[i] = new int[] {
-                    DRUMS_SNARE, DRUMS_HAT
+                	DRUMS_KICK//, DRUMS_SNARE, DRUMS_HAT
                 };
             }
         }

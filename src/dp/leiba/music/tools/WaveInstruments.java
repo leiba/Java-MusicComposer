@@ -1,7 +1,5 @@
 package dp.leiba.music.tools;
 
-import java.util.Arrays;
-
 import dp.leiba.music.creation.Rhythm;
 import dp.leiba.music.creation.Theory;
 
