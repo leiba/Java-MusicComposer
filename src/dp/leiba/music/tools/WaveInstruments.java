@@ -68,12 +68,11 @@ public class WaveInstruments
     {
         int i;
         double fade;
-        double[] signal;
         int steps 		= 6;
         int root 		= 16;        
     	double[] wave 	= new double[0];     	
         
-    	for (i = 8; i > 0; i--) {
+    	for (i = 10; i > 0; i--) {
     		wave = ArrayTool.concat(
         		wave,
         		WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root + Theory.TONES * i)), amplitude)
