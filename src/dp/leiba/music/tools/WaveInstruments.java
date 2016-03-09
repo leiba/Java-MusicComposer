@@ -67,30 +67,30 @@ public class WaveInstruments
     public static double[] kick(int pointsPerSecond, double amplitude)
     {
         int i;
-        double fade;
         int steps 		= 6;
         int rootPunch   = 16;
         int root 		= rootPunch + Theory.TONES;        
-    	double[] wave 	= new double[0];     	
+    	double[] attack = new double[0];   
+    	double[] rel 	= new double[0];
         
     	for (i = 10; i > 1; i--) {
-    		wave = ArrayTool.concat(
-        		wave,
+    		attack = ArrayTool.concat(
+    			attack,
         		WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(rootPunch + Theory.TONES * i)), amplitude)
         	);
     	}
     	
     	for (i = steps; i > 0; i--) {
-    		fade 	= amplitude / 100 * (i * 100 / steps);
-    		wave 	= ArrayTool.concat(
-            	wave,
-            	WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root)), fade)
+    		// amplitude / 100 * (i * 100 / steps);
+    		rel 	= ArrayTool.concat(
+            	rel,
+            	WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root)), amplitude)
             );
     		
     		root--;    		
     	}
 
-        return wave;
+        return ArrayTool.concat(attack, rel);
     }
     
     /**
