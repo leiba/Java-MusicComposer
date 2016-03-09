@@ -68,25 +68,25 @@ public class WaveInstruments
     {
         int i;
         double fade;
-        double[] signal, attack;
+        double[] signal;
         int steps 		= 6;
-        int root 		= 23;        
-    	double[] wave 	= new double[0];    	
+        int root 		= 16;        
+    	double[] wave 	= new double[0];     	
         
+    	for (i = 8; i > 0; i--) {
+    		wave = ArrayTool.concat(
+        		wave,
+        		WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root + Theory.TONES * i)), amplitude)
+        	);
+    	}
+    	
     	for (i = steps; i > 0; i--) {
     		fade 	= amplitude / 100 * (i * 100 / steps);
-    		signal 	= WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root)), fade);
+    		wave 	= ArrayTool.concat(
+            	wave,
+            	WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root)), fade)
+            );
     		
-    		if (i == steps) {
-    			attack = WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root + Theory.TONES * 2)), fade);
-    			
-    			signal = ArrayTool.concat(
-    				Arrays.copyOfRange(attack, 0, attack.length / 4),
-    				Arrays.copyOfRange(signal, signal.length / 4, signal.length)
-    			);
-    		}
-    		
-    		wave 	= ArrayTool.concat(wave, signal);
     		root--;    		
     	}
 
