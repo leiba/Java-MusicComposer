@@ -93,6 +93,32 @@ public class WaveInstruments
     }
     
     /**
+     * Ride.
+     * 
+     * @param pointsPerSecond Points per second.
+     * @param amplitude		  Amplitude.
+     * 
+     * @return Wave.
+     */
+    public static double[] ride(int pointsPerSecond, double amplitude)
+    {
+    	double level;
+    	double percent;
+    	int frequency	= 10000;
+    	int points 		= pointsPerSecond / frequency;
+    	double steps 	= pointsPerSecond / 2 / points;    	
+    	double[] wave 	= new double[0];
+    	
+    	for (int i = 0; i < steps; i++) {
+    		percent = 50 - i * 50 / steps;
+    		level 	= MathTool.random(amplitude / 7, amplitude / 5);
+    		wave 	= ArrayTool.concat(wave, WaveForms.sine(points, level / 100 * percent));
+    	}
+    	
+    	return wave;
+    }
+    
+    /**
      * Generate snare.
      * 
      * @param pointsPerSecond Points per second.

@@ -2,6 +2,8 @@ package dp.leiba.music;
 
 import dp.leiba.music.creation.Composer;
 import dp.leiba.music.person.Person;
+import dp.leiba.music.tools.Wav;
+import dp.leiba.music.tools.WaveInstruments;
 
 /**
  * Main.
@@ -17,6 +19,12 @@ public class Main
     public static void main(String[] args)
     {
     	Person.say("Hello");
+    	
+    	Wav w = new Wav();
+    	w.setFrames(WaveInstruments.ride(w.getBytesPerSecond(), Wav.AMPLITUDE),  Wav.AMPLITUDE, false);
+    	w.save("D:\\bit_ride.wav");
+    	System.exit(0);
+    	
 
         Composer composer = new Composer();
         composer.save();

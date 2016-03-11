@@ -34,6 +34,19 @@ public class MathTool
     {
         return min + (int)(Math.random() * ((max - min) + 1));
     }
+    
+    /**
+     * Random double.
+     *
+     * @param min Min.
+     * @param max Max.
+     *
+     * @return Random.
+     */
+    public static double random(double min, double max)
+    {
+        return min + (Math.random() * ((max - min) + 1));
+    }
 
     /**
      * Simple random.
