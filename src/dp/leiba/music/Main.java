@@ -26,10 +26,10 @@ public class Main
     	Person.say("Hello");
     	
     	int i;
-    	int p = Wav.FREQUENCY / 300;
+    	int p = Wav.FREQUENCY / 10000;
     	double[] wave = new double[0];
     	
-    	for (i = 0; i < 300; i++) {
+    	for (i = 0; i < 1000; i++) {
     		wave = ArrayTool.concat(wave, WaveForms.sine(p, Wav.AMPLITUDE));
     		//System.out.println((i * 44100 / 1024) + " : " + c[i].mod());
     		//System.out.println(c[i].arg());

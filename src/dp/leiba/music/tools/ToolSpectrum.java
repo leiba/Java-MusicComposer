@@ -40,14 +40,19 @@ public class ToolSpectrum extends JFrame
         protected void paintComponent(Graphics g)
         {
             super.paintComponent(g);
-            g.setColor(Color.BLACK);
             
             int i;
             double[] magnitude = _getMagnitude();
             
             for (i = 0; i < magnitude.length; i++) {
-            	g.drawLine(i, 0, i, (int) magnitude[i]); 
-            	System.out.println(i + ":" + magnitude[i]);
+            	g.setColor(Color.BLACK);
+            	g.drawLine(i, getWidth(), i, getHeight() - (int) magnitude[i]);
+            	
+            	if (i % 50 == 0) {
+            		g.setColor(Color.BLUE);
+            		g.drawString("" + (Wav.FREQUENCY / 100 * (i * 100 / magnitude.length)), i, 10);
+            	}
+            	
             }
 
             try {
@@ -59,13 +64,13 @@ public class ToolSpectrum extends JFrame
         
         private double[] _getMagnitude()
         {
-        	int i, frequency, index, step = Wav.FREQUENCY / J_WIDTH;
+        	int i, frequency, index, step = Wav.FREQUENCY / getWidth();
     		double[] prepare 	= new double[J_WIDTH];
     		
     		for (i = 0; i < _frequency.length; i++) {   
     			frequency 	= i * Wav.FREQUENCY / _frequency.length;    			
     			index		= frequency / step;
-    			index		= index >= prepare.length ? prepare.length - 1 : index; 
+    			index		= index >= prepare.length ? prepare.length - 1 : index < 0 ? 0 : index; 
     			
     			if (_frequency[i].mod() > prepare[index]) {
     				prepare[index] = _frequency[i].mod();
