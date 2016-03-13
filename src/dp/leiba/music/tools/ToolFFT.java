@@ -1,6 +1,8 @@
 package dp.leiba.music.tools;
 
 import be.tarsos.dsp.util.Complex;
+import javafx.scene.transform.Affine;
+import sun.net.httpserver.AuthFilter;
 
 /**
  * Tool FFT.
@@ -11,6 +13,44 @@ import be.tarsos.dsp.util.Complex;
  */
 public class ToolFFT
 {
+	
+	/**
+	 * Filter.
+	 */
+	public static class Filter
+	{
+		protected int _frequency;
+		protected int _width;
+		
+		/**
+		 * Instance.
+		 * 
+		 * @param frequency Frequency.
+		 * @param width	    Width.
+		 * 
+		 * @return Filter.
+		 */
+		public Filter instance(int frequency, int width)
+		{
+			Filter instance = new Filter();
+			_frequency 		= frequency;
+			_width 			= width;
+			
+			return instance;			
+		}
+		
+		/**
+		 * Is cut.
+		 * 
+		 * @param frequency Frequency.
+		 * 
+		 * @return Is cut.
+		 */
+		public boolean cut(int frequency)
+		{
+			return false;
+		}		
+	}
 	
 	/**
 	 * FFT.
@@ -41,7 +81,26 @@ public class ToolFFT
 		return fft(complex);
 	}
 	
+	/**
+	 * FFT.
+	 * 
+	 * @param points Complex points.
+	 * 
+	 * @return FFT.
+	 */
 	public static Complex[] fft(Complex[] x) {
+		return fft(x, new Filter[0]);
+	}
+	
+	/**
+	 * FFT.
+	 * 
+	 * @param points  Complex points.
+	 * @param filters Filters.
+	 * 
+	 * @return FFT.
+	 */
+	public static Complex[] fft(Complex[] x, Filter[] filters) {
         int N = x.length;
 
         // base case

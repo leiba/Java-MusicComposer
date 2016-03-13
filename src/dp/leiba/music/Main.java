@@ -34,6 +34,7 @@ public class Main
     		//System.out.println((i * 44100 / 1024) + " : " + c[i].mod());
     		//System.out.println(c[i].arg());
     	}
+    	wave = WaveInstruments.kick(Wav.FREQUENCY, Wav.AMPLITUDE);
     	
     	Complex[] c = ToolFFT.fft(wave);
     	
