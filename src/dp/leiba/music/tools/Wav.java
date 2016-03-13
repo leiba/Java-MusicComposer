@@ -10,6 +10,7 @@ import java.nio.ByteOrder;
 public class Wav
 {
     public static final int AMPLITUDE = 1;
+    public static final int FREQUENCY = 44100;
 
     protected String  _iChunkId       = "RIFF";   // 4b
     protected int     _iChunkSize     = 58;       // 4b

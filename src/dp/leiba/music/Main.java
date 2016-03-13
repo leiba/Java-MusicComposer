@@ -1,8 +1,13 @@
 package dp.leiba.music;
 
+import be.tarsos.dsp.util.Complex;
 import dp.leiba.music.creation.Composer;
 import dp.leiba.music.person.Person;
+import dp.leiba.music.tools.ArrayTool;
+import dp.leiba.music.tools.ToolFFT;
+import dp.leiba.music.tools.ToolSpectrum;
 import dp.leiba.music.tools.Wav;
+import dp.leiba.music.tools.WaveForms;
 import dp.leiba.music.tools.WaveInstruments;
 
 /**
@@ -20,6 +25,28 @@ public class Main
     {
     	Person.say("Hello");
     	
+    	int i;
+    	int p = Wav.FREQUENCY / 300;
+    	double[] wave = new double[0];
+    	
+    	for (i = 0; i < 300; i++) {
+    		wave = ArrayTool.concat(wave, WaveForms.sine(p, Wav.AMPLITUDE));
+    		//System.out.println((i * 44100 / 1024) + " : " + c[i].mod());
+    		//System.out.println(c[i].arg());
+    	}
+    	
+    	Complex[] c = ToolFFT.fft(wave);
+    	
+    	
+    	for (i = 0; i < c.length; i++) {
+    		//System.out.println((i * 44100 / 1024) + " : " + c[i].mod());
+    		//System.out.println(c[i].arg());
+    	}
+    	System.out.println(c.length);
+    	
+    	new ToolSpectrum(c);
+    	
+    	/*
     	Wav w = new Wav();
     	w.setFrames(WaveInstruments.ride(w.getBytesPerSecond(), Wav.AMPLITUDE),  Wav.AMPLITUDE, false);
     	w.save("D:\\bit_ride.wav");
@@ -39,5 +66,6 @@ public class Main
         Person.debug("SubBass",composer.getSubBass());
 
         Person.say("Bye");
+        */
     }
 }
