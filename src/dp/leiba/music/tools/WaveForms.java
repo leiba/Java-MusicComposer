@@ -99,7 +99,7 @@ public class WaveForms
 
         for (; i < points; i++) {
             percent = i * 100.0 / (points - 1);
-            wave[i] = MathTool.round(Math.tan((Math.PI * 2) / 100 * percent) * amplitude, 2);
+            wave[i] = ToolMath.round(Math.tan((Math.PI * 2) / 100 * percent) * amplitude, 2);
         }
 
         return wave;
@@ -122,7 +122,7 @@ public class WaveForms
 
         for (; i < points; i++) {
             percent = i * 100.0 / (points - 1);
-            wave[i] = MathTool.round(Math.atan((Math.PI * 2) / 100 * percent) * amplitude, 2);
+            wave[i] = ToolMath.round(Math.atan((Math.PI * 2) / 100 * percent) * amplitude, 2);
         }
 
         return wave;
@@ -165,7 +165,7 @@ public class WaveForms
         double[] wave   = new double[points];
 
         for (; i < wave.length; i++) {
-            wave[i] = MathTool.round((size / (points - 1)) * i - amplitude, 2);
+            wave[i] = ToolMath.round((size / (points - 1)) * i - amplitude, 2);
         }
 
         return wave;
@@ -188,13 +188,13 @@ public class WaveForms
 
         for (; i < points; i++) {
             percent = i * 100.0 / (points - 1);
-            wave[i] = MathTool.round(Math.sin((Math.PI * 2) / 100 * percent) * amplitude, 2);
+            wave[i] = ToolMath.round(Math.sin((Math.PI * 2) / 100 * percent) * amplitude, 2);
             
             if (i % 2 == 0) {
-            	wave[i] += MathTool.random(-60, 60);
+            	wave[i] += ToolMath.random(-60, 60);
             }
             
-            wave[i] = MathTool.range(wave[i], (int) - amplitude, (int) amplitude);
+            wave[i] = ToolMath.range(wave[i], (int) -amplitude, (int) amplitude);
         }
 
         return wave;

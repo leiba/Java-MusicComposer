@@ -1,7 +1,7 @@
 package dp.leiba.music.creation;
 
-import dp.leiba.music.tools.ArrayTool;
-import dp.leiba.music.tools.MathTool;
+import dp.leiba.music.tools.ToolArray;
+import dp.leiba.music.tools.ToolMath;
 
 import java.util.Arrays;
 
@@ -21,7 +21,7 @@ public class Melody
         int noteFrom    = Theory.TONES * 4 + 1;
         int noteTo      = noteFrom + Theory.TONES - 1;
 
-        return MathTool.random(noteFrom, noteTo);
+        return ToolMath.random(noteFrom, noteTo);
     }
 
     /**
@@ -31,7 +31,7 @@ public class Melody
      */
     public static boolean getIsMajor()
     {
-        return MathTool.is();
+        return ToolMath.is();
     }
 
     /**
@@ -48,7 +48,7 @@ public class Melody
         int[][] chords  = Theory.getChordHarmony(note, isMajor);
         int[] chord     = chords[0];
 
-        chords      = Arrays.copyOfRange(ArrayTool.shuffle(chords), 0, bars);
+        chords      = Arrays.copyOfRange(ToolArray.shuffle(chords), 0, bars);
         chords[0]   = chord;
 
         return chords;
@@ -191,7 +191,7 @@ public class Melody
     private static int getNeighbourNote(int[] notes, int note)
     {
         int range   = 3; //Theory.TONES / 3;
-        int shift   = MathTool.random(-range, range);
+        int shift   = ToolMath.random(-range, range);
         int index   = Arrays.asList(notes).indexOf(note) + shift;
 
         return index > 0 && index < notes.length ? notes[index] : note;

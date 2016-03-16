@@ -1,6 +1,6 @@
 package dp.leiba.music.creation;
 
-import dp.leiba.music.tools.MathTool;
+import dp.leiba.music.tools.ToolMath;
 
 /**
  * Music rhythm.
@@ -24,7 +24,7 @@ public class Rhythm
      */
     public static int getBPM()
     {
-    	return MathTool.random(120, 128);
+    	return ToolMath.random(120, 128);
     }
     
     /**
@@ -44,8 +44,8 @@ public class Rhythm
             if (i == 0 || i % beats == 0) {
                 rhythm[i] = MELODY_ATTACK;
             } else {
-                if (MathTool.is()) {
-                    rhythm[i] = MathTool.is() ? MELODY_ATTACK : MELODY_RELEASE;
+                if (ToolMath.is()) {
+                    rhythm[i] = ToolMath.is() ? MELODY_ATTACK : MELODY_RELEASE;
                 } else {
                     rhythm[i] = MELODY_REST;
                 }

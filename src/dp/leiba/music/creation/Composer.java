@@ -1,8 +1,7 @@
 package dp.leiba.music.creation;
 
-import dp.leiba.music.tools.ArrayTool;
+import dp.leiba.music.tools.ToolArray;
 import dp.leiba.music.tools.Wav;
-import dp.leiba.music.tools.WaveEffect;
 import dp.leiba.music.tools.WaveForms;
 import dp.leiba.music.tools.WaveInstruments;
 
@@ -58,7 +57,7 @@ public class Composer
         
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), Wav.AMPLITUDE, _cSizeBeat), 0, false);
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
-        ArrayTool.fillSum(_cWave, getWaveDrums(_cDrums), 0, true);
+        ToolArray.fillSum(_cWave, getWaveDrums(_cDrums), 0, true);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
     }
     
@@ -164,16 +163,16 @@ public class Composer
                 points  = (int) (_cSizeSec / Theory.getNoteFreq(notes[i]));
 
                 for (j = 0; j < beat.length; j += points) {
-                    ArrayTool.fill(beat, WaveForms.factory(points, Wav.AMPLITUDE, form), j);
+                    ToolArray.fill(beat, WaveForms.factory(points, Wav.AMPLITUDE, form), j);
                 }
 
                 if (_cRhythm[i] == Rhythm.MELODY_RELEASE || true) {
                     rest = points / 3;
-                    ArrayTool.fillZero(beat, j + (points - rest), j + points);
+                    ToolArray.fillZero(beat, j + (points - rest), j + points);
                 }
             }
 
-            ArrayTool.fill(wave, beat, i * _cSizeBeat);
+            ToolArray.fill(wave, beat, i * _cSizeBeat);
         }
 
         return wave;
@@ -212,7 +211,7 @@ public class Composer
 					part = _getWaveHat(part, 2);
 				}
 				
-				ArrayTool.fillSum(wave, part, i * _cSizeBeat, true);
+				ToolArray.fillSum(wave, part, i * _cSizeBeat, true);
     		}
     	}
     	
@@ -224,7 +223,7 @@ public class Composer
      */
     public void save()
     {
-        int amplitude = (int) ArrayTool.maxAbs(_cWave);
+        int amplitude = (int) ToolArray.maxAbs(_cWave);
 
         _cWav.setFrames(_cWave, amplitude, false);
         _cWav.save(CONFIG_PATH);
@@ -245,7 +244,7 @@ public class Composer
     	double[] wave 	= new double[_cSizeBeat]; 
     	
     	for (; i < times; i++) {
-    		ArrayTool.fillSum(wave, hat, i * quarter, true);
+    		ToolArray.fillSum(wave, hat, i * quarter, true);
     	}
     	
     	return wave;

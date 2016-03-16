@@ -23,7 +23,7 @@ public class Main
     	double[] wave = new double[0];
     	
     	for (i = 0; i < 1000; i++) {
-    		wave = ArrayTool.concat(wave, WaveForms.sine(p, Wav.AMPLITUDE));
+    		wave = ToolArray.concat(wave, WaveForms.sine(p, Wav.AMPLITUDE));
     		//System.out.println((i * 44100 / 1024) + " : " + c[i].mod());
     		//System.out.println(c[i].arg());
     	}

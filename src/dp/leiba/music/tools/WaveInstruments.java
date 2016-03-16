@@ -72,16 +72,16 @@ public class WaveInstruments
     	double[] rel 	= new double[0];
         
     	for (i = 10; i > 1; i--) {
-    		attack = ArrayTool.concat(
-    			attack,
-        		WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(rootPunch + Theory.TONES * i)), amplitude)
-        	);
+    		attack = ToolArray.concat(
+                    attack,
+                    WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(rootPunch + Theory.TONES * i)), amplitude)
+            );
     	}
     	
     	for (i = steps; i > 0; i--) {
-    		rel = ArrayTool.concat(
-            	rel,
-            	WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root)), amplitude)
+    		rel = ToolArray.concat(
+                    rel,
+                    WaveForms.sine((int) (pointsPerSecond / Theory.getNoteFreq(root)), amplitude)
             );
     		
     		if (i <= 15) {
@@ -89,7 +89,7 @@ public class WaveInstruments
     		}
     	}
 
-        return ArrayTool.concat(attack, rel);
+        return ToolArray.concat(attack, rel);
     }
     
     /**
@@ -111,8 +111,8 @@ public class WaveInstruments
     	
     	for (int i = 0; i < steps; i++) {
     		percent = 50 - i * 50 / steps;
-    		level 	= MathTool.random(amplitude / 7, amplitude / 5);
-    		wave 	= ArrayTool.concat(wave, WaveForms.sine(points, level / 100 * percent));
+    		level 	= ToolMath.random(amplitude / 7, amplitude / 5);
+    		wave 	= ToolArray.concat(wave, WaveForms.sine(points, level / 100 * percent));
     		
     		wave[i * points + 1] = 0;
     	}
@@ -141,7 +141,7 @@ public class WaveInstruments
         	fade	= (int) ((amplitude / 100.0) * ((steps - i) * 100 / steps));
         	part 	= WaveForms.noise(points * i, fade);
         	
-        	wave = ArrayTool.concat(wave, part);
+        	wave = ToolArray.concat(wave, part);
         }        
         
         return wave;
@@ -179,9 +179,9 @@ public class WaveInstruments
     	double[] part;
     	
     	for (i = 0; i < freq.length; i++) {
-    		points = MathTool.freq(pointsPerSecond, freq[i] * fundamental);
+    		points = ToolMath.freq(pointsPerSecond, freq[i] * fundamental);
     		for (j = 0; j < wave.length / points; j++) {
-    			wave = ArrayTool.fillSum(wave, WaveForms.square(points, amplitude), j * points, true);
+    			wave = ToolArray.fillSum(wave, WaveForms.square(points, amplitude), j * points, true);
     			//WaveFilters.band(wave, pointsPerSecond, 7, 7);
     			System.exit(0);
     		}
@@ -211,7 +211,7 @@ public class WaveInstruments
         	fade	= (int) ((amplitude / 100.0) * ((steps - i) * 100 / steps));
         	part 	= WaveForms.sine(points * i, fade);
         	
-        	wave = ArrayTool.concat(wave, part);
+        	wave = ToolArray.concat(wave, part);
         }        
         
         return wave;

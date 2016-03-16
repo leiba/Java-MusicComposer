@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Tool Array.
  */
-public class ArrayTool
+public class ToolArray
 {
 
     /**

@@ -3,7 +3,7 @@ package dp.leiba.music.tools;
 /**
  * Math tools.
  */
-public class MathTool
+public class ToolMath
 {
     /**
      * Round.

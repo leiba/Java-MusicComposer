@@ -1,7 +1,7 @@
 package dp.leiba.music.creation;
 
-import dp.leiba.music.tools.ArrayTool;
-import dp.leiba.music.tools.MathTool;
+import dp.leiba.music.tools.ToolArray;
+import dp.leiba.music.tools.ToolMath;
 
 import java.util.Arrays;
 
@@ -80,7 +80,7 @@ public class Theory
     {
         int octave  = getNoteOctave(note);
         int tone    = note - (octave * TONES);
-        double freq = MathTool.round(getNoteFreq(note), 2);
+        double freq = ToolMath.round(getNoteFreq(note), 2);
 
         return names[tone - 1] + octave + ',' + freq + "Hz";
     }
@@ -139,8 +139,8 @@ public class Theory
         int[] harmony = new int[0];
 
         for (i = 0; i < octaves; i++) {
-            shift = (i > 0 ? (MathTool.isEven(i) ? --shiftDown : ++shiftUp) * TONES : 0);
-            harmony = ArrayTool.concat(harmony, getHarmonyOctave(note + shift, isMajor));
+            shift = (i > 0 ? (ToolMath.isEven(i) ? --shiftDown : ++shiftUp) * TONES : 0);
+            harmony = ToolArray.concat(harmony, getHarmonyOctave(note + shift, isMajor));
         }
 
         Arrays.sort(harmony);
@@ -174,7 +174,7 @@ public class Theory
         }
 
         Arrays.sort(harmony);
-        return ArrayTool.clearRange(harmony, 1, TONES * OCTAVES);
+        return ToolArray.clearRange(harmony, 1, TONES * OCTAVES);
     }
     
     /**
