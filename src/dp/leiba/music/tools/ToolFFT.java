@@ -114,27 +114,27 @@ public class ToolFFT
 	 * 
 	 * @return FFT.
 	 */
-	public static Complex[] fft(double[] points)
-	{
-		Complex[] complex;
-		int i, length = points.length;		
-		
-		while ((length & -length) != length) {
-			length++;
-		}
-		
-		complex = new Complex[length];
+    public static Complex[] fft(double[] points)
+    {
+        Complex[] complex;
+        int i, length = points.length;
 
-		for (i = 0; i < complex.length; i++) {
-			if (i < points.length) {
-				complex[i] = new Complex(points[i], 0);
-			} else {
-				complex[i] = new Complex(0, 0);
-			}			
-		}
-		
-		return fft(complex);
-	}
+        while ((length & -length) != length) {
+            length++;
+        }
+
+        complex = new Complex[length];
+
+        for (i = 0; i < complex.length; i++) {
+            if (i < points.length) {
+                complex[i] = new Complex(points[i], 0);
+            } else {
+                complex[i] = new Complex(0, 0);
+            }
+        }
+
+        return fft(complex);
+    }
 	
 	/**
 	 * FFT.
@@ -156,7 +156,7 @@ public class ToolFFT
 	 * 
 	 * @return FFT.
 	 */
-	public static Complex[] fft(Complex[] x, FFTFilter[] filters)
+    public static Complex[] fft(Complex[] x, FFTFilter[] filters)
     {
         int k, N = x.length;
         double kth;
@@ -165,8 +165,8 @@ public class ToolFFT
 
         // base case
         if (N == 1) {
-        	return new Complex[] {
-                x[0]
+            return new Complex[] {
+                    x[0]
             };
         }
 
