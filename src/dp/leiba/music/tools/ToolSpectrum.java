@@ -3,14 +3,14 @@ package dp.leiba.music.tools;
 import javax.swing.*;
 import java.awt.*;
 
-import be.tarsos.dsp.util.Complex;
-
 public class ToolSpectrum extends JFrame
 {
 
-	private static final int J_WIDTH  = 1000;
-	private static final int J_HEIGHT = 200;
-	
+	private static final int J_WIDTH    = 1000;
+	private static final int J_HEIGHT   = 200;
+	private static final int J_LEFT     = 0;
+	private static final int J_TOP      = 0;
+
     /**
      * Panel.
      */
@@ -52,16 +52,14 @@ public class ToolSpectrum extends JFrame
             		g.setColor(Color.BLUE);
             		g.drawString("" + (Wav.FREQUENCY / 100 * (i * 100 / magnitude.length)), i, 10);
             	}
-            	
-            }
-
-            try {
-                
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
-        
+
+        /**
+         * Get magnitude.
+         *
+         * @return Magnitude.
+         */
         private double[] _getMagnitude()
         {
         	int i, frequency, index, step = Wav.FREQUENCY / getWidth();
@@ -90,6 +88,7 @@ public class ToolSpectrum extends JFrame
     {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(J_WIDTH, J_HEIGHT);
+        setLocation(J_LEFT, J_TOP);
         setVisible(true);
 
         add(new Panel(frequency));

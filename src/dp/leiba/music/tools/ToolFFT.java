@@ -1,9 +1,5 @@
 package dp.leiba.music.tools;
 
-import be.tarsos.dsp.util.Complex;
-import javafx.scene.transform.Affine;
-import sun.net.httpserver.AuthFilter;
-
 /**
  * Tool FFT.
  * Arg - phase.
@@ -13,11 +9,12 @@ import sun.net.httpserver.AuthFilter;
  */
 public class ToolFFT
 {
+    private static final String EXCEPTION = "N is not a power of 2";
 	
 	/**
-	 * Filter.
+	 * FFTFilter.
 	 */
-	public static class Filter
+	public static class FFTFilter
 	{
 		protected int _frequency;
 		protected int _width;
@@ -28,13 +25,13 @@ public class ToolFFT
 		 * @param frequency Frequency.
 		 * @param width	    Width.
 		 * 
-		 * @return Filter.
+		 * @return FFTFilter.
 		 */
-		public Filter instance(int frequency, int width)
+		public FFTFilter instance(int frequency, int width)
 		{
-			Filter instance = new Filter();
-			_frequency 		= frequency;
-			_width 			= width;
+            FFTFilter instance  = new FFTFilter();
+			_frequency 		    = frequency;
+			_width 			    = width;
 			
 			return instance;			
 		}
@@ -51,6 +48,64 @@ public class ToolFFT
 			return false;
 		}		
 	}
+
+    /**
+     * FFTFilterLow.
+     */
+    public static class FFTFilterLow extends FFTFilter
+    {
+
+        /**
+         * Is cut.
+         *
+         * @param frequency Frequency.
+         *
+         * @return Is cut.
+         */
+        public boolean cut(int frequency)
+        {
+            return frequency < _frequency;
+        }
+    }
+
+    /**
+     * FFTFilterHigh.
+     */
+    public static class FFTFilterHigh extends FFTFilter
+    {
+
+        /**
+         * Is cut.
+         *
+         * @param frequency Frequency.
+         *
+         * @return Is cut.
+         */
+        public boolean cut(int frequency)
+        {
+            return frequency > _frequency;
+        }
+    }
+
+    /**
+     * FFTFilterBand.
+     */
+    public static class FFTFilterBand extends FFTFilter
+    {
+
+        /**
+         * Is cut.
+         *
+         * @param frequency Frequency.
+         *
+         * @return Is cut.
+         */
+        public boolean cut(int frequency)
+        {
+            return (frequency < (_frequency - _width))
+                || (frequency > (_frequency + _width));
+        }
+    }
 	
 	/**
 	 * FFT.
@@ -84,57 +139,64 @@ public class ToolFFT
 	/**
 	 * FFT.
 	 * 
-	 * @param points Complex points.
+	 * @param x Complex points.
 	 * 
 	 * @return FFT.
 	 */
-	public static Complex[] fft(Complex[] x) {
-		return fft(x, new Filter[0]);
+	public static Complex[] fft(Complex[] x)
+    {
+		return fft(x, new FFTFilter[0]);
 	}
 	
 	/**
 	 * FFT.
 	 * 
-	 * @param points  Complex points.
+	 * @param x       Complex points.
 	 * @param filters Filters.
 	 * 
 	 * @return FFT.
 	 */
-	public static Complex[] fft(Complex[] x, Filter[] filters) {
-        int N = x.length;
+	public static Complex[] fft(Complex[] x, FFTFilter[] filters)
+    {
+        int k, N = x.length;
+        double kth;
+        Complex wk;
+        Complex[] even, odd, q, r, y;
 
         // base case
         if (N == 1) {
-        	return new Complex[] { x[0] };
+        	return new Complex[] {
+                x[0]
+            };
         }
 
         if (N % 2 != 0) {
-            throw new IllegalArgumentException("N is not a power of 2");
+            throw new IllegalArgumentException(EXCEPTION);
         }
 
         // fft of even terms
-        Complex[] even = new Complex[N/2];
-        for (int k = 0; k < N/2; k++) {
-            even[k] = x[2*k];
+        even = new Complex[N / 2];
+        for (k = 0; k < N / 2; k++) {
+            even[k] = x[2 * k];
         }
-        Complex[] q = fft(even);
+        q = fft(even);
 
         // fft of odd terms
-        Complex[] odd  = even;  // reuse the array
-        for (int k = 0; k < N/2; k++) {
-            odd[k] = x[2*k + 1];
+        odd  = even;  // reuse the array
+        for (k = 0; k < N / 2; k++) {
+            odd[k] = x[2 * k + 1];
         }
-        Complex[] r = fft(odd);
+        r = fft(odd);
 
         // combine
-        Complex[] y = new Complex[N];
-        for (int k = 0; k < N/2; k++) {
-            double kth = -2 * k * Math.PI / N;
-            Complex wk = new Complex(Math.cos(kth), Math.sin(kth));
-            y[k]       = q[k].plus(wk.times(r[k]));
-            y[k + N/2] = q[k].minus(wk.times(r[k]));
+        y = new Complex[N];
+        for (k = 0; k < N / 2; k++) {
+            kth         = -2 * k * Math.PI / N;
+            wk          = new Complex(Math.cos(kth), Math.sin(kth));
+            y[k]        = q[k].plus(wk.times(r[k]));
+            y[k + N/2]  = q[k].minus(wk.times(r[k]));
         }
+
         return y;
     }
-
 }

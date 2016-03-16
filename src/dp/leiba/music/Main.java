@@ -1,14 +1,7 @@
 package dp.leiba.music;
 
-import be.tarsos.dsp.util.Complex;
-import dp.leiba.music.creation.Composer;
 import dp.leiba.music.person.Person;
-import dp.leiba.music.tools.ArrayTool;
-import dp.leiba.music.tools.ToolFFT;
-import dp.leiba.music.tools.ToolSpectrum;
-import dp.leiba.music.tools.Wav;
-import dp.leiba.music.tools.WaveForms;
-import dp.leiba.music.tools.WaveInstruments;
+import dp.leiba.music.tools.*;
 
 /**
  * Main.
