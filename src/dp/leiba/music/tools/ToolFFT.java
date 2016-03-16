@@ -166,7 +166,7 @@ public class ToolFFT
         // base case
         if (N == 1) {
             return new Complex[] {
-                    x[0]
+                x[0]
             };
         }
 
