@@ -106,6 +106,19 @@ public class ToolFFT
                 || (frequency > (_frequency + _width));
         }
     }
+
+    /**
+     * FFTFilter.
+     * http://stackoverflow.com/questions/24644496/implementing-low-pass-filter-on-frequencies-using-java-by-just-having-frequency
+     * http://stackoverflow.com/questions/4026648/how-to-implement-low-pass-filter-using-java
+     *
+     * @param points  Points.
+     * @param filters Filters.
+     */
+    public void fftFilter(double[] points, FFTFilter[] filters)
+    {
+
+    }
 	
 	/**
 	 * FFT.
@@ -143,20 +156,7 @@ public class ToolFFT
 	 * 
 	 * @return FFT.
 	 */
-	public static Complex[] fft(Complex[] x)
-    {
-		return fft(x, new FFTFilter[0]);
-	}
-	
-	/**
-	 * FFT.
-	 * 
-	 * @param x       Complex points.
-	 * @param filters Filters.
-	 * 
-	 * @return FFT.
-	 */
-    public static Complex[] fft(Complex[] x, FFTFilter[] filters)
+    public static Complex[] fft(Complex[] x)
     {
         int k, N = x.length;
         double kth;
