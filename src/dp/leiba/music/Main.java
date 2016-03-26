@@ -44,7 +44,7 @@ public class Main
 //    	}
     	
     	wave = ToolFFT.fftFilter(wave, new ToolFFT.FFTFilter[] {
-    		new ToolFFT.FFTFilterLow(5000, 0)
+    		ToolFFT.filter(ToolFFT.FILTER_LOW, 10000, 0)
     	});
     	Complex[] c = ToolFFT.fft(wave);
 

@@ -11,6 +11,10 @@ import java.util.Arrays;
  */
 public class ToolFFT
 {
+	public static final int FILTER_LOW 	= 0;
+	public static final int FILTER_HIGH	= 1;
+	public static final int FILTER_BAND = 2;
+	
     private static final String EXCEPTION = "N is not a power of 2";
 	
 	/**
@@ -134,6 +138,27 @@ public class ToolFFT
             return (frequency < (_frequency - _width))
                 || (frequency > (_frequency + _width));
         }
+    }
+    
+    public static FFTFilter filter(final int type, int frequency, int width)
+    {
+    	FFTFilter filter = null;
+    	
+    	switch (type) {
+	    	case FILTER_LOW  :
+	    		filter = new FFTFilterLow(frequency, width);
+	    		break;
+	    		
+	    	case FILTER_HIGH :
+	    		filter = new FFTFilterHigh(frequency, width);
+	    		break;
+	    		
+	    	case FILTER_BAND :
+	    		filter = new FFTFilterBand(frequency, width);
+	    		break;
+    	}
+    	
+    	return filter;
     }
 
     /**
