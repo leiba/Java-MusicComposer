@@ -43,8 +43,9 @@ public class Main
 //    	   wave[index] = 0;
 //    	}
     	
+    	wave = WaveInstruments.ride(Wav.FREQUENCY, Wav.AMPLITUDE);
     	wave = ToolFFT.fftFilter(wave, new ToolFFT.FFTFilter[] {
-    		ToolFFT.filter(ToolFFT.FILTER_LOW, 10000, 0)
+    		ToolFFT.filter(ToolFFT.FILTER_HIGH, 10000, 0)
     	});
     	Complex[] c = ToolFFT.fft(wave);
 

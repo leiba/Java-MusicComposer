@@ -14,6 +14,7 @@ public class ToolFFT
 	public static final int FILTER_LOW 	= 0;
 	public static final int FILTER_HIGH	= 1;
 	public static final int FILTER_BAND = 2;
+	public static final int FILTER_BELL = 3;
 	
     private static final String EXCEPTION = "N is not a power of 2";
 	
@@ -90,6 +91,14 @@ public class ToolFFT
     public static class FFTFilterHigh extends FFTFilter
     {
 
+    	/**
+		 * Constructor.
+		 * 
+		 * @param frequency Frequency.
+		 * @param width	    Width.
+		 * 
+		 * @return FFTFilter.
+		 */
         public FFTFilterHigh(int frequency, int width) {
 			super(frequency, width);
 		}
@@ -140,6 +149,48 @@ public class ToolFFT
         }
     }
     
+    /**
+     * FFTFilterBell.
+     */
+    public static class FFTFilterBell extends FFTFilter
+    {
+
+    	/**
+		 * Constructor.
+		 * 
+		 * @param frequency Frequency.
+		 * @param width	    Width.
+		 * 
+		 * @return FFTFilter.
+		 */
+        public FFTFilterBell(int frequency, int width)
+        {
+			super(frequency, width);
+		}
+
+		/**
+         * Is cut.
+         *
+         * @param frequency Frequency.
+         *
+         * @return Is cut.
+         */
+        public boolean cut(int frequency)
+        {
+            return (frequency > (_frequency - _width))
+                && (frequency < (_frequency + _width));
+        }
+    }
+    
+    /**
+     * Get filter.
+     * 
+     * @param type      Type.
+     * @param frequency Frequency.
+     * @param width     Width.
+     * 
+     * @return Filter.
+     */
     public static FFTFilter filter(final int type, int frequency, int width)
     {
     	FFTFilter filter = null;
@@ -155,6 +206,10 @@ public class ToolFFT
 	    		
 	    	case FILTER_BAND :
 	    		filter = new FFTFilterBand(frequency, width);
+	    		break;
+	    		
+	    	case FILTER_BELL :
+	    		filter = new FFTFilterBell(frequency, width);
 	    		break;
     	}
     	
