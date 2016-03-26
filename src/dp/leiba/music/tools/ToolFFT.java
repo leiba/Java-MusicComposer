@@ -1,5 +1,7 @@
 package dp.leiba.music.tools;
 
+import java.util.Arrays;
+
 /**
  * Tool FFT.
  * Arg - phase.
@@ -115,10 +117,17 @@ public class ToolFFT
      * @param points  Points.
      * @param filters Filters.
      */
-    public void fftFilter(double[] points, FFTFilter[] filters)
+    public static double[] fftFilter(double[] points, FFTFilter[] filters)
     {
-
+    	int i;
+    	Complex[] fft	= fft(points);
+    	Complex[] ifft  = ifft(fft);
     	
+    	for (i = 0; i< points.length; i++) {
+    		points[i] = ifft[i].mod();
+    	}
+
+    	return points;
     }
 	
 	/**

@@ -43,7 +43,9 @@ public class Main
 //    	   wave[index] = 0;
 //    	}
     	
+    	wave = ToolFFT.fftFilter(wave, null);
     	Complex[] c = ToolFFT.fft(wave);
+
     	for(i = index; index < N; index++) {
      	   //c[index] = new Complex(0, 0);
      	}
