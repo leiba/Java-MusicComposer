@@ -7,43 +7,42 @@ package dp.leiba.music.tools;
  */
 public class Complex
 {
-
-    private double x, y;
+	
+    private final double re;   // the real part
+    private final double im;   // the imaginary part
 
     /**
-     * Constructs the complex number z = u + i*v.
+     * Initializes a complex number.
      *
-     * @param u Real part.
-     * @param v Imaginary part.
+     * @param real The real part
+     * @param imag The imaginary part
      */
-    public Complex(double u, double v)
+    public Complex(double real, double imag)
     {
-        x = u;
-        y = v;
+        re = real;
+        im = imag;
+    }
+    
+    /**
+     * Real part of this complex number.
+     *
+     * @return Real part.
+     */
+    public double re() 
+    {
+        return re;
     }
 
     /**
-     * Real part of this Complex number
-     * (the x-coordinate in rectangular coordinates).
+     * Imaginary part of this complex number.
      *
-     * @return Re[z] where z is this Complex number.
+     * @return Imaginary part.
      */
-    public double real()
+    public double im() 
     {
-        return x;
+        return im;
     }
-
-    /**
-     * Imaginary part of this Complex number
-     * (the y-coordinate in rectangular coordinates).
-     *
-     * @return Im[z] where z is this Complex number.
-     */
-    public double imag()
-    {
-        return y;
-    }
-
+    
     /**
      * Modulus of this Complex number
      * (the distance from the origin in polar coordinates).
@@ -52,8 +51,8 @@ public class Complex
      */
     public double mod()
     {
-        if (x!=0 || y!=0) {
-            return Math.sqrt(x * x + y * y);
+        if (re != 0 || im != 0) {
+            return Math.sqrt(re * re + im * im);
         } else {
             return 0d;
         }
@@ -67,254 +66,204 @@ public class Complex
      */
     public double arg()
     {
-        return Math.atan2(y,x);
+        return Math.atan2(re, im);
     }
 
     /**
-     * Complex conjugate of this Complex number
-     * (the conjugate of x+i*y is x-i*y).
+     * Absolute value of this complex number.
+     * This quantity is also known as the modulus or magnitude.
      *
-     * @return z-bar where z is this Complex number.
+     * @return Absolute value of this complex number.
      */
-    public Complex conj()
+    public double abs()
     {
-        return new Complex(x,-y);
+        return Math.hypot(re, im);
     }
 
     /**
-     * Addition of Complex numbers (doesn't change this Complex number).
-     * (x+i*y) + (s+i*t) = (x+s)+i*(y+t).
+     * Phase of this complex number.
+     * This quantity is also known as the ange or argument.
      *
-     * @param w Is the number to add.
-     *
-     * @return z+w where z is this Complex number.
+     * @return Phase of this complex number, a real number between -pi and pi
      */
-    public Complex plus(Complex w)
+    public double phase() 
     {
-        return new Complex(x + w.real(), y + w.imag());
+        return Math.atan2(im, re);
     }
 
     /**
-     * Subtraction of Complex numbers (doesn't change this Complex number).
-     * (x+i*y) - (s+i*t) = (x-s)+i*(y-t).
+     * Sum of this complex number and the specified complex number.
      *
-     * @param w Is the number to subtract.
-     *
-     * @return z-w where z is this Complex number.
+     * @param  Other complex number.
+     * 
+     * @return Complex number whose value is (this + that).
      */
-    public Complex minus(Complex w)
+    public Complex plus(Complex that) 
     {
-        return new Complex(x-w.real(),y-w.imag());
+        double real = this.re + that.re;
+        double imag = this.im + that.im;
+        
+        return new Complex(real, imag);
     }
 
     /**
-     * Complex multiplication (doesn't change this Complex number).
+     * Result of subtracting the specified complex number from
+     * this complex number.
      *
-     * @param w Is the number to multiply by.
-     *
-     * @return z*w where z is this Complex number.
+     * @param  Other complex number.
+     * 
+     * @return Complex number whose value is (this - that).
      */
-    public Complex times(Complex w)
+    public Complex minus(Complex that) 
+    {
+        double real = this.re - that.re;
+        double imag = this.im - that.im;
+        
+        return new Complex(real, imag);
+    }
+
+    /**
+     * Product of this complex number and the specified complex number.
+     *
+     * @param  Other complex number.
+     * 
+     * @return Complex number whose value is (this * that).
+     */
+    public Complex times(Complex that) 
+    {
+        double real = this.re * that.re - this.im * that.im;
+        double imag = this.re * that.im + this.im * that.re;
+        
+        return new Complex(real, imag);
+    }
+
+    /**
+     * Returns the product of this complex number and the specified scalar.
+     *
+     * @param  alpha The scalar.
+     * 
+     * @return Complex number whose value is (alpha * this).
+     */
+    public Complex scale(double alpha) 
+    {
+        return new Complex(alpha * re, alpha * im);
+    }
+
+    /**
+     * Product of this complex number and the specified scalar.
+     *
+     * @param alpha The scalar.
+     * 
+     * @return Complex number whose value is (alpha * this).
+     * 
+     * @deprecated Use {@link #scale(double)} instead.
+     */
+    public Complex times(double alpha) 
+    {
+        return new Complex(alpha * re, alpha * im);
+    }
+
+    /**
+     * Complex conjugate of this complex number.
+     *
+     * @return Complex conjugate of this complex number.
+     */
+    public Complex conjugate() 
+    {
+        return new Complex(re, -im);
+    }
+
+    /**
+     * Reciprocal of this complex number.
+     *
+     * @return Complex number whose value is (1 / this).
+     */
+    public Complex reciprocal() 
+    {
+        double scale = re * re + im * im;
+        
+        return new Complex(re / scale, -im / scale);
+    }
+
+    /**
+     * Result of dividing the specified complex number into
+     * this complex number.
+     *
+     * @param Other complex number.
+     * 
+     * @return Complex number whose value is (this / that).
+     */
+    public Complex divides(Complex that) 
+    {
+        return this.times(that.reciprocal());
+    }
+
+    /**
+     * Complex exponential of this complex number.
+     *
+     * @return Complex exponential of this complex number.
+     */
+    public Complex exp() 
     {
         return new Complex(
-            x * w.real() - y * w.imag(),
-            x * w.imag() + y * w.real()
+        	Math.exp(re) * Math.cos(im),
+        	Math.exp(re) * Math.sin(im)
         );
     }
 
     /**
-     * Division of Complex numbers (doesn't change this Complex number).
-     * (x+i*y)/(s+i*t) = ((x*s+y*t) + i*(y*s-y*t)) / (s^2+t^2).
+     * Complex sine of this complex number.
      *
-     * @param w Is the number to divide by
-     *
-     * @return New Complex number z/w where z is this Complex number.
+     * @return Complex sine of this complex number.
      */
-    public Complex div(Complex w) {
-        double den = Math.pow(w.mod(), 2);
-
+    public Complex sin() 
+    {
         return new Complex(
-            (x * w.real() + y * w.imag()) / den,
-            (y * w.real() - x * w.imag()) / den
+        	Math.sin(re) * Math.cosh(im),
+        	Math.cos(re) * Math.sinh(im)
         );
     }
 
     /**
-     * Complex exponential (doesn't change this Complex number).
+     * Complex cosine of this complex number.
      *
-     * @return exp(z) where z is this Complex number.
+     * @return Complex cosine of this complex number.
      */
-    public Complex exp()
+    public Complex cos() 
     {
         return new Complex(
-            Math.exp(x) * Math.cos(y),
-            Math.exp(x) * Math.sin(y)
+        	Math.cos(re) * Math.cosh(im),
+        	- Math.sin(re) * Math.sinh(im)
         );
     }
 
     /**
-     * Principal branch of the Complex logarithm of this Complex number.
-     * (doesn't change this Complex number).
-     * The principal branch is the branch with -pi < arg <= pi.
+     * Complex tangent of this complex number.
      *
-     * @return log(z) where z is this Complex number.
+     * @return Complex tangent of this complex number.
      */
-    public Complex log()
+    public Complex tan() 
     {
-        return new Complex(Math.log(this.mod()), this.arg());
+        return sin().divides(cos());
     }
-
+    
     /**
-     * Complex square root (doesn't change this complex number).
-     * Computes the principal branch of the square root, which
-     * is the value with 0 <= arg < pi.
+     * Representation of this complex number.
      *
-     * @return sqrt(z) where z is this Complex number.
+     * @return Form 34 - 56i.
      */
-    public Complex sqrt()
-    {
-        double r        = Math.sqrt(this.mod());
-        double theta    = this.arg() / 2;
-
-        return new Complex(
-            r * Math.cos(theta),
-            r * Math.sin(theta)
-        );
-    }
-
-    /**
-     * Real cosh function
-     * (used to compute complex trig functions).
-     *
-     * @param theta Theta.
-     *
-     * @return Complex trig functions.
-     */
-    private double cosh(double theta)
-    {
-        return (Math.exp(theta) + Math.exp(-theta)) / 2;
-    }
-
-    /**
-     * Real sinh function
-     * (used to compute complex trig functions).
-     *
-     * @param theta Theta.
-     *
-     * @return Complex trig functions.
-     */
-    private double sinh(double theta)
-    {
-        return (Math.exp(theta) - Math.exp(-theta)) / 2;
-    }
-
-    /**
-     * Sine of this Complex number (doesn't change this Complex number).
-     * sin(z) = (exp(i*z)-exp(-i*z))/(2*i).
-     *
-     * @return sin(z) where z is this Complex number.
-     */
-    public Complex sin()
-    {
-        return new Complex(
-            cosh(y) * Math.sin(x),
-            sinh(y) * Math.cos(x)
-        );
-    }
-
-    /**
-     * Cosine of this Complex number (doesn't change this Complex number).
-     * cos(z) = (exp(i*z)+exp(-i*z))/ 2.
-     *
-     * @return cos(z) where z is this Complex number.
-     */
-    public Complex cos()
-    {
-        return new Complex(
-            cosh(y) * Math.cos(x),
-            -sinh(y) * Math.sin(x)
-        );
-    }
-
-    /**
-     * Hyperbolic sine of this Complex number
-     * (doesn't change this Complex number).
-     * sinh(z) = (exp(z)-exp(-z))/2.
-     *
-     * @return sinh(z) where z is this Complex number.
-     */
-    public Complex sinh()
-    {
-        return new Complex(
-            sinh(x) * Math.cos(y),
-            cosh(x) * Math.sin(y)
-        );
-    }
-
-    /**
-     * Hyperbolic cosine of this Complex number
-     * (doesn't change this Complex number).
-     * cosh(z) = (exp(z) + exp(-z)) / 2.
-     *
-     * @return cosh(z) where z is this Complex number.
-     */
-    public Complex cosh()
-    {
-        return new Complex(
-            cosh(x) * Math.cos(y),
-            sinh(x) * Math.sin(y)
-        );
-    }
-
-    /**
-     * Tangent of this Complex number
-     * (doesn't change this Complex number).
-     * tan(z) = sin(z)/cos(z).
-     *
-     * @return tan(z) where z is this Complex number.
-     */
-    public Complex tan()
-    {
-        return (this.sin()).div(this.cos());
-    }
-
-    /**
-     * Negative of this complex number (chs stands for change sign).
-     * This produces a new Complex number and doesn't change
-     * this Complex number.
-     * -(x+i*y) = -x-i*y.
-     *
-     * @return -z where z is this Complex number.
-     */
-    public Complex chs()
-    {
-        return new Complex(-x, -y);
-    }
-
-    /**
-     * String representation of this Complex number.
-     *
-     * @return x+i*y, x-i*y, x, or i*y as appropriate.
-     */
-    public String toString()
-    {
-        if (x != 0 && y > 0) {
-            return x + " + " + y + "i";
+    public String toString() {
+        if (im == 0) {
+        	return re + "";
         }
-
-        if (x != 0 && y < 0) {
-            return x + " - " + (-y) + "i";
+        
+        if (re == 0) {
+        	return im + "i";
         }
-
-        if (y == 0) {
-            return String.valueOf(x);
+        if (im <  0) {
+        	return re + " - " + (-im) + "i";
         }
-
-        if (x == 0) {
-            return y + "i";
-        }
-
-        // shouldn't get here (unless Inf or NaN)
-        return x + " + i*" + y;
+        
+        return re + " + " + im + "i";
     }
 }

@@ -28,8 +28,25 @@ public class Main
     		//System.out.println(c[i].arg());
     	}
     	wave = WaveInstruments.kick(Wav.FREQUENCY, Wav.AMPLITUDE);
+    	   
+    	int N = wave.length;
+    	float f_c = 3000;   //f_c = 500Hz
+    	float f_s = 44100;   //f_s = 1000Hz
+
+    	float k = f_c/f_s;
+    	int index = (int) Math.floor(k * N);
+    	System.out.println(index);
+    	System.out.println(N);
+
+    	//Low pass filter   
+//    	for(i = index; index < N; index++) {
+//    	   wave[index] = 0;
+//    	}
     	
     	Complex[] c = ToolFFT.fft(wave);
+    	for(i = index; index < N; index++) {
+     	   //c[index] = new Complex(0, 0);
+     	}
     	
     	
     	for (i = 0; i < c.length; i++) {
@@ -39,6 +56,10 @@ public class Main
     	System.out.println(c.length);
     	
     	new ToolSpectrum(c);
+    	Wav w = new Wav();
+    	w.setFrames(wave,  Wav.AMPLITUDE, false);
+    	w.save("D:\\bit_ride.wav");
+    	//System.exit(0);
     	
     	/*
     	Wav w = new Wav();

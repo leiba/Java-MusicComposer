@@ -118,6 +118,7 @@ public class ToolFFT
     public void fftFilter(double[] points, FFTFilter[] filters)
     {
 
+    	
     }
 	
 	/**
@@ -195,6 +196,38 @@ public class ToolFFT
             wk          = new Complex(Math.cos(kth), Math.sin(kth));
             y[k]        = q[k].plus(wk.times(r[k]));
             y[k + N/2]  = q[k].minus(wk.times(r[k]));
+        }
+
+        return y;
+    }
+    
+    /**
+     * Inverse FFT.
+     *
+     * @param  x Complex array.
+     * 
+     * @return Inverse FFT.
+     */
+    public static Complex[] ifft(Complex[] x) {
+        int N 		= x.length;
+        Complex[] y = new Complex[N];
+
+        // take conjugate
+        for (int i = 0; i < N; i++) {
+            y[i] = x[i].conjugate();
+        }
+
+        // compute forward FFT
+        y = fft(y);
+
+        // take conjugate again
+        for (int i = 0; i < N; i++) {
+            y[i] = y[i].conjugate();
+        }
+
+        // divide by N
+        for (int i = 0; i < N; i++) {
+            y[i] = y[i].scale(1.0 / N);
         }
 
         return y;
