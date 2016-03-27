@@ -48,7 +48,7 @@ public class ToolFFT
 		 * 
 		 * @return Is cut.
 		 */
-		public boolean cut(int frequency)
+		public boolean cut(double frequency)
 		{
 			return false;
 		}		
@@ -80,7 +80,7 @@ public class ToolFFT
          *
          * @return Is cut.
          */
-        public boolean cut(int frequency)
+        public boolean cut(double frequency)
         {
             return frequency < _frequency;
         }
@@ -111,7 +111,7 @@ public class ToolFFT
          *
          * @return Is cut.
          */
-        public boolean cut(int frequency)
+        public boolean cut(double frequency)
         {
             return frequency > _frequency;
         }
@@ -143,7 +143,7 @@ public class ToolFFT
          *
          * @return Is cut.
          */
-        public boolean cut(int frequency)
+        public boolean cut(double frequency)
         {
             return (frequency < (_frequency - _width))
                 || (frequency > (_frequency + _width));
@@ -176,7 +176,7 @@ public class ToolFFT
          *
          * @return Is cut.
          */
-        public boolean cut(int frequency)
+        public boolean cut(double frequency)
         {
             return (frequency > (_frequency - _width))
                 && (frequency < (_frequency + _width));
@@ -229,6 +229,7 @@ public class ToolFFT
     {
     	int i;
     	Complex[] fft	= fft(points);
+    	new ToolSpectrum(fftFilter(fft, filters));
     	Complex[] ifft  = ifft(fftFilter(fft, filters));
     	
     	for (i = 0; i< points.length; i++) {
@@ -248,14 +249,19 @@ public class ToolFFT
      */
     public static Complex[] fftFilter(Complex[] fft, FFTFilter[] filters)
     {
-    	int i, j, frequency;
+    	int i, j;
+    	int max 			= fft.length / 2;
+    	double frequency	= 0;
+		double freqStep 	= Wav.FREQUENCY / (fft.length * 1.0);
 		
-		for (i = 0; i < fft.length; i++) {   
-			frequency = i * Wav.FREQUENCY / fft.length;			
+		for (i = 0; i < max; i++) {   
+			frequency += freqStep;			
 			
 			for (j = 0; j < filters.length; j++) {
 				if (filters[j].cut(frequency)) {
-					fft[i] = new Complex(0, 0);
+					fft[i] 			= new Complex(0, 0);
+					fft[i + max] 	= new Complex(0, 0);
+					
 					break;
 				}
 			}
