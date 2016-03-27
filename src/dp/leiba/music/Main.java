@@ -22,42 +22,17 @@ public class Main
     	int p = Wav.FREQUENCY / 10000;
     	double[] wave = new double[0];
     	
-    	for (i = 0; i < 1000; i++) {
+    	for (i = 0; i < 10000; i++) {
     		wave = ToolArray.concat(wave, WaveForms.sine(p, Wav.AMPLITUDE));
     		//System.out.println((i * 44100 / 1024) + " : " + c[i].mod());
     		//System.out.println(c[i].arg());
     	}
-    	wave = WaveInstruments.kick(Wav.FREQUENCY, Wav.AMPLITUDE);
-    	   
-    	int N = wave.length;
-    	float f_c = 3000;   //f_c = 500Hz
-    	float f_s = 44100;   //f_s = 1000Hz
-
-    	float k = f_c/f_s;
-    	int index = (int) Math.floor(k * N);
-    	System.out.println(index);
-    	System.out.println(N);
-
-    	//Low pass filter   
-//    	for(i = index; index < N; index++) {
-//    	   wave[index] = 0;
-//    	}
     	
     	wave = WaveInstruments.ride(Wav.FREQUENCY, Wav.AMPLITUDE);
-    	wave = ToolFFT.fftFilter(wave, new ToolFFT.FFTFilter[] {
-    		ToolFFT.filter(ToolFFT.FILTER_HIGH, 10000, 0)
-    	});
+//    	wave = ToolFFT.fftFilter(wave, new ToolFFT.FFTFilter[] {
+//    		//ToolFFT.filter(ToolFFT.FILTER_LOW, 13000, 0)
+//    	});
     	Complex[] c = ToolFFT.fft(wave);
-
-    	for(i = index; index < N; index++) {
-     	   //c[index] = new Complex(0, 0);
-     	}
-    	
-    	
-    	for (i = 0; i < c.length; i++) {
-    		//System.out.println((i * 44100 / 1024) + " : " + c[i].mod());
-    		//System.out.println(c[i].arg());
-    	}
     	System.out.println(c.length);
     	
     	new ToolSpectrum(c);

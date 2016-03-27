@@ -16,7 +16,8 @@ public class ToolFFT
 	public static final int FILTER_BAND = 2;
 	public static final int FILTER_BELL = 3;
 	
-    private static final String EXCEPTION = "N is not a power of 2";
+	private static final int 	LENGTH		= 65536;
+    private static final String EXCEPTION 	= "N is not a power of 2";
 	
 	/**
 	 * FFTFilter.
@@ -265,6 +266,7 @@ public class ToolFFT
 	
 	/**
 	 * FFT.
+	 * Step = (sample rate) / (points.length)
 	 * 
 	 * @param points Points.
 	 * 
@@ -272,20 +274,10 @@ public class ToolFFT
 	 */
     public static Complex[] fft(double[] points)
     {
-        Complex[] complex;
-        int i, length = points.length;
-
-        while ((length & -length) != length) {
-            length++;
-        }
-
-        complex = new Complex[length];
-
-        for (i = 0; i < complex.length; i++) {
-        	complex[i] = new Complex(i < points.length ? points[i] : 0, 0);
-        }
-
-        return fft(complex);
+        Complex[] complex 	= _getNormalized(points);
+        Complex[] fft 		= fft(complex);
+        
+        return fft;
     }
 	
 	/**
@@ -302,7 +294,6 @@ public class ToolFFT
         Complex wk;
         Complex[] even, odd, q, r, y;
 
-        // base case
         if (N == 1) {
             return new Complex[] {
                 x[0]
@@ -313,21 +304,18 @@ public class ToolFFT
             throw new IllegalArgumentException(EXCEPTION);
         }
 
-        // fft of even terms
         even = new Complex[N / 2];
         for (k = 0; k < N / 2; k++) {
             even[k] = x[2 * k];
         }
         q = fft(even);
 
-        // fft of odd terms
-        odd  = even;  // reuse the array
+        odd  = even;
         for (k = 0; k < N / 2; k++) {
             odd[k] = x[2 * k + 1];
         }
         r = fft(odd);
 
-        // combine
         y = new Complex[N];
         for (k = 0; k < N / 2; k++) {
             kth         = -2 * k * Math.PI / N;
@@ -347,27 +335,59 @@ public class ToolFFT
      * @return Inverse FFT.
      */
     public static Complex[] ifft(Complex[] x) {
+    	int i;
         int N 		= x.length;
         Complex[] y = new Complex[N];
 
-        // take conjugate
-        for (int i = 0; i < N; i++) {
+        for (i = 0; i < N; i++) {
             y[i] = x[i].conjugate();
         }
 
-        // compute forward FFT
         y = fft(y);
-
-        // take conjugate again
-        for (int i = 0; i < N; i++) {
+        
+        for (i = 0; i < N; i++) {
             y[i] = y[i].conjugate();
         }
 
-        // divide by N
-        for (int i = 0; i < N; i++) {
+        for (i = 0; i < N; i++) {
             y[i] = y[i].scale(1.0 / N);
         }
 
         return y;
+    }
+    
+    /**
+     * Normalize sample.
+     * 
+     * @param points Points.
+     * 
+     * @return Complex wave.
+     */
+    private static Complex[] _getNormalized(double[] points)
+    {    	
+        Complex[] complex;
+    	int i 				= 0;
+    	int length			= points.length;
+    	
+    	while ((length & -length) != length) {
+            length++;
+        }    	
+    	
+    	complex = new Complex[length];
+    	while (i < complex.length) {
+    		complex[i] = new Complex(points.length > i ? points[i] : 0, 0); 
+    		i++;
+    	}
+    	
+    	return complex;
+    }
+    
+    private static Complex[] _getFrame(Complex[] fft)
+    {
+    	
+    	
+    	Complex[] frame = new Complex[Wav.FREQUENCY];
+    	
+    	return frame;
     }
 }
