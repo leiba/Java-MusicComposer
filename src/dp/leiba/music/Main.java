@@ -28,14 +28,15 @@ public class Main
     		//System.out.println(c[i].arg());
     	}
     	
-    	//wave = WaveInstruments.ride(Wav.FREQUENCY, Wav.AMPLITUDE);
+    	wave = WaveInstruments.ride(Wav.FREQUENCY, Wav.AMPLITUDE);
     	wave = ToolFFT.fftFilter(wave, new ToolFFT.FFTFilter[] {
-    		ToolFFT.filter(ToolFFT.FILTER_BAND, 11000, 100)
+    		ToolFFT.filter(ToolFFT.FILTER_BELL, 11000, 100),
+            ToolFFT.filter(ToolFFT.FILTER_LOW, 500, 0),
     	});
     	Complex[] c = ToolFFT.fft(wave);
     	System.out.println(c.length);
     	
-    	//new ToolSpectrum(c);
+    	new ToolSpectrum(c);
     	Wav w = new Wav();
     	w.setFrames(wave,  Wav.AMPLITUDE, false);
     	w.save("D:\\bit_ride.wav");

@@ -1,58 +1,51 @@
 package dp.leiba.music.tools;
 
-import java.util.Arrays;
-
 /**
  * Tool FFT.
  * Arg - phase.
  * Mod - amplitude.
- * http://algs4.cs.princeton.edu/99scientific/FFT.java
- * http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
  */
 public class ToolFFT
 {
-	public static final int FILTER_LOW 	= 0;
-	public static final int FILTER_HIGH	= 1;
-	public static final int FILTER_BAND = 2;
-	public static final int FILTER_BELL = 3;
-	
-	private static final int 	LENGTH		= 65536;
+    public static final int FILTER_LOW 	= 0;
+    public static final int FILTER_HIGH	= 1;
+    public static final int FILTER_BAND = 2;
+    public static final int FILTER_BELL = 3;
+
     private static final String EXCEPTION 	= "N is not a power of 2";
-	
-	/**
-	 * FFTFilter.
-	 */
-	public static class FFTFilter
-	{
-		protected int _frequency;
-		protected int _width;
-		
-		/**
-		 * Constructor.
-		 * 
-		 * @param frequency Frequency.
-		 * @param width	    Width.
-		 * 
-		 * @return FFTFilter.
-		 */
-		public FFTFilter (int frequency, int width)
-		{
+
+    /**
+     * FFTFilter.
+     */
+    public static class FFTFilter
+    {
+        protected int _frequency;
+        protected int _width;
+
+        /**
+         * Constructor.
+         *
+         * @param frequency Frequency.
+         * @param width	    Width.
+         */
+        public FFTFilter (int frequency, int width)
+        {
             _frequency = frequency;
-            _width 	= width;			
-		}
-		
-		/**
-		 * Is cut.
-		 * 
-		 * @param frequency Frequency.
-		 * 
-		 * @return Is cut.
-		 */
-		public boolean cut(double frequency)
-		{
-			return false;
-		}		
-	}
+            _width 	= width;
+        }
+
+        /**
+         * Is cut.
+         *
+         * @param frequency Frequency.
+         *
+         * @return Is cut.
+         */
+        public boolean cut(double frequency)
+        {
+            return false;
+        }
+    }
 
     /**
      * FFTFilterLow.
@@ -60,20 +53,18 @@ public class ToolFFT
     public static class FFTFilterLow extends FFTFilter
     {
 
-    	/**
-		 * Constructor.
-		 * 
-		 * @param frequency Frequency.
-		 * @param width	    Width.
-		 * 
-		 * @return FFTFilter.
-		 */
+        /**
+         * Constructor.
+         *
+         * @param frequency Frequency.
+         * @param width	    Width.
+         */
         public FFTFilterLow(int frequency, int width)
         {
-			super(frequency, width);
-		}
+            super(frequency, width);
+        }
 
-		/**
+        /**
          * Is cut.
          *
          * @param frequency Frequency.
@@ -92,19 +83,17 @@ public class ToolFFT
     public static class FFTFilterHigh extends FFTFilter
     {
 
-    	/**
-		 * Constructor.
-		 * 
-		 * @param frequency Frequency.
-		 * @param width	    Width.
-		 * 
-		 * @return FFTFilter.
-		 */
+        /**
+         * Constructor.
+         *
+         * @param frequency Frequency.
+         * @param width	    Width.
+         */
         public FFTFilterHigh(int frequency, int width) {
-			super(frequency, width);
-		}
+            super(frequency, width);
+        }
 
-		/**
+        /**
          * Is cut.
          *
          * @param frequency Frequency.
@@ -123,20 +112,18 @@ public class ToolFFT
     public static class FFTFilterBand extends FFTFilter
     {
 
-    	/**
-		 * Constructor.
-		 * 
-		 * @param frequency Frequency.
-		 * @param width	    Width.
-		 * 
-		 * @return FFTFilter.
-		 */
+        /**
+         * Constructor.
+         *
+         * @param frequency Frequency.
+         * @param width	    Width.
+         */
         public FFTFilterBand(int frequency, int width)
         {
-			super(frequency, width);
-		}
+            super(frequency, width);
+        }
 
-		/**
+        /**
          * Is cut.
          *
          * @param frequency Frequency.
@@ -149,27 +136,25 @@ public class ToolFFT
                 || (frequency > (_frequency + _width));
         }
     }
-    
+
     /**
      * FFTFilterBell.
      */
     public static class FFTFilterBell extends FFTFilter
     {
 
-    	/**
-		 * Constructor.
-		 * 
-		 * @param frequency Frequency.
-		 * @param width	    Width.
-		 * 
-		 * @return FFTFilter.
-		 */
+        /**
+         * Constructor.
+         *
+         * @param frequency Frequency.
+         * @param width	    Width.
+         */
         public FFTFilterBell(int frequency, int width)
         {
-			super(frequency, width);
-		}
+            super(frequency, width);
+        }
 
-		/**
+        /**
          * Is cut.
          *
          * @param frequency Frequency.
@@ -182,117 +167,114 @@ public class ToolFFT
                 && (frequency < (_frequency + _width));
         }
     }
-    
+
     /**
      * Get filter.
-     * 
+     *
      * @param type      Type.
      * @param frequency Frequency.
      * @param width     Width.
-     * 
+     *
      * @return Filter.
      */
     public static FFTFilter filter(final int type, int frequency, int width)
     {
-    	FFTFilter filter = null;
-    	
-    	switch (type) {
-	    	case FILTER_LOW  :
-	    		filter = new FFTFilterLow(frequency, width);
-	    		break;
-	    		
-	    	case FILTER_HIGH :
-	    		filter = new FFTFilterHigh(frequency, width);
-	    		break;
-	    		
-	    	case FILTER_BAND :
-	    		filter = new FFTFilterBand(frequency, width);
-	    		break;
-	    		
-	    	case FILTER_BELL :
-	    		filter = new FFTFilterBell(frequency, width);
-	    		break;
-    	}
-    	
-    	return filter;
+        FFTFilter filter = null;
+
+        switch (type) {
+            case FILTER_LOW  :
+                filter = new FFTFilterLow(frequency, width);
+                break;
+
+            case FILTER_HIGH :
+                filter = new FFTFilterHigh(frequency, width);
+                break;
+
+            case FILTER_BAND :
+                filter = new FFTFilterBand(frequency, width);
+                break;
+
+            case FILTER_BELL :
+                filter = new FFTFilterBell(frequency, width);
+                break;
+        }
+
+        return filter;
     }
 
     /**
      * FFTFilter.
-     * http://stackoverflow.com/questions/24644496/implementing-low-pass-filter-on-frequencies-using-java-by-just-having-frequency
-     * http://stackoverflow.com/questions/4026648/how-to-implement-low-pass-filter-using-java
      *
      * @param points  Points.
      * @param filters Filters.
      */
     public static double[] fftFilter(double[] points, FFTFilter[] filters)
     {
-    	int i;
-    	Complex[] fft	= fft(points);
-    	new ToolSpectrum(fftFilter(fft, filters));
-    	Complex[] ifft  = ifft(fftFilter(fft, filters));
-    	
-    	for (i = 0; i< points.length; i++) {
-    		points[i] = ifft[i].mod();
-    	}
+        int i;
+        Complex[] fft	= fft(points);
+        Complex[] ifft  = ifft(fftFilter(fft, filters));
 
-    	return points;
+        for (i = 0; i< points.length; i++) {
+            points[i] = ifft[i].mod();
+        }
+
+        return points;
     }
-    
+
     /**
      * FFT Filter.
-     * 
+     *
      * @param fft     FFT.
      * @param filters Filters.
-     * 
+     *
      * @return Filtered FFT.
      */
     public static Complex[] fftFilter(Complex[] fft, FFTFilter[] filters)
     {
-    	int i, j;
-    	int max 			= fft.length / 2;
-    	double frequency	= 0;
-		double freqStep 	= Wav.FREQUENCY / (fft.length * 1.0);
-		
-		for (i = 0; i < max; i++) {   
-			frequency += freqStep;			
-			
-			for (j = 0; j < filters.length; j++) {
-				if (filters[j].cut(frequency)) {
-					fft[i] 			= new Complex(0, 0);
-					fft[i + max] 	= new Complex(0, 0);
-					
-					break;
-				}
-			}
-		}
-		
-    	return fft;
+        int i, j;
+        int max 			= fft.length / 2;
+        double frequency	= 0;
+        double freqStep 	= Wav.FREQUENCY / (fft.length * 1.0);
+
+        for (i = 0; i < max; i++) {
+            frequency += freqStep;
+
+            for (j = 0; j < filters.length; j++) {
+                if (filters[j].cut(frequency)) {
+                    fft[i] 			= new Complex(0, 0);
+                    fft[i + max] 	= new Complex(0, 0);
+
+                    break;
+                }
+            }
+        }
+
+        return fft;
     }
-	
-	/**
-	 * FFT.
-	 * Step = (sample rate) / (points.length)
-	 * 
-	 * @param points Points.
-	 * 
-	 * @return FFT.
-	 */
+
+    /**
+     * FFT.
+     * Step = (sample rate) / (points.length)
+     *
+     * @param points Points.
+     *
+     * @return FFT.
+     */
     public static Complex[] fft(double[] points)
     {
         Complex[] complex 	= _getNormalized(points);
         Complex[] fft 		= fft(complex);
-        
+
         return fft;
     }
-	
-	/**
-	 * FFT.
-	 * 
-	 * @param x Complex points.
-	 * 
-	 * @return FFT.
-	 */
+
+    /**
+     * FFT.
+     *
+     * @param x Complex points.
+     *
+     * @return FFT.
+     */
     public static Complex[] fft(Complex[] x)
     {
         int k, N = x.length;
@@ -332,16 +314,16 @@ public class ToolFFT
 
         return y;
     }
-    
+
     /**
      * Inverse FFT.
      *
      * @param  x Complex array.
-     * 
+     *
      * @return Inverse FFT.
      */
     public static Complex[] ifft(Complex[] x) {
-    	int i;
+        int i;
         int N 		= x.length;
         Complex[] y = new Complex[N];
 
@@ -350,7 +332,7 @@ public class ToolFFT
         }
 
         y = fft(y);
-        
+
         for (i = 0; i < N; i++) {
             y[i] = y[i].conjugate();
         }
@@ -361,39 +343,30 @@ public class ToolFFT
 
         return y;
     }
-    
+
     /**
      * Normalize sample.
-     * 
+     *
      * @param points Points.
-     * 
+     *
      * @return Complex wave.
      */
     private static Complex[] _getNormalized(double[] points)
-    {    	
-        Complex[] complex;
-    	int i 				= 0;
-    	int length			= points.length;
-    	
-    	while ((length & -length) != length) {
-            length++;
-        }    	
-    	
-    	complex = new Complex[length];
-    	while (i < complex.length) {
-    		complex[i] = new Complex(points.length > i ? points[i] : 0, 0); 
-    		i++;
-    	}
-    	
-    	return complex;
-    }
-    
-    private static Complex[] _getFrame(Complex[] fft)
     {
-    	
-    	
-    	Complex[] frame = new Complex[Wav.FREQUENCY];
-    	
-    	return frame;
+        Complex[] complex;
+        int i 				= 0;
+        int length			= points.length;
+
+        while ((length & -length) != length) {
+            length++;
+        }
+
+        complex = new Complex[length];
+        while (i < complex.length) {
+            complex[i] = new Complex(points.length > i ? points[i] : 0, 0);
+            i++;
+        }
+
+        return complex;
     }
 }
