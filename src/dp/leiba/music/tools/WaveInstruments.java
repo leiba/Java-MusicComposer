@@ -63,23 +63,23 @@ public class WaveInstruments
     {
         int i;
         int steps 		    = 25;
-        int rootPunch       = 16;
+        int rootPunch       = Theory.getNoteKick(note);
         int root 		    = rootPunch + Theory.TONES;
         double amplitude    = Wav.AMPLITUDE;
     	double[] attack     = new double[0];
     	double[] rel 	    = new double[0];
-        
+
     	for (i = 10; i > 1; i--) {
     		attack = ToolArray.concat(
-                    attack,
-                    WaveForms.sine((int) (Wav.FREQUENCY / Theory.getNoteFreq(rootPunch + Theory.TONES * i)), amplitude)
+                attack,
+                WaveForms.sine((int) (Wav.FREQUENCY / Theory.getNoteFreq(rootPunch + Theory.TONES * i)), amplitude)
             );
     	}
     	
     	for (i = steps; i > 0; i--) {
     		rel = ToolArray.concat(
-                    rel,
-                    WaveForms.sine((int) (Wav.FREQUENCY / Theory.getNoteFreq(root)), amplitude)
+                rel,
+                WaveForms.sine((int) (Wav.FREQUENCY / Theory.getNoteFreq(root)), amplitude)
             );
     		
     		if (i <= 15) {

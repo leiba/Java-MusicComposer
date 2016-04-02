@@ -32,6 +32,8 @@ public class Theory
     public static final double  INTERVAL_SMALL      = -1;
     public static final double  INTERVAL_DIM        = -2;
 
+    public static final int     NOTE_KICK           = 18;
+
     private static final String[] names = new String[]{
         "C",  "C#", "D",  "D#",
         "E",  "F",  "F#", "G",
@@ -219,5 +221,21 @@ public class Theory
     	};
     	
     	return chords;   
+    }
+
+    /**
+     * Get note kick.
+     *
+     * @param note Note.
+     *
+     * @return Note.
+     */
+    public static int getNoteKick(int note)
+    {
+        while (note >= NOTE_KICK) {
+            note -= TONES;
+        }
+
+        return note;
     }
 }
