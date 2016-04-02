@@ -65,7 +65,7 @@ public class ToolSpectrum extends JFrame
         	int i, index;
             double max          = _fft.length / 2.0;
         	double freq 		= 0;
-    		double freqStep 	= (max) / Wav.FREQUENCY;
+    		double freqStep 	= max / Wav.FREQUENCY;
     		double[] prepare 	= new double[J_WIDTH];
     		
     		for (i = 0; i < max; i++) {
