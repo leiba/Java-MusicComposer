@@ -212,9 +212,8 @@ public class ToolFFT
     {
         int i;
         Complex[] fft	= fft(points);
-        Complex[] ifft  = ifft(fft);//fftFilter(fft, filters));
+        Complex[] ifft  = ifft(fftFilter(fft, filters));
 
-        points = new double[ifft.length];
         for (i = 0; i< points.length; i++) {
             points[i] = ifft[i].re();
         }

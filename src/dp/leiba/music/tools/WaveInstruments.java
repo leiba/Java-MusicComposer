@@ -113,9 +113,14 @@ public class WaveInstruments
     		percent = 50 - i * 50 / steps;
     		level 	= ToolMath.random(amplitude / 7, amplitude / 5);
     		wave 	= ToolArray.concat(wave, WaveForms.sine(points, level / 100 * percent));
-    		
-    		wave[i * points + 1] = 0;
+
+            if (percent < 1) break;
     	}
+
+        wave = ToolFFT.fftFilter(wave, new ToolFFT.FFTFilter[] {
+            ToolFFT.filter(ToolFFT.FILTER_BELL, 11000, 100),
+            ToolFFT.filter(ToolFFT.FILTER_LOW, 9000, 0),
+        });
     	
     	return wave;
     }
