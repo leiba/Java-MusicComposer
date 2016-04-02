@@ -16,8 +16,7 @@ public class ToolSpectrum extends JFrame
      */
     public static class Panel extends JPanel
     {
-    	
-    	private int _frequency;
+
     	private Complex[] _fft;
     	
     	/**
@@ -43,15 +42,15 @@ public class ToolSpectrum extends JFrame
             super.paintComponent(g);
             
             int i;
-            double[] magnitude = _getMagnitude();
+            double[] magnitude  = _getMagnitude();
             
-            for (i = 0; i < magnitude.length; i++) {
+            for (i = 0; i < J_WIDTH; i++) {
             	g.setColor(Color.BLACK);
             	g.drawLine(i, getWidth(), i, getHeight() - (int) magnitude[i]);
-            	
+
             	if (i % 50 == 0) {
             		g.setColor(Color.BLUE);
-            		g.drawString("" + (_frequency / 100 * (i * 100 / magnitude.length)), i, 10);
+            		g.drawString("" + (int) (Wav.FREQUENCY / 2 / 100.0 * (i * 100 / J_WIDTH)), i, 10);
             	}
             }
         }
@@ -64,18 +63,14 @@ public class ToolSpectrum extends JFrame
         private double[] _getMagnitude()
         {
         	int i, index;
+            double max          = _fft.length / 2.0;
         	double freq 		= 0;
-    		double freqStep 	= Wav.FREQUENCY / (_fft.length * 1.0);
-    		double[] prepare 	= new double[J_WIDTH];    		
-    		_frequency 			= _fft.length / 2;
+    		double freqStep 	= (max) / Wav.FREQUENCY;
+    		double[] prepare 	= new double[J_WIDTH];
     		
-    		for (i = 0; i < _frequency; i++) {   
+    		for (i = 0; i < max; i++) {
     			freq 	+= freqStep;
-    			index	= (int) Math.floor(freq * J_WIDTH / _frequency); 
-    			
-    			if (index >= J_WIDTH) {
-    				index = J_WIDTH - 1;
-    			}
+    			index	= (int) Math.floor(J_WIDTH / 100.0 * (i * 100.0 / max));
     			
     			if (_fft[i].mod() > prepare[index]) {
     				prepare[index] = _fft[i].mod();
