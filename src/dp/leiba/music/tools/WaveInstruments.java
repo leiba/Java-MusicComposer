@@ -23,6 +23,9 @@ public class WaveInstruments
     public static final int     KICK_STEPS_FADE     = 15;
     public static final int     KICK_STEPS          = 25;
 
+    public static final int     RIDE_CUT_BELL       = 11000;
+    public static final int     RIDE_CUT_LOW        = 9000;
+
 	/**
 	 * Factory.
 	 *
@@ -104,11 +107,11 @@ public class WaveInstruments
     {
     	double level;
     	double percent;
-    	double frequency	= 10000;
-        double amplitude = Wav.AMPLITUDE;
-    	int points 		= (int) (Wav.FREQUENCY / frequency);
-    	double steps 	= (int) (Wav.FREQUENCY / 2 / points);
-    	double[] wave 	= new double[0];
+    	double frequency	= Theory.getNoteFreq(Theory.getNoteRide(note));
+        double amplitude    = Wav.AMPLITUDE;
+    	int points 		    = (int) (Wav.FREQUENCY / frequency);
+    	double steps 	    = (int) (Wav.FREQUENCY / 2 / points);
+    	double[] wave 	    = new double[0];
     	
     	for (int i = 0; i < steps; i++) {
     		percent = 50 - i * 50 / steps;
@@ -119,8 +122,8 @@ public class WaveInstruments
     	}
 
         wave = ToolFFT.fftFilter(wave, new ToolFFT.FFTFilter[] {
-            ToolFFT.filter(ToolFFT.FILTER_BELL, 11000, 100),
-            ToolFFT.filter(ToolFFT.FILTER_LOW, 9000, 0),
+            ToolFFT.filter(ToolFFT.FILTER_BELL, RIDE_CUT_BELL,  100),
+            ToolFFT.filter(ToolFFT.FILTER_LOW,  RIDE_CUT_LOW,   0),
         });
     	
     	return wave;

@@ -33,6 +33,7 @@ public class Theory
     public static final double  INTERVAL_DIM        = -2;
 
     public static final int     NOTE_KICK           = 18;
+    public static final int     NOTE_RIDE           = 111;
 
     private static final String[] names = new String[]{
         "C",  "C#", "D",  "D#",
@@ -237,5 +238,23 @@ public class Theory
         }
 
         return note;
+    }
+
+    /**
+     * Get note kick.
+     *
+     * @param note Note.
+     *
+     * @return Note.
+     */
+    public static int getNoteRide(int note)
+    {
+        /*
+        while (note < NOTE_RIDE) {
+            note += TONES;
+        }
+        */
+
+        return NOTE_RIDE;
     }
 }

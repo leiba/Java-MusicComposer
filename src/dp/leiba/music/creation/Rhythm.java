@@ -67,6 +67,26 @@ public class Rhythm
         
         return rhythm;
     }
+
+    /**
+     * Get ride rhythm.
+     *
+     * @param bars  Bars.
+     * @param beats Beats.
+     *
+     * @return Rhythm.
+     */
+    public static int[] getRhythmRide(int bars, int beats)
+    {
+        int i           = 0;
+        int[] rhythm    = new int[bars * beats];
+
+        for (; i < rhythm.length; i++) {
+            rhythm[i] = WaveInstruments.TYPE_RIDE;
+        }
+
+        return rhythm;
+    }
     
     /**
      * Get bass rhythm.
