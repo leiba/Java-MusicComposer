@@ -18,7 +18,11 @@ public class WaveInstruments
 
 	public static final double 	CONFIG_SAMPLE 	= 1000;
 	public static final int  	CONFIG_ATTACK 	= 30;
-    
+
+    public static final int     KICK_STEPS_ATTACK   = 10;
+    public static final int     KICK_STEPS_FADE     = 15;
+    public static final int     KICK_STEPS          = 25;
+
 	/**
 	 * Factory.
 	 *
@@ -62,27 +66,26 @@ public class WaveInstruments
     public static double[] kick(int note)
     {
         int i;
-        int steps 		    = 25;
         int rootPunch       = Theory.getNoteKick(note);
         int root 		    = rootPunch + Theory.TONES;
         double amplitude    = Wav.AMPLITUDE;
     	double[] attack     = new double[0];
     	double[] rel 	    = new double[0];
 
-    	for (i = 10; i > 1; i--) {
+    	for (i = KICK_STEPS_ATTACK; i > 1; i--) {
     		attack = ToolArray.concat(
                 attack,
                 WaveForms.sine((int) (Wav.FREQUENCY / Theory.getNoteFreq(rootPunch + Theory.TONES * i)), amplitude)
             );
     	}
     	
-    	for (i = steps; i > 0; i--) {
+    	for (i = KICK_STEPS; i > 0; i--) {
     		rel = ToolArray.concat(
                 rel,
                 WaveForms.sine((int) (Wav.FREQUENCY / Theory.getNoteFreq(root)), amplitude)
             );
     		
-    		if (i <= 15) {
+    		if (i <= KICK_STEPS_FADE) {
     			amplitude -= 0.07;
     		}
     	}
