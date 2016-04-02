@@ -5,17 +5,18 @@ import dp.leiba.music.tools.Wav;
 import dp.leiba.music.tools.WaveForms;
 import dp.leiba.music.tools.WaveInstruments;
 
+import java.util.Arrays;
+
 /**
  * Composer.
  */
 public class Composer
 {
-    public static final String  CONFIG_PATH         = "D:\\bit_b2.wav";
+    public static final String  CONFIG_PATH         = "/var/www/bit_b.wav";
     public static final double  CONFIG_SECONDS      = 60.0;
 
     private Wav         _cWav   = new Wav();
     private int 		_cBPM	= Rhythm.getBPM();
-    private int         _cSizeSec;
     private int         _cSizeBar;
     private int         _cSizeBeat;
     private double[]    _cWave;
@@ -33,12 +34,11 @@ public class Composer
     private int[][]     _cPluck;
     private int[]       _cSubBass;
     private int[]       _cBass;
-    private int[][]     _cDrums;
+    private int[]       _cDrumKick;
 
     public Composer()
     {
-        _cSizeSec   = _cWav.getBytesPerSecond();
-        _cSizeBeat   = (int) (_cSizeSec / (_cBPM / CONFIG_SECONDS));
+        _cSizeBeat   = (int) (Wav.FREQUENCY / (_cBPM / CONFIG_SECONDS));
         _cSizeBar  = _cSizeBeat * _cBeats;
         _cWave      = new double[_cSizeBar * _cBars];
 
@@ -52,12 +52,12 @@ public class Composer
         _cPluck     = Melody.getPluck(_cBars, _cBeats, _cRhythm, _cChords);
         _cSubBass   = Melody.getSubBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
-        _cDrums     = Rhythm.getRhythmDrums(_cBars, _cBeats);
+        _cDrumKick  = Rhythm.getRhythmKick(_cBars, _cBeats);
 
         
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), Wav.AMPLITUDE, _cSizeBeat), 0, false);
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
-        ToolArray.fillSum(_cWave, getWaveDrums(_cDrums), 0, true);
+        ToolArray.fillSum(_cWave, getWaveDrum(_cDrumKick), 0, true);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
     }
     
@@ -157,16 +157,16 @@ public class Composer
         for (i = 0; i< notes.length; i++) {
             beat = new double[_cSizeBeat];
 
-            if (notes[i] == Rhythm.MELODY_REST) {
+            if (notes[i] == Rhythm.RELEASE) {
                 beat = WaveForms.rest(beat.length);
             } else {
-                points  = (int) (_cSizeSec / Theory.getNoteFreq(notes[i]));
+                points  = (int) (Wav.FREQUENCY / Theory.getNoteFreq(notes[i]));
 
                 for (j = 0; j < beat.length; j += points) {
                     ToolArray.fill(beat, WaveForms.factory(points, Wav.AMPLITUDE, form), j);
                 }
 
-                if (_cRhythm[i] == Rhythm.MELODY_RELEASE || true) {
+                if (_cRhythm[i] == Rhythm.RELEASE || true) {
                     rest = points / 3;
                     ToolArray.fillZero(beat, j + (points - rest), j + points);
                 }
@@ -194,25 +194,21 @@ public class Composer
      * Get wave drums.
      * 
      * @param drums Drums.
-     * 
+     *
      * @return Wave.
      */
-    private double[] getWaveDrums(int[][] drums)
+    private double[] getWaveDrum(int[] drums)
     {
-    	int i, j;
+    	int i;
     	double[] part;
-    	double[] wave 	= new double[_cSizeBar * _cBars];
+    	double[] wave 	= new double[0];
     	
     	for (i = 0; i < drums.length; i++) {
-    		for (j = 0; j < drums[i].length; j++) {
-				part = WaveInstruments.factory(_cWav.getBytesPerSecond(), Wav.AMPLITUDE, drums[i][j]);				
-				
-				if (drums[i][j] == Rhythm.DRUMS_HAT) {
-					part = _getWaveHat(part, 2);
-				}
-				
-				ToolArray.fillSum(wave, part, i * _cSizeBeat, true);
-    		}
+            if (drums[i] != Rhythm.RELEASE) {
+                part = WaveInstruments.factory(_cNote, drums[i]);
+                wave = Arrays.copyOfRange(wave, 0, i * _cSizeBeat);
+                wave = ToolArray.concat(wave, part);
+            }
     	}
     	
     	return wave;

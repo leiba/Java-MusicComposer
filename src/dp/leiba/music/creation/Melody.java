@@ -75,11 +75,11 @@ public class Melody
             for (j = 0; j < beats; j++) {
                 index = bars * i + j;
 
-                if (rhythm[index] != Rhythm.MELODY_REST) {
+                if (rhythm[index] != Rhythm.RELEASE) {
                     note          = chords[i][0]; // chords[i].length - 1
                     melody[index] = getNeighbourNote(notes, note + Theory.TONES);
                 } else {
-                    melody[index] = Rhythm.MELODY_REST;
+                    melody[index] = Rhythm.RELEASE;
                 }
             }
         }
@@ -107,11 +107,11 @@ public class Melody
             for (j = 0; j < beats; j++) {
                 index = bars * i + j;
 
-                if (rhythm[index] != Rhythm.MELODY_REST) {
+                if (rhythm[index] != Rhythm.RELEASE) {
                     melody[index] = chords[i];
                 } else {
                     melody[index] = new int[] {
-                        Rhythm.MELODY_REST
+                        Rhythm.RELEASE
                     };
                 }
             }

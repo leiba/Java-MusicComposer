@@ -68,7 +68,7 @@ public class Person
         String[] debug  = new String[notes.length];
 
         for (; i < notes.length; i++) {
-            if (notes[i] == Rhythm.MELODY_REST) {
+            if (notes[i] == Rhythm.RELEASE) {
                 debug[i] = REST;
             } else {
                 debug[i] = Theory.getNoteName(notes[i]) + "(" + notes[i] + ")";
