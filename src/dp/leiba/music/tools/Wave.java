@@ -5,12 +5,34 @@ import java.util.Arrays;
 /**
  * Wave effect.
  */
-public class WaveEffect
+public class Wave
 {
 	public static final int SIDE_CHAIN  = 6000;
 	public static final int BIT_8       = 8;
 	public static final int BIT_16      = 16;
 
+	/**
+	 * Mix.
+	 * A + B - A * B.
+	 * 
+	 * @param waves Waves.
+	 * 
+	 * @return Mix.
+	 */
+	public static double[] mix(double[][] waves)
+	{
+		int t, i     	= 0;
+		double[] wave 	= Arrays.copyOfRange(waves[i++], 0, _length(waves));
+		
+		for (; i < waves.length; i++) {
+			for (t = 0; t < waves[i].length; t++) {
+				wave[t] = wave[t] + waves[i][t] - (wave[t] * waves[i][t]); 
+			}
+		}
+		
+		return wave;
+	}
+	
 	/**
 	 * Side chain.
 	 * 
@@ -90,5 +112,26 @@ public class WaveEffect
     public static double[] compress(double[] wave, int amplitude, int level)
     {
         return wave;
+    }
+    
+    /**
+     * Max wave length.
+     * 
+     * @param waves Waves.
+     * 
+     * @return Length.
+     */
+    private static int _length(double[][] waves)
+    {
+    	int i;
+    	int max = 0;
+    	
+    	for (i = 0; i < waves.length; i++) {
+    		if (waves[i].length > max) {
+    			max = waves.length;
+    		}
+    	}
+    	
+    	return max;
     }
 }

@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class Composer
 {
-    public static final String  CONFIG_PATH         = "/var/www/bit_b.wav";
+    public static final String  CONFIG_PATH         = "D:\\bit_b.wav";
     public static final double  CONFIG_SECONDS      = 60.0;
 
     private Wav         _cWav   = new Wav();
@@ -58,7 +58,9 @@ public class Composer
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), Wav.AMPLITUDE, _cSizeBeat), 0, false);
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
         //_cWave = getWave(_cDrumKick);
-        _cWave = getWave(_cSubBass);
+        double[] wKick = getWave(_cDrumKick);
+        double[] wBass = getWave(_cSubBass);
+        _cWave =  Wave.sideChain(wBass, Wav.AMPLITUDE, _cSizeBeat);
         //ToolArray.fillSum(_cWave, getWaveDrum(_cDrumKick), 0, true);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
     }
