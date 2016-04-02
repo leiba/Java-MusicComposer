@@ -184,7 +184,7 @@ public class WaveInstruments
         int i;
         double[] wave       = new double[0];
         double frequency    = Theory.getNoteFreq(Theory.getNoteBass(note));
-        int steps           = (int) (Wav.FREQUENCY / 2 / (Wav.FREQUENCY / frequency));
+        int steps           = (int) (Wav.FREQUENCY / 1.5 / (Wav.FREQUENCY / frequency));
         double fade         = Wav.AMPLITUDE * 1.0 / steps;
 
         for (i = 0; i < steps; i++) {
