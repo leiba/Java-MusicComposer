@@ -3,10 +3,7 @@ package dp.leiba.music;
 import dp.leiba.music.creation.Composer;
 import dp.leiba.music.creation.Theory;
 import dp.leiba.music.person.Person;
-import dp.leiba.music.tools.ToolFFT;
-import dp.leiba.music.tools.ToolSpectrum;
-import dp.leiba.music.tools.Wav;
-import dp.leiba.music.tools.WaveInstruments;
+import dp.leiba.music.tools.*;
 
 /**
  * Main.

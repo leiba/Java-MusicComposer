@@ -1,5 +1,7 @@
 package dp.leiba.music.tools;
 
+import java.util.Arrays;
+
 /**
  * Wave effect.
  */

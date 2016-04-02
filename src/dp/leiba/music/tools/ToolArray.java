@@ -1,6 +1,8 @@
 package dp.leiba.music.tools;
 
+import javax.lang.model.type.ArrayType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -87,33 +89,20 @@ public class ToolArray
     }
 
     /**
-     * Fill array sum.
+     * Array sum.
      *
      * @param to      To array.
      * @param from    From array.
-     * @param start   Start position.
      * @param limiter Limiter.
      *
      * @return Filled array.
      */
-    public static double[] fillSum(double[] to, double[] from, int start, boolean limiter)
+    public static double[] sum(double[][] arrays, double[] two, boolean limiter)
     {
         int i;
-        double max = maxAbs(to);
+        int length;
 
-        for (i = 0; i < from.length; i++) {
-            if (start < to.length) {
-                to[start] += from[i];
-                
-                if (limiter && max != 0 && Math.abs(to[start]) > max) {
-                	to[start] = to[start] > max ? max : -max;
-                }
-                
-                start++;
-            }
-        }
-
-        return to;
+        return new double[0];
     }
 
     /**

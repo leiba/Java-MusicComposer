@@ -102,7 +102,7 @@ public class Rhythm
         int[] rhythm    = new int[bars * beats];
         
         for (; i < rhythm.length; i++) {
-            rhythm[i] = RELEASE;
+            rhythm[i] = WaveInstruments.TYPE_BASS;
         }
         
         return rhythm;

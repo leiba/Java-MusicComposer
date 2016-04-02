@@ -1,9 +1,6 @@
 package dp.leiba.music.creation;
 
-import dp.leiba.music.tools.ToolArray;
-import dp.leiba.music.tools.Wav;
-import dp.leiba.music.tools.WaveForms;
-import dp.leiba.music.tools.WaveInstruments;
+import dp.leiba.music.tools.*;
 
 import java.util.Arrays;
 
@@ -35,6 +32,7 @@ public class Composer
     private int[]       _cSubBass;
     private int[]       _cBass;
     private int[]       _cDrumKick;
+    private int[]       _cDrumRide;
 
     public Composer()
     {
@@ -52,12 +50,16 @@ public class Composer
         _cPluck     = Melody.getPluck(_cBars, _cBeats, _cRhythm, _cChords);
         _cSubBass   = Melody.getSubBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
+        _cSubBass   = Rhythm.getRhythmBass(_cBars, _cBeats);
         _cDrumKick  = Rhythm.getRhythmKick(_cBars, _cBeats);
+        _cDrumRide  = Rhythm.getRhythmRide(_cBars, _cBeats);
 
         
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), Wav.AMPLITUDE, _cSizeBeat), 0, false);
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
-        ToolArray.fillSum(_cWave, getWaveDrum(_cDrumKick), 0, true);
+        //_cWave = getWave(_cDrumKick);
+        _cWave = getWave(_cSubBass);
+        //ToolArray.fillSum(_cWave, getWaveDrum(_cDrumKick), 0, true);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
     }
     
@@ -193,19 +195,19 @@ public class Composer
     /**
      * Get wave drums.
      * 
-     * @param drums Drums.
+     * @param instrument Instrument.
      *
      * @return Wave.
      */
-    private double[] getWaveDrum(int[] drums)
+    private double[] getWave(int[] instrument)
     {
     	int i;
     	double[] part;
     	double[] wave 	= new double[0];
     	
-    	for (i = 0; i < drums.length; i++) {
-            if (drums[i] != Rhythm.RELEASE) {
-                part = WaveInstruments.factory(_cNote, drums[i]);
+    	for (i = 0; i < instrument.length; i++) {
+            if (instrument[i] != Rhythm.RELEASE) {
+                part = WaveInstruments.factory(_cNote, instrument[i]);
                 wave = Arrays.copyOfRange(wave, 0, i * _cSizeBeat);
                 wave = ToolArray.concat(wave, part);
             }
@@ -240,7 +242,7 @@ public class Composer
     	double[] wave 	= new double[_cSizeBeat]; 
     	
     	for (; i < times; i++) {
-    		ToolArray.fillSum(wave, hat, i * quarter, true);
+    		//ToolArray.fillSum(wave, hat, i * quarter, true);
     	}
     	
     	return wave;

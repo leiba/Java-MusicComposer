@@ -15,6 +15,7 @@ public class WaveInstruments
 	public static final int 	TYPE_RIDE		= 1;
 	public static final int 	TYPE_SNARE		= 2;
 	public static final int 	TYPE_HAT		= 3;
+	public static final int 	TYPE_BASS		= 4;
 
 	public static final double 	CONFIG_SAMPLE 	= 1000;
 	public static final int  	CONFIG_ATTACK 	= 30;
@@ -54,6 +55,10 @@ public class WaveInstruments
 	    	case TYPE_HAT :
 	    		wave = hat(note);
 	    		break;
+
+            case TYPE_BASS :
+                wave = bass(note);
+                break;
 		}
 		
 		return wave;
@@ -165,5 +170,27 @@ public class WaveInstruments
     public static double[] hat(int note)
     {
         return new double[0];
+    }
+
+    /**
+     * Generate hat.
+     *
+     * @param note Note.
+     *
+     * @return Wave.
+     */
+    public static double[] bass(int note)
+    {
+        int i;
+        double[] wave       = new double[0];
+        double frequency    = Theory.getNoteFreq(Theory.getNoteBass(note));
+        int steps           = (int) (Wav.FREQUENCY / 2 / (Wav.FREQUENCY / frequency));
+        double fade         = Wav.AMPLITUDE * 1.0 / steps;
+
+        for (i = 0; i < steps; i++) {
+            wave = ToolArray.concat(wave, WaveForms.sine((int) (Wav.FREQUENCY / frequency), Wav.AMPLITUDE - fade * i));
+        }
+
+        return wave;
     }
 }
