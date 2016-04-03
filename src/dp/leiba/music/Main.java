@@ -26,11 +26,11 @@ public class Main
     	double[] wave2 = new double[0];
     	
     	for (int i = 0; i < 10; i++) {
-    		wave1 = ToolArray.concat(wave1, WaveForms.sine(4000, Wav.AMPLITUDE / 2.5));
+    		wave1 = ToolArray.concat(wave1, WaveForms.sine(4000, Wav.AMPLITUDE * 0.2));
     		
     		if (i % 2 == 0) {
     			for (int j = 0; j < 100; j++)
-    			wave2 = ToolArray.concat(wave2, WaveForms.sine(40, Wav.AMPLITUDE / 2.5));
+    			wave2 = ToolArray.concat(wave2, WaveForms.sine(40, Wav.AMPLITUDE * 0.2));
     		} else {
     			wave2 = ToolArray.concat(wave2, Arrays.copyOfRange(new double[0], 0, 4000));
     		}

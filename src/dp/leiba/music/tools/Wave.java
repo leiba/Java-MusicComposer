@@ -43,17 +43,15 @@ public class Wave
 	{
 		int i;
 		double max = 0;
-		double abs, factor;
 		
 		for (i = 0; i < wave.length; i++) {
 			max = Math.max(max, wave[i]);
 		}
 		
+		max = max / Wav.AMPLITUDE;
+		
 		for (i = 0; i < wave.length; i++) {
-		    abs 	= Math.abs(wave[i]);
-		    factor 	= (1 - Wav.AMPLITUDE / max) * abs / max;
-
-		    wave[i] = (1 - factor) * wave[i];
+			wave[i] /= max;
 		}
 		
 		return wave;
