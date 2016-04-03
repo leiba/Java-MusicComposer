@@ -2,6 +2,8 @@ package dp.leiba.music.tools;
 
 import java.util.Arrays;
 
+import sun.security.krb5.internal.ccache.CCacheInputStream;
+
 /**
  * Wave effect.
  */
@@ -62,13 +64,48 @@ public class Wave
 	 * 
 	 * @param wave      Wave.
 	 * @param threshold Threshold.
+	 * @param ratio     Ratio.
 	 * @param attack    Attack.
 	 * @param release   Release.
 	 * 
 	 * @return Compressed wave.
 	 */
-    public static double[] compress(double[] wave, double threshold, double attack, double release)
+    public static double[] compress(double[] wave, double threshold, double ratio, int attack, int release)
     {
+    	int i, cAttack = 0, cRelease = 0;
+    	double abs, absNext;
+    	boolean isCompress 	= false, isSustain = false;
+    	
+    	for (i = 0; i < wave.length; i++) {
+    		abs 	= Math.abs(wave[i]);
+    		absNext = i + 1 < wave.length ? Math.abs(wave[i + 1]) : 0;
+    		
+    		if (!isCompress && abs > threshold) {
+    			isCompress 	= true;
+    			isSustain	= true;
+    			cAttack 	= 0;
+    			cRelease	= release;
+    		}
+    		
+    		if (isCompress) {
+    			if (cAttack < attack) {
+    				wave[i] = _compress(wave[i], threshold, ratio, cAttack * 100.0 / attack);
+    				cAttack++;
+    			} else if(isSustain) {
+    				wave[i] = _compress(wave[i], threshold, ratio, 100);
+    				
+    				if (absNext < abs && absNext < threshold) {
+    					isSustain = false;
+    				}
+    			} else if (cRelease > 0) {
+    				wave[i] = _compress(wave[i], threshold, ratio, cRelease * 100.0 / release);
+    				cRelease--;
+    			} else {
+    				isCompress = false;
+    			}   			
+    		}
+    	}
+    	
         return wave;
     }
 	
@@ -157,5 +194,28 @@ public class Wave
     	}
     	
     	return max;
+    }
+    
+    /**
+     * Compress point.
+     * 
+     * @param amplitude Amplitude.
+     * @param threshold Threshold.
+     * @param ratio     Ratio.
+     * @param percent   Percent.
+     * 
+     * @return Point.
+     */
+    private static double _compress(double amplitude, double threshold, double ratio, double percent)
+    {
+    	boolean isPositive 	= amplitude > 0;
+    	double 	abs 		= Math.abs(amplitude);
+    			abs  	   += (abs - threshold) / ratio;
+    	
+    	if (abs < 0) {
+    		abs = 0;
+    	}
+    	
+    	return isPositive ? abs : -abs;    	
     }
 }
