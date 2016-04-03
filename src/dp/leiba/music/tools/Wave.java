@@ -210,7 +210,7 @@ public class Wave
     {
     	boolean isPositive 	= amplitude > 0;
     	double 	abs 		= Math.abs(amplitude);
-    			abs  	   += (abs - threshold) / ratio;
+    			threshold  += (abs - threshold) / ratio;
     	
     	if (abs < 0) {
     		abs = 0;

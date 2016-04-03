@@ -22,50 +22,40 @@ public class Main
     {
     	Person.say("Hello");
     	
-    	double[] wave1 = new double[0];
-    	double[] wave2 = new double[0];
+    	int i;
+    	double[] wave = new double[0];
     	
-    	for (int i = 0; i < 10; i++) {
-    		wave1 = ToolArray.concat(wave1, WaveForms.sine(4000, Wav.AMPLITUDE * 0.2));
-    		
-    		if (i % 2 == 0) {
-    			for (int j = 0; j < 100; j++)
-    			wave2 = ToolArray.concat(wave2, WaveForms.sine(40, Wav.AMPLITUDE * 0.2));
-    		} else {
-    			wave2 = ToolArray.concat(wave2, Arrays.copyOfRange(new double[0], 0, 4000));
-    		}
+    	for (i = 0; i < 100; i++) {
+    		wave = ToolArray.concat(wave, WaveForms.sine(220, Wav.AMPLITUDE));
     	}
     	
-    	wave2 = Wave.mix(new double[][] {wave1, wave2});
+    	for (i = 0; i < 100; i++) {
+    		wave = ToolArray.concat(wave, WaveForms.sine(220, Wav.AMPLITUDE * 0.7));
+    	}
+    	
+    	for (i = 0; i < 100; i++) {
+    		wave = ToolArray.concat(wave, WaveForms.sine(220, Wav.AMPLITUDE * 0.3));
+    	}
+    	
+    	wave = Wave.compress(wave, 0.7, 2, 0, 11000);
     	
     	Wav wv = new Wav();
-    	wv.setFrames(Wave.limit(wave2),  Wav.AMPLITUDE, false);
+    	wv.setFrames(wave,  Wav.AMPLITUDE, false);
     	wv.save("D:\\bit_ex.wav");
     	System.exit(0);
     	
-    	if (false) {
-            Wav w = new Wav();
-            double[] wave = WaveInstruments.ride(1);
-            w.setFrames(wave,  Wav.AMPLITUDE, false);
-            w.save("/var/www/bit_test.wav");
+        Composer composer = new Composer();
+        composer.save();
 
-            new ToolSpectrum(ToolFFT.fft(wave));
+        Person.debug("BPM",    composer.getBPM());
+        Person.debug("Major",  composer.getIsMajor());
+        Person.debug("Note",   composer.getNote());
+        Person.debug("Notes",  composer.getNotes());
+        Person.debug("Chords", composer.getChords());
+        Person.debug("Lead",   composer.getLead());
+        Person.debug("Bass",   composer.getBass());
+        Person.debug("SubBass",composer.getSubBass());
 
-
-        } else {
-            Composer composer = new Composer();
-            composer.save();
-
-            Person.debug("BPM",    composer.getBPM());
-            Person.debug("Major",  composer.getIsMajor());
-            Person.debug("Note",   composer.getNote());
-            Person.debug("Notes",  composer.getNotes());
-            Person.debug("Chords", composer.getChords());
-            Person.debug("Lead",   composer.getLead());
-            Person.debug("Bass",   composer.getBass());
-            Person.debug("SubBass",composer.getSubBass());
-
-            Person.say("Bye");
-        }
+        Person.say("Bye");
     }
 }
