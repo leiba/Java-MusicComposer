@@ -13,7 +13,6 @@ public class Wave
 
 	/**
 	 * Mix.
-	 * A + B - A * B.
 	 * 
 	 * @param waves Waves.
 	 * 
@@ -26,12 +25,54 @@ public class Wave
 		
 		for (; i < waves.length; i++) {
 			for (t = 0; t < waves[i].length; t++) {
-				wave[t] = wave[t] + waves[i][t] - (wave[t] * waves[i][t]); 
+				wave[t] += waves[i][t]; 
 			}
 		}
 		
 		return wave;
 	}
+	
+	/**
+	 * Limit peaks.
+	 * 
+	 * @param wave Wave.
+	 * 
+	 * @return Limited wave.
+	 */
+	public static double[] limit(double[] wave)
+	{
+		int i;
+		double max = 0;
+		double abs, factor;
+		
+		for (i = 0; i < wave.length; i++) {
+			max = Math.max(max, wave[i]);
+		}
+		
+		for (i = 0; i < wave.length; i++) {
+		    abs 	= Math.abs(wave[i]);
+		    factor 	= (1 - Wav.AMPLITUDE / max) * abs / max;
+
+		    wave[i] = (1 - factor) * wave[i];
+		}
+		
+		return wave;
+	}
+	
+	/**
+	 * Compress.
+	 * 
+	 * @param wave      Wave.
+	 * @param threshold Threshold.
+	 * @param attack    Attack.
+	 * @param release   Release.
+	 * 
+	 * @return Compressed wave.
+	 */
+    public static double[] compress(double[] wave, double threshold, double attack, double release)
+    {
+        return wave;
+    }
 	
 	/**
 	 * Side chain.
@@ -98,21 +139,6 @@ public class Wave
 
         return wave;
     }
-
-
-    /**
-     * Compress.
-     *
-     * @param wave  		 Wave.
-     * @param amplitude 	 Amplitude.
-     * @param level Compress level.
-     *
-     * @return Compressed wave.
-     */
-    public static double[] compress(double[] wave, int amplitude, int level)
-    {
-        return wave;
-    }
     
     /**
      * Max wave length.
@@ -128,7 +154,7 @@ public class Wave
     	
     	for (i = 0; i < waves.length; i++) {
     		if (waves[i].length > max) {
-    			max = waves.length;
+    			max = waves[i].length;
     		}
     	}
     	
