@@ -216,6 +216,6 @@ public class Wave
     		abs = 0;
     	}
     	
-    	return isPositive ? abs : -abs;    	
+    	return isPositive ? threshold : -threshold;    	
     }
 }
