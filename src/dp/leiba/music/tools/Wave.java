@@ -88,23 +88,12 @@ public class Wave
     	boolean isCompress 	= false, isSustain = false;
     	
     	Oscillation oscillation;
-    	int cnt = 0;
-    	int ofst = 0;
+    	int offset = 0;
     	
     	do {
-    		oscillation = oscillation(wave, ofst);
+    		oscillation = oscillation(wave, offset);
     		
-    		cnt++;
-    	} while ((ofst += oscillation.wave.length) < wave.length);
-    	
-    	System.out.println(cnt);
-    	System.exit(0);
-    	
-    	for (i = 0; i < wave.length; i++) {
-    		abs 	= Math.abs(wave[i]);
-    		absNext = i + 1 < wave.length ? Math.abs(wave[i + 1]) : 0;
-    		
-    		if (!isCompress && abs > threshold) {
+    		if (!isCompress && oscillation.amplitude > threshold) {
     			isCompress 	= true;
     			isSustain	= true;
     			cAttack 	= 0;
@@ -113,22 +102,23 @@ public class Wave
     		
     		if (isCompress) {
     			if (cAttack < attack) {
-    				wave[i] = _compress(wave[i], threshold, ratio, cAttack * 100.0 / attack);
-    				cAttack++;
+    				// wave[i] = _compress(wave[i], threshold, ratio, cAttack * 100.0 / attack);
+    				cAttack += oscillation.wave.length;
     			} else if(isSustain) {
-    				wave[i] = _compress(wave[i], threshold, ratio, 100);
+    				// wave[i] = _compress(wave[i], threshold, ratio, 100);
     				
-    				if (absNext < abs && absNext < threshold) {
+    				if (oscillation.amplitude < threshold) {
     					isSustain = false;
     				}
     			} else if (cRelease > 0) {
-    				wave[i] = _compress(wave[i], threshold, ratio, cRelease * 100.0 / release);
-    				cRelease--;
+    				// wave[i] = _compress(wave[i], threshold, ratio, cRelease * 100.0 / release);
+    				cRelease -= oscillation.wave.length;
     			} else {
     				isCompress = false;
-    			}   			
+    			}  
     		}
-    	}
+    		
+    	} while ((offset += oscillation.wave.length) < wave.length);
     	
         return wave;
     }
