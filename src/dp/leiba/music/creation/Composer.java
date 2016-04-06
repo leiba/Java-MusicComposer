@@ -59,8 +59,8 @@ public class Composer
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
         //_cWave = getWave(_cDrumKick);
         double[] wKick = getWave(_cDrumKick);
-        double[] wBass = getWave(_cSubBass);
-        _cWave =  Wave.sideChain(wBass, Wav.AMPLITUDE, _cSizeBeat);
+        double[] wBass = Wave.sideChain(getWave(_cSubBass), _cSizeBeat);
+        _cWave =  Wave.limit(Wave.mix(new double[][] {wKick, wBass}));
         //ToolArray.fillSum(_cWave, getWaveDrum(_cDrumKick), 0, true);
         // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
     }

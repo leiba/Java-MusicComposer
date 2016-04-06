@@ -163,24 +163,33 @@ public class Wave
 	/**
 	 * Side chain.
 	 * 
-	 * @param signal    Signal.
-	 * @param amplitude Amplitude.
-	 * @param step 		Step.
+	 * @param signal  Signal.
+	 * @param step    Step.
 	 * 
 	 * @return Wave.
 	 */
-	public static double[] sideChain(double[] signal, int amplitude, int step)
+	public static double[] sideChain(double[] signal, int step)
 	{
-		double level	= 0;
 		int i 			= 0;
+		int chain 		= 0;
+		int release		= 0;
+		int releaseProc	= 0;
 		double[] wave 	= new double[signal.length];
+		
 		
 		for (; i < signal.length; i++) {
 			if (i == 0 || i % step == 0) {
-				level = SIDE_CHAIN;
+				chain 		= step / 3;
+				releaseProc = release = step / 4;
 			}
 			
-			wave[i] = signal[i] / 100.0 * (100 - (--level >= 0 ? level * 100 / SIDE_CHAIN : 0));
+			if (chain-- > 0) {
+				wave[i] = 0;
+			} else if (releaseProc-- > 0) {
+				wave[i] = signal[i] / 100.0 * (100 - (releaseProc * 100 / release));
+			} else {
+				wave[i] = signal[i];
+			}
 		}
 		
 		return wave;

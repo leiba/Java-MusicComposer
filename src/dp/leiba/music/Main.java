@@ -22,6 +22,7 @@ public class Main
     {
     	Person.say("Hello");
     	
+    	/*
     	int i;
     	double[] wave = new double[0];
     	
@@ -37,12 +38,13 @@ public class Main
     		wave = ToolArray.concat(wave, WaveForms.sine(220, Wav.AMPLITUDE * 0.3));
     	}
     	
-    	wave = Wave.limit(Wave.compress(wave, 0.3, 4, 0, 11000));
+    	wave = Wave.limit(Wave.compress(wave, 0.3, 60, 0, 11000));
     	
     	Wav wv = new Wav();
     	wv.setFrames(wave,  Wav.AMPLITUDE, false);
     	wv.save("D:\\bit_ex.wav");
     	System.exit(0);
+    	*/
     	
         Composer composer = new Composer();
         composer.save();
