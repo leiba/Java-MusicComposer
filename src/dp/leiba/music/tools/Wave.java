@@ -260,10 +260,13 @@ public class Wave
     private static double[] _compress(Oscillation oscillation, double threshold, double ratio, double percent)
     {
     	int i;
-    	double[] wave = new double[oscillation.wave.length];
+    	double scale;
+    	double diff		= Math.abs(oscillation.amplitude - _compress(oscillation.amplitude, threshold, ratio, percent));
+    	double[] wave 	= Arrays.copyOfRange(oscillation.wave, 0, oscillation.wave.length);
     	
     	for (i = 0; i < wave.length; i++) {
-    		
+    		scale 	 = wave[i] * 100.0 / oscillation.amplitude;
+    		wave[i] -= diff / 100.0 * scale;
     	}
     	
     	return wave;    	

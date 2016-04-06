@@ -37,7 +37,7 @@ public class Main
     		wave = ToolArray.concat(wave, WaveForms.sine(220, Wav.AMPLITUDE * 0.3));
     	}
     	
-    	wave = Wave.compress(wave, 0.7, 2, 0, 11000);
+    	wave = Wave.limit(Wave.compress(wave, 0.3, 4, 0, 11000));
     	
     	Wav wv = new Wav();
     	wv.setFrames(wave,  Wav.AMPLITUDE, false);
