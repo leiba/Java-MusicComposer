@@ -83,8 +83,8 @@ public class Wave
 	 */
     public static double[] compress(double[] wave, double threshold, double ratio, int attack, int release)
     {
-    	int i, cAttack = 0, cRelease = 0;
-    	double abs, absNext;
+    	double[] compress;
+    	int cAttack = 0, cRelease = 0;
     	boolean isCompress 	= false, isSustain = false;
     	
     	Oscillation oscillation;
@@ -102,16 +102,18 @@ public class Wave
     		
     		if (isCompress) {
     			if (cAttack < attack) {
-    				// wave[i] = _compress(wave[i], threshold, ratio, cAttack * 100.0 / attack);
+    				compress = _compress(oscillation, threshold, ratio, cAttack * 100.0 / attack);
+    				wave 	 = ToolArray.append(wave, compress, offset);
     				cAttack += oscillation.wave.length;
     			} else if(isSustain) {
-    				// wave[i] = _compress(wave[i], threshold, ratio, 100);
+    				wave = ToolArray.append(wave, _compress(oscillation, threshold, ratio, 100), offset);
     				
     				if (oscillation.amplitude < threshold) {
     					isSustain = false;
     				}
     			} else if (cRelease > 0) {
-    				// wave[i] = _compress(wave[i], threshold, ratio, cRelease * 100.0 / release);
+    				compress  = _compress(oscillation, threshold, ratio, cRelease * 100.0 / release);
+    				wave 	  = ToolArray.append(wave, compress, offset);
     				cRelease -= oscillation.wave.length;
     			} else {
     				isCompress = false;
@@ -243,6 +245,28 @@ public class Wave
     	}
     	
     	return max;
+    }
+    
+    /**
+     * Compress oscillation.
+     * 
+     * @param oscillation Oscillation.
+     * @param threshold   Threshold.
+     * @param ratio       Ratio.
+     * @param percent     Percent.
+     * 
+     * @return Wave.
+     */
+    private static double[] _compress(Oscillation oscillation, double threshold, double ratio, double percent)
+    {
+    	int i;
+    	double[] wave = new double[oscillation.wave.length];
+    	
+    	for (i = 0; i < wave.length; i++) {
+    		
+    	}
+    	
+    	return wave;    	
     }
     
     /**

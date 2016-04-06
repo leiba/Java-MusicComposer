@@ -49,6 +49,26 @@ public class ToolArray
     }
     
     /**
+     * Append.
+     * 
+     * @param to    To.
+     * @param from  From.
+     * @param start Start.
+     * 
+     * @return Appended array.
+     */
+    public static double[] append(double[] to, double[] from, int start)
+    {
+    	int i;
+    	
+    	for (i = 0; i < from.length; i++) {
+    		to[start + i] = from[i];
+    	}
+    	
+    	return to;
+    } 
+    
+    /**
      * Fill array.
      * 
      * @param to    To array.
