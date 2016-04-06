@@ -30,7 +30,7 @@ public class Main
     	}
     	
     	for (i = 0; i < 100; i++) {
-    		wave = ToolArray.concat(wave, WaveForms.sine(220, Wav.AMPLITUDE * 0.7));
+    		wave = ToolArray.concat(wave, WaveForms.sine(220, Wav.AMPLITUDE * 0.6));
     	}
     	
     	for (i = 0; i < 100; i++) {

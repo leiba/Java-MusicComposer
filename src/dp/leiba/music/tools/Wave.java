@@ -2,6 +2,7 @@ package dp.leiba.music.tools;
 
 import java.util.Arrays;
 
+import javafx.scene.AmbientLight;
 import sun.security.krb5.internal.ccache.CCacheInputStream;
 
 /**
@@ -12,6 +13,16 @@ public class Wave
 	public static final int SIDE_CHAIN  = 6000;
 	public static final int BIT_8       = 8;
 	public static final int BIT_16      = 16;
+	
+	/**
+	 * Oscillation.
+	 */
+	public static class Oscillation
+	{
+		public double[] wave 	= new double[0];
+		
+		public double amplitude = 0;
+	}
 
 	/**
 	 * Mix.
@@ -76,6 +87,19 @@ public class Wave
     	double abs, absNext;
     	boolean isCompress 	= false, isSustain = false;
     	
+    	Oscillation oscillation;
+    	int cnt = 0;
+    	int ofst = 0;
+    	
+    	do {
+    		oscillation = oscillation(wave, ofst);
+    		
+    		cnt++;
+    	} while ((ofst += oscillation.wave.length) < wave.length);
+    	
+    	System.out.println(cnt);
+    	System.exit(0);
+    	
     	for (i = 0; i < wave.length; i++) {
     		abs 	= Math.abs(wave[i]);
     		absNext = i + 1 < wave.length ? Math.abs(wave[i + 1]) : 0;
@@ -107,6 +131,41 @@ public class Wave
     	}
     	
         return wave;
+    }
+    
+    /**
+     * Detect one oscillation.
+     * 
+     * @param wave Wave.
+     * @param from From.
+     * 
+     * @return Oscillation.
+     */
+    public static Oscillation oscillation(double[] wave, int from)
+    {
+    	int i = from, length 	= 0;
+    	boolean isNegative 		= false;
+    	Oscillation oscillation = new Oscillation();
+    	
+    	for (; i < wave.length; i++) {
+    		if (!isNegative && wave[i] < 0) {
+    			isNegative = true;
+    		} else if (isNegative && wave[i] >= 0) {
+    			break;
+    		}
+    		
+    		if (Math.abs(wave[i]) > oscillation.amplitude) {
+    			oscillation.amplitude = Math.abs(wave[i]);
+    		}
+    		
+    		length++;
+    	}
+    	
+    	if (length > 0) {
+    		oscillation.wave = Arrays.copyOfRange(wave, from, from + length);
+    	}
+    	
+    	return oscillation;
     }
 	
 	/**
