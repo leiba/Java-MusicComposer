@@ -127,4 +127,29 @@ public class Rhythm
 
         return rhythm;
     }
+    
+    /**
+     * Get bass rhythm.
+     * 
+     * @param bars  Bars.
+     * @param beats Beats.
+     * @param root  Root.
+     *
+     * @return Rhythm.
+     */
+    public static int[][] getRhythmBass(int bars, int beats, int root)
+    {
+        int i           = 0;
+        int[][] rhythm  = new int[bars * beats * 2][];
+
+        for (; i < rhythm.length; i++) {
+            rhythm[i] = new int[] {
+                WaveInstruments.TYPE_BASS,
+                2,
+                root
+            };
+        }
+
+        return rhythm;
+    }
 }

@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class Composer
 {
-    public static final String  CONFIG_PATH         = "/var/www/bit_b.wav";
+    public static final String  CONFIG_PATH         = "D:\\bit_b.wav";
     public static final double  CONFIG_SECONDS      = 60.0;
 
     private Wav         _cWav   = new Wav();
@@ -31,7 +31,7 @@ public class Composer
     private int[]       _cLead;
     private int[][]     _cPluck;
     private int[][]     _cSubBass;
-    private int[]       _cBass;
+    private int[][]     _cBass;
     private int[][]     _cDrumKick;
     private int[][]     _cDrumRide;
 
@@ -51,18 +51,20 @@ public class Composer
         _cLead      = Melody.getLead(_cBars, _cBeats, _cRhythm, _cChords, _cNotes);
         _cPluck     = Melody.getPluck(_cBars, _cBeats, _cRhythm, _cChords);
         //_cSubBass   = Melody.getSubBass(_cBars, _cBeats, _cRhythm, _cChords);
-        _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
+        _cBass      = Rhythm.getRhythmBass(_cBars, _cBeats, _cNote);
         _cSubBass   = Rhythm.getRhythmSubBass(_cBars, _cBeats, _cNote);
         _cDrumKick  = Rhythm.getRhythmKick(_cBars, _cBeats, _cNote);
         _cDrumRide  = Rhythm.getRhythmRide(_cBars, _cBeats, _cNote);
 
+        
         double[] wDrum = Wave.limit(Wave.mix(new double[][] {
                 getWave(_cDrumKick),
                 getWave(_cDrumRide)
         }));
 
         double[] wMelody = Wave.sideChain(Wave.limit(Wave.mix(new double[][]{
-                getWave(_cSubBass)
+                getWave(_cSubBass),
+                getWave(_cBass)
         })), _cSizeBeat);
 
         _cWave =  Wave.limit(Wave.mix(new double[][]{
@@ -146,7 +148,7 @@ public class Composer
      */
     public int[] getBass()
     {
-        return _cBass;
+        return _cBass[0];
     }
     /**
      * Get wave drums.
@@ -166,8 +168,9 @@ public class Composer
                 part = new double[0];
             } else {
                 part = WaveInstruments.factory(
+                    instrument[i][Rhythm.I_INSTR],
                     instrument[i][Rhythm.I_NOTE],
-                    instrument[i][Rhythm.I_INSTR]
+                    _cSizeStep * instrument[i][Rhythm.I_LENGTH]
                 );
             }
 

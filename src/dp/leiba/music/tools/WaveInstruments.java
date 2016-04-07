@@ -16,6 +16,7 @@ public class WaveInstruments
 	public static final int 	TYPE_SNARE		= 2;
 	public static final int 	TYPE_HAT		= 3;
 	public static final int 	TYPE_SUB_BASS	= 4;
+	public static final int 	TYPE_BASS		= 5;
 
 	public static final double 	CONFIG_SAMPLE 	= 1000;
 	public static final int  	CONFIG_ATTACK 	= 30;
@@ -30,12 +31,13 @@ public class WaveInstruments
 	/**
 	 * Factory.
 	 *
-	 * @param note Note.
-	 * @param type Type.
+	 * @param note   Note.
+	 * @param type   Type.
+	 * @param length Length.
 	 *
 	 * @return Wave.
 	 */
-	public static double[] factory(int note, int type)
+	public static double[] factory(int type, int note, int length)
 	{
 		double wave[] = new double[0];
 		
@@ -58,6 +60,10 @@ public class WaveInstruments
 
             case TYPE_SUB_BASS :
                 wave = subBass(note);
+                break;
+                
+            case TYPE_BASS :
+                wave = bass(note, length);
                 break;
 		}
 		
@@ -183,12 +189,35 @@ public class WaveInstruments
     {
         int i;
         double[] wave       = new double[0];
-        double frequency    = Theory.getNoteFreq(Theory.getNoteBass(note));
+        double frequency    = Theory.getNoteFreq(Theory.getNoteSubBass(note));
         int steps           = (int) (Wav.FREQUENCY / 1.5 / (Wav.FREQUENCY / frequency));
         double fade         = Wav.AMPLITUDE * 1.0 / steps;
 
         for (i = 0; i < steps; i++) {
             wave = ToolArray.concat(wave, WaveForms.sine((int) (Wav.FREQUENCY / frequency), Wav.AMPLITUDE - fade * i));
+        }
+
+        return wave;
+    }
+    
+    /**
+     * Generate sub bass.
+     *
+     * @param note   Note.
+     * @param length Length.
+     *
+     * @return Wave.
+     */
+    public static double[] bass(int note, int length)
+    {
+        int i;
+        double[] wave       = new double[0];
+        double frequency    = Theory.getNoteFreq(Theory.getNoteBass(note));
+        double points 		= Wav.FREQUENCY / frequency;
+        int steps           = (int) Math.floor(length / points);
+
+        for (i = 0; i < steps; i++) {
+            //wave = ToolArray.concat(wave, WaveForms.atan((int) points, Wav.AMPLITUDE / 4.0));
         }
 
         return wave;

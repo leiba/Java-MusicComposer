@@ -34,7 +34,8 @@ public class Theory
 
     public static final int     NOTE_KICK           = 18;
     public static final int     NOTE_RIDE           = 111;
-    public static final int     NOTE_BASS           = 23;
+    public static final int     NOTE_SUB_BASS       = 23;
+    public static final int     NOTE_BASS       	= 36;
 
     private static final String[] names = new String[]{
         "C",  "C#", "D",  "D#",
@@ -260,7 +261,23 @@ public class Theory
     }
 
     /**
-     * Get note kick.
+     * Get note sub bass.
+     *
+     * @param note Note.
+     *
+     * @return Note.
+     */
+    public static int getNoteSubBass(int note)
+    {
+        while (note > NOTE_SUB_BASS) {
+            note -= TONES;
+        }
+
+        return note;
+    }
+    
+    /**
+     * Get note sub bass.
      *
      * @param note Note.
      *
