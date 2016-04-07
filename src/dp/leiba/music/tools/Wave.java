@@ -2,9 +2,6 @@ package dp.leiba.music.tools;
 
 import java.util.Arrays;
 
-import javafx.scene.AmbientLight;
-import sun.security.krb5.internal.ccache.CCacheInputStream;
-
 /**
  * Wave effect.
  */
@@ -185,8 +182,12 @@ public class Wave
 			
 			if (chain-- > 0) {
 				wave[i] = 0;
+
+                if (chain == 0) {
+                    i += oscillation(signal, i).wave.length;
+                }
 			} else if (releaseProc-- > 0) {
-				wave[i] = signal[i] / 100.0 * (100 - (releaseProc * 100 / release));
+				wave[i] = signal[i] / 100.0 * (100 - (releaseProc * 100.0 / release));
 			} else {
 				wave[i] = signal[i];
 			}
