@@ -55,6 +55,32 @@ public class Melody
     }
 
     /**
+     * Melody sub bass.
+     *
+     * @param bars   Bars.
+     * @param beats  Beats.
+     * @param rhythm Rhythm.
+     * @param chords Chords.
+     *
+     * @return Melody.
+     */
+    public static int[] getSubBass(int bars, int beats, int[] rhythm, int[][] chords)
+    {
+        int j, index;
+        int i           = 0;
+        int[] melody    = new int[bars * beats];
+
+        for (; i < bars; i++) {
+            for (j = 0; j < beats; j++) {
+                index           = bars * i + j;
+                melody[index]   = chords[i][0] - (Theory.TONES * 4);
+            }
+        }
+
+        return melody;
+    }
+
+    /**
      * Melody lead.
      *
      * @param bars   Bars.
@@ -148,32 +174,6 @@ public class Melody
                     melody[index] = Rhythm.MELODY_REST;
                 }
                 */
-            }
-        }
-
-        return melody;
-    }
-
-    /**
-     * Melody sub bass.
-     *
-     * @param bars   Bars.
-     * @param beats  Beats.
-     * @param rhythm Rhythm.
-     * @param chords Chords.
-     *
-     * @return Melody.
-     */
-    public static int[] getSubBass(int bars, int beats, int[] rhythm, int[][] chords)
-    {
-        int j, index;
-        int i           = 0;
-        int[] melody    = new int[bars * beats];
-
-        for (; i < bars; i++) {
-            for (j = 0; j < beats; j++) {
-                index           = bars * i + j;
-                melody[index]   = chords[i][0] - (Theory.TONES * 4);
             }
         }
 

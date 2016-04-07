@@ -56,7 +56,7 @@ public class Main
         Person.debug("Chords", composer.getChords());
         Person.debug("Lead",   composer.getLead());
         Person.debug("Bass",   composer.getBass());
-        Person.debug("SubBass",composer.getSubBass());
+        //Person.debug("SubBass",composer.getSubBass());
 
         Person.say("Bye");
     }

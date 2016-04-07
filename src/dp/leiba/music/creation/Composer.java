@@ -16,6 +16,7 @@ public class Composer
     private int 		_cBPM	= Rhythm.getBPM();
     private int         _cSizeBar;
     private int         _cSizeBeat;
+    private int         _cSizeStep;
     private double[]    _cWave;
 
     private int         _cBars  = 4;
@@ -29,15 +30,16 @@ public class Composer
 
     private int[]       _cLead;
     private int[][]     _cPluck;
-    private int[]       _cSubBass;
+    private int[][]     _cSubBass;
     private int[]       _cBass;
-    private int[]       _cDrumKick;
-    private int[]       _cDrumRide;
+    private int[][]     _cDrumKick;
+    private int[][]     _cDrumRide;
 
     public Composer()
     {
-        _cSizeBeat   = (int) (Wav.FREQUENCY / (_cBPM / CONFIG_SECONDS));
-        _cSizeBar  = _cSizeBeat * _cBeats;
+        _cSizeBeat  = (int) (Wav.FREQUENCY / (_cBPM / CONFIG_SECONDS));
+        _cSizeStep  = _cSizeBeat / Rhythm.SCALE;
+        _cSizeBar   = _cSizeBeat * _cBeats;
         _cWave      = new double[_cSizeBar * _cBars];
 
         _cRhythm    = Rhythm.getRhythmMelody(_cBars, _cBeats);
@@ -48,11 +50,11 @@ public class Composer
 
         _cLead      = Melody.getLead(_cBars, _cBeats, _cRhythm, _cChords, _cNotes);
         _cPluck     = Melody.getPluck(_cBars, _cBeats, _cRhythm, _cChords);
-        _cSubBass   = Melody.getSubBass(_cBars, _cBeats, _cRhythm, _cChords);
+        //_cSubBass   = Melody.getSubBass(_cBars, _cBeats, _cRhythm, _cChords);
         _cBass      = Melody.getBass(_cBars, _cBeats, _cRhythm, _cChords);
-        _cSubBass   = Rhythm.getRhythmBass(_cBars, _cBeats);
-        _cDrumKick  = Rhythm.getRhythmKick(_cBars, _cBeats);
-        _cDrumRide  = Rhythm.getRhythmRide(_cBars, _cBeats);
+        _cSubBass   = Rhythm.getRhythmSubBass(_cBars, _cBeats, _cNote);
+        _cDrumKick  = Rhythm.getRhythmKick(_cBars, _cBeats, _cNote);
+        _cDrumRide  = Rhythm.getRhythmRide(_cBars, _cBeats, _cNote);
 
         double[] wDrum = Wave.limit(Wave.mix(new double[][] {
                 getWave(_cDrumKick),
@@ -146,17 +148,6 @@ public class Composer
     {
         return _cBass;
     }
-
-    /**
-     * Get sub bass.
-     *
-     * @return Lead.
-     */
-    public int[] getSubBass()
-    {
-        return _cSubBass;
-    }
-    
     /**
      * Get wave drums.
      * 
@@ -164,18 +155,26 @@ public class Composer
      *
      * @return Wave.
      */
-    private double[] getWave(int[] instrument)
+    private double[] getWave(int[][] instrument)
     {
     	int i;
     	double[] part;
     	double[] wave 	= new double[0];
     	
     	for (i = 0; i < instrument.length; i++) {
-            if (instrument[i] != Rhythm.RELEASE) {
-                part = WaveInstruments.factory(_cNote, instrument[i]);
-                wave = Arrays.copyOfRange(wave, 0, i * _cSizeBeat);
-                wave = ToolArray.concat(wave, part);
+            if (instrument[i][Rhythm.I_INSTR] == Rhythm.RELEASE) {
+                part = new double[0];
+            } else {
+                part = WaveInstruments.factory(
+                    instrument[i][Rhythm.I_NOTE],
+                    instrument[i][Rhythm.I_INSTR]
+                );
             }
+
+            wave = ToolArray.concat(
+                wave,
+                Arrays.copyOfRange(part, 0, _cSizeStep * instrument[i][Rhythm.I_LENGTH])
+            );
     	}
     	
     	return wave;

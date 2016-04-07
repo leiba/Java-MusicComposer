@@ -8,7 +8,12 @@ import dp.leiba.music.tools.WaveInstruments;
  */
 public class Rhythm
 {
+    public static final int I_INSTR     = 0;
+    public static final int I_LENGTH    = 1;
+    public static final int I_NOTE      = 2;
+
     public static final int RELEASE = -1;
+    public static final int SCALE   = 4;
 
     /**
      * Get BPM.
@@ -35,12 +40,12 @@ public class Rhythm
 
         for (; i < rhythm.length; i++) {
             if (i == 0 || i % beats == 0) {
-                rhythm[i] = RELEASE;
+                rhythm[i] = SCALE;
             } else {
                 if (ToolMath.is()) {
-                    rhythm[i] = ToolMath.is() ? RELEASE : RELEASE;
+                    rhythm[i] = ToolMath.is() ? SCALE : SCALE;
                 } else {
-                    rhythm[i] = RELEASE;
+                    rhythm[i] = SCALE;
                 }
             }
         }
@@ -53,16 +58,21 @@ public class Rhythm
      *
      * @param bars  Bars.
      * @param beats Beats.
+     * @param root  Root.
      *
      * @return Rhythm.
      */
-    public static int[] getRhythmKick(int bars, int beats)
+    public static int[][] getRhythmKick(int bars, int beats, int root)
     {
         int i           = 0;
-        int[] rhythm    = new int[bars * beats];
+        int[][] rhythm  = new int[bars * beats][];
         
         for (; i < rhythm.length; i++) {
-            rhythm[i] = WaveInstruments.TYPE_KICK;
+            rhythm[i] = new int[] {
+                WaveInstruments.TYPE_KICK,
+                SCALE,
+                root
+            };
         }
         
         return rhythm;
@@ -73,16 +83,21 @@ public class Rhythm
      *
      * @param bars  Bars.
      * @param beats Beats.
+     * @param root  Root.
      *
      * @return Rhythm.
      */
-    public static int[] getRhythmRide(int bars, int beats)
+    public static int[][] getRhythmRide(int bars, int beats, int root)
     {
         int i           = 0;
-        int[] rhythm    = new int[bars * beats];
+        int[][] rhythm  = new int[bars * beats][];
 
         for (; i < rhythm.length; i++) {
-            rhythm[i] = WaveInstruments.TYPE_RIDE;
+            rhythm[i] = new int[] {
+                WaveInstruments.TYPE_RIDE,
+                SCALE,
+                root
+            };
         }
 
         return rhythm;
@@ -93,18 +108,23 @@ public class Rhythm
      * 
      * @param bars  Bars.
      * @param beats Beats.
-     * 
+     * @param root  Root.
+     *
      * @return Rhythm.
      */
-    public static int[] getRhythmBass(int bars, int beats)
+    public static int[][] getRhythmSubBass(int bars, int beats, int root)
     {
         int i           = 0;
-        int[] rhythm    = new int[bars * beats];
-        
+        int[][] rhythm  = new int[bars * beats][];
+
         for (; i < rhythm.length; i++) {
-            rhythm[i] = WaveInstruments.TYPE_BASS;
+            rhythm[i] = new int[] {
+                WaveInstruments.TYPE_SUB_BASS,
+                SCALE,
+                root
+            };
         }
-        
+
         return rhythm;
     }
 }
