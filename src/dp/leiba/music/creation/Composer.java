@@ -54,13 +54,22 @@ public class Composer
         _cDrumKick  = Rhythm.getRhythmKick(_cBars, _cBeats);
         _cDrumRide  = Rhythm.getRhythmRide(_cBars, _cBeats);
 
+        double[] wDrum = Wave.limit(Wave.mix(new double[][] {
+                getWave(_cDrumKick),
+                getWave(_cDrumRide)
+        }));
+
+        double[] wMelody = Wave.sideChain(Wave.limit(Wave.mix(new double[][]{
+                getWave(_cSubBass)
+        })), _cSizeBeat);
+
+        _cWave =  Wave.limit(Wave.mix(new double[][]{
+            wDrum, wMelody
+        }));
         
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), Wav.AMPLITUDE, _cSizeBeat), 0, false);
         //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
         //_cWave = getWave(_cDrumKick);
-        double[] wKick = getWave(_cDrumKick);
-        double[] wBass = Wave.sideChain(getWave(_cSubBass), _cSizeBeat);
-        _cWave =  Wave.limit(Wave.mix(new double[][]{wKick, wBass}));
 
         //_cWave = Wave.sideChain(getWave(_cSubBass), _cSizeBeat);
         //_cWave = getWave(_cSubBass);
