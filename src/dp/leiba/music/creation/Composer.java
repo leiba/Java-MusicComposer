@@ -147,55 +147,6 @@ public class Composer
     {
         return _cSubBass;
     }
-
-    /**
-     * Fill.
-     *
-     * @param notes Notes.
-     *
-     * @return Wave.
-     */
-    public double[] fill(int[] notes, int form)
-    {
-        int points, i, j, rest;
-        double[] beat;
-        double[] wave   = new double[_cSizeBar * _cBars];
-
-        for (i = 0; i< notes.length; i++) {
-            beat = new double[_cSizeBeat];
-
-            if (notes[i] == Rhythm.RELEASE) {
-                beat = WaveForms.rest(beat.length);
-            } else {
-                points  = (int) (Wav.FREQUENCY / Theory.getNoteFreq(notes[i]));
-
-                for (j = 0; j < beat.length; j += points) {
-                    ToolArray.fill(beat, WaveForms.factory(points, Wav.AMPLITUDE, form), j);
-                }
-
-                if (_cRhythm[i] == Rhythm.RELEASE || true) {
-                    rest = points / 3;
-                    ToolArray.fillZero(beat, j + (points - rest), j + points);
-                }
-            }
-
-            ToolArray.fill(wave, beat, i * _cSizeBeat);
-        }
-
-        return wave;
-    }
-    
-    /**
-     * Get wave.
-     * 
-     * @param notes Notes.
-     * 
-     * @return Wave.
-     */
-    private double[] getWave(int[][] notes)
-    {
-    	return new double[0];
-    }
     
     /**
      * Get wave drums.
@@ -230,26 +181,5 @@ public class Composer
 
         _cWav.setFrames(_cWave, amplitude, false);
         _cWav.save(CONFIG_PATH);
-    }
-    
-    /**
-     * Wave hat.
-     * 
-     * @param hat   Hat.
-     * @param times Times.
-     * 
-     * @return Wave.
-     */
-    private double[] _getWaveHat(double[] hat, int times)
-    {
-    	int i 			= 0;
-    	int quarter		= _cSizeBeat / times;
-    	double[] wave 	= new double[_cSizeBeat]; 
-    	
-    	for (; i < times; i++) {
-    		//ToolArray.fillSum(wave, hat, i * quarter, true);
-    	}
-    	
-    	return wave;
     }
 }
