@@ -22,18 +22,14 @@ public class Composer
     private int         _cBars  = 4;
     private int         _cBeats = 4;
 
-    private int[]       _cRhythm;
     private int         _cNote;
     private boolean     _cIsMajor;
-    private int[][]     _cChords;
     private int[]       _cNotes;
 
-    private int[]       _cLead;
-    private int[][]     _cPluck;
-    private int[][]     _cSubBass;
-    private int[][]     _cBass;
     private int[][]     _cDrumKick;
     private int[][]     _cDrumRide;
+    private int[][]     _cSubBass;
+    private int[][]     _cLead;   
 
     public Composer()
     {
@@ -42,43 +38,28 @@ public class Composer
         _cSizeBar   = _cSizeBeat * _cBeats;
         _cWave      = new double[_cSizeBar * _cBars];
 
-        _cRhythm    = Rhythm.getRhythmMelody(_cBars, _cBeats);
         _cNote      = Melody.getNote();
         _cIsMajor   = Melody.getIsMajor();
-        _cChords    = Melody.getChords(_cBars, _cNote, _cIsMajor);
         _cNotes     = Theory.getHarmony(_cNote, _cIsMajor, 3);
-
-        _cLead      = Melody.getLead(_cBars, _cBeats, _cRhythm, _cChords, _cNotes);
-        _cPluck     = Melody.getPluck(_cBars, _cBeats, _cRhythm, _cChords);
-        //_cSubBass   = Melody.getSubBass(_cBars, _cBeats, _cRhythm, _cChords);
-        _cBass      = Rhythm.getRhythmBass(_cBars, _cBeats, _cNote);
-        _cSubBass   = Rhythm.getRhythmSubBass(_cBars, _cBeats, _cNote);
+        
         _cDrumKick  = Rhythm.getRhythmKick(_cBars, _cBeats, _cNote);
         _cDrumRide  = Rhythm.getRhythmRide(_cBars, _cBeats, _cNote);
-
+        _cSubBass   = Rhythm.getRhythmSubBass(_cBars, _cBeats, _cNote);
+        _cLead      = Rhythm.getRhythmLead(_cBars, _cBeats, _cNotes);
         
         double[] wDrum = Wave.limit(Wave.mix(new double[][] {
-                getWave(_cDrumKick),
-                getWave(_cDrumRide)
+            getWave(_cDrumKick),
+            getWave(_cDrumRide)
         }));
 
         double[] wMelody = Wave.sideChain(Wave.limit(Wave.mix(new double[][]{
-                getWave(_cSubBass),
-                getWave(_cBass)
+            getWave(_cSubBass),
+            getWave(_cLead)
         })), _cSizeBeat);
 
-        _cWave =  Wave.limit(Wave.mix(new double[][]{
+        _cWave = Wave.limit(Wave.mix(new double[][]{
             wDrum, wMelody
         }));
-        
-        //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cSubBass, WaveForms.WAVE_SINE), Wav.AMPLITUDE, _cSizeBeat), 0, false);
-        //ArrayTool.fillSum(_cWave, WaveEffect.sideChain(fill(_cBass, WaveForms.WAVE_ATAN), CONFIG_AMPLITUDE, _cSizeBeat), 0, false);
-        //_cWave = getWave(_cDrumKick);
-
-        //_cWave = Wave.sideChain(getWave(_cSubBass), _cSizeBeat);
-        //_cWave = getWave(_cSubBass);
-        //ToolArray.fillSum(_cWave, getWaveDrum(_cDrumKick), 0, true);
-        // ArrayTool.fillSum(_cWave, fill(_cLead, WaveForms.WAVE_TAN), 0);
     }
     
     /**
@@ -120,15 +101,15 @@ public class Composer
     {
         return _cNotes;
     }
-
+    
     /**
-     * Get chords.
+     * Get lead.
      *
-     * @return Chords.
+     * @return Lead.
      */
-    public int[][] getChords()
+    public int[][] getSubBass()
     {
-        return _cChords;
+        return _cSubBass;
     }
 
     /**
@@ -136,20 +117,11 @@ public class Composer
      *
      * @return Lead.
      */
-    public int[] getLead()
+    public int[][] getLead()
     {
         return _cLead;
     }
 
-    /**
-     * Get bass.
-     *
-     * @return Lead.
-     */
-    public int[] getBass()
-    {
-        return _cBass[0];
-    }
     /**
      * Get wave drums.
      * 

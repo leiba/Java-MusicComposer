@@ -16,7 +16,7 @@ public class WaveInstruments
 	public static final int 	TYPE_SNARE		= 2;
 	public static final int 	TYPE_HAT		= 3;
 	public static final int 	TYPE_SUB_BASS	= 4;
-	public static final int 	TYPE_BASS		= 5;
+	public static final int 	TYPE_LEAD		= 5;
 
 	public static final double 	CONFIG_SAMPLE 	= 1000;
 	public static final int  	CONFIG_ATTACK 	= 30;
@@ -62,8 +62,8 @@ public class WaveInstruments
                 wave = subBass(note);
                 break;
                 
-            case TYPE_BASS :
-                wave = bass(note, length);
+            case TYPE_LEAD :
+                wave = lead(note, length);
                 break;
 		}
 		
@@ -208,7 +208,7 @@ public class WaveInstruments
      *
      * @return Wave.
      */
-    public static double[] bass(int note, int length)
+    public static double[] lead(int note, int length)
     {
         int i;
         double[] wave       = new double[0];

@@ -137,16 +137,16 @@ public class Rhythm
      *
      * @return Rhythm.
      */
-    public static int[][] getRhythmBass(int bars, int beats, int root)
+    public static int[][] getRhythmLead(int bars, int beats, int[] harmony)
     {
         int i           = 0;
-        int[][] rhythm  = new int[bars * beats * 2][];
+        int[][] rhythm  = new int[bars * beats][];
 
         for (; i < rhythm.length; i++) {
             rhythm[i] = new int[] {
-                WaveInstruments.TYPE_BASS,
-                2,
-                root
+                WaveInstruments.TYPE_SUB_BASS,
+                SCALE,
+                harmony[0]
             };
         }
 
