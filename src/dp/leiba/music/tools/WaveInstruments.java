@@ -212,12 +212,12 @@ public class WaveInstruments
     {
         int i;
         double[] wave       = new double[0];
-        double frequency    = Theory.getNoteFreq(Theory.getNoteBass(note));
+        double frequency    = Theory.getNoteFreq(note);
         double points 		= Wav.FREQUENCY / frequency;
         int steps           = (int) Math.floor(length / points);
 
         for (i = 0; i < steps; i++) {
-            //wave = ToolArray.concat(wave, WaveForms.atan((int) points, Wav.AMPLITUDE / 4.0));
+            wave = ToolArray.concat(wave, WaveForms.saw((int) points, Wav.AMPLITUDE / 2.0));
         }
 
         return wave;

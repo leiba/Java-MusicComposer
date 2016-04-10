@@ -47,6 +47,7 @@ public class Composer
         _cSubBass   = Rhythm.getRhythmSubBass(_cBars, _cBeats, _cNote);
         _cLead      = Rhythm.getRhythmLead(_cBars, _cBeats, _cNotes);
         
+        /*
         double[] wDrum = Wave.limit(Wave.mix(new double[][] {
             getWave(_cDrumKick),
             getWave(_cDrumRide)
@@ -60,6 +61,8 @@ public class Composer
         _cWave = Wave.limit(Wave.mix(new double[][]{
             wDrum, wMelody
         }));
+        */
+        _cWave = getWave(_cLead);
     }
     
     /**
