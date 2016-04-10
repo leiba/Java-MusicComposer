@@ -62,7 +62,7 @@ public class Composer
             wDrum, wMelody
         }));
         */
-        _cWave = getWave(_cLead);
+        _cWave = Wave.delay(getWave(_cLead), _cSizeStep);
     }
     
     /**

@@ -51,6 +51,19 @@ public class Wave
 	 */
 	public static double[] limit(double[] wave)
 	{
+		return limit(wave, Wav.AMPLITUDE);
+	}
+	
+	/**
+	 * Limit peaks.
+	 * 
+	 * @param wave      Wave.
+	 * @param amplitude Amplitude.
+	 * 
+	 * @return Limited wave.
+	 */
+	public static double[] limit(double[] wave, double amplitude)
+	{
 		int i;
 		double max = 0;
 		
@@ -58,7 +71,7 @@ public class Wave
 			max = Math.max(max, wave[i]);
 		}
 		
-		max = max / Wav.AMPLITUDE;
+		max = max / amplitude;
 		
 		for (i = 0; i < wave.length; i++) {
 			wave[i] /= max;
@@ -207,9 +220,23 @@ public class Wave
     /**
      * Delay.
      */
-    public static void delay()
+    public static double[] delay(double[] wave, int time)
     {
-
+    	int i;
+    	double max = _max(wave);
+    	double[] mix 	= Arrays.copyOfRange(wave, 0, wave.length + (time * 2));
+    	double[] delay1 = limit(Arrays.copyOfRange(wave, 0, wave.length), max / 2.0);
+    	double[] delay2 = limit(Arrays.copyOfRange(wave, 0, wave.length), max / 4.0);
+    	
+    	for (i = 0; i < delay1.length; i++) {
+    		mix[i + time] += delay1[i];
+    	}
+    	
+    	for (i = 0; i < delay2.length; i++) {
+    		mix[i + (time * 2)] += delay2[i];
+    	}    	
+    	
+    	return mix;
     }
 
     /**
@@ -234,6 +261,27 @@ public class Wave
         }
 
         return wave;
+    }
+    
+    /**
+     * Max amplitude.
+     * 
+     * @param wave Wave.
+     * 
+     * @return Amplitude.
+     */
+    private static double _max(double[] wave)
+    {
+    	int i;
+    	double max = 0;
+    	
+    	for (i = 0; i < wave.length; i++) {
+    		if (Math.abs(wave[i]) > max) {
+    			max = Math.abs(wave[i]);
+    		}
+    	}
+    	
+    	return max;
     }
     
     /**
